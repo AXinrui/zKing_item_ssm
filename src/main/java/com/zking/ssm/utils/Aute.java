@@ -21,24 +21,38 @@ public class Aute {
     public static final int DEF_READ_TIMEOUT = 30000;
     public static String userAgent =  "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
-    public static void mobileQuery(){
+    public static final String URL ="";
+    public static final String TPL_ID ="";
+    public static final String KEY ="";
+
+
+    public static String mobileQuery(String phone){
+
+        Random random = new Random();
+        String yzm = "";
+        for (int i =0;i<6;i++){
+            yzm += random.nextInt(9);
+        }
         String result =null;
         String url ="http://v.juhe.cn/sms/send";//请求接口地址
         Map params = new HashMap();//请求参数
-        params.put("mobile","18569402884");//接受短信的用户手机号码
-        params.put("tpl_id","155321");//您申请的短信模板ID，根据实际情况修改
+        params.put("mobile",phone);//接受短信的用户手机号码
+        params.put("tpl_id",yzm);//您申请的短信模板ID，根据实际情况修改
         params.put("tpl_value","#code#=1235231");//您设置的模板变量，根据实际情况修改
         params.put("key","d77319d34ec5f412e48fa8df81da4a2b");//应用APPKEY(应用详细页查询)
         try {
             result = net(url, params, "GET");
             JSONObject jsonObject = new JSONObject(result);
-            if(jsonObject.get("error_code")==0+""){
+            if("0".equals(jsonObject.get("error_code"))){
                 System.out.println(jsonObject.get("result"));
+                return yzm;
             }else{
-                System.out.println(jsonObject.get("error_code")+":"+jsonObject.get("reason"));
+                String json = jsonObject.get("error_code")+":"+jsonObject.get("reason");
+                return json;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+             e.printStackTrace();
+            return "异常---------";
         }
     }
 
@@ -48,12 +62,7 @@ public class Aute {
 //        String string = jsonObject.getString("error_code");
         System.out.println(jsonObject.get("result"));
 
-        Random random = new Random();
-        String yzm = "";
-        for (int i =0;i<6;i++){
-            yzm += random.nextInt();
-        }
-        System.out.println(yzm);
+
 
     }
 
