@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.ssm.mapper.ExpressMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.ssm.model.Express" >
+    <constructor >
+      <idArg column="eid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="orderId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ordername" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="orderprice" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="orderweight" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ordervolume" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="orderAddress" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="orderremark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="esid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="uid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="shipperTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="shipperPhone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="shipperaddress" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="consignee" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="consigneePhone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="consigneeAddress" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="consigneeTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    eid, orderId, ordername, orderprice, orderweight, ordervolume, orderAddress, orderremark, 
+    esid, uid, shipperTime, shipperPhone, shipperaddress, consignee, consigneePhone, 
+    consigneeAddress, consigneeTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_express
+    where eid = #{eid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_express
+    where eid = #{eid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.ssm.model.Express" >
+    insert into t_express (eid, orderId, ordername, 
+      orderprice, orderweight, ordervolume, 
+      orderAddress, orderremark, esid, 
+      uid, shipperTime, shipperPhone, 
+      shipperaddress, consignee, consigneePhone, 
+      consigneeAddress, consigneeTime)
+    values (#{eid,jdbcType=INTEGER}, #{orderid,jdbcType=VARCHAR}, #{ordername,jdbcType=VARCHAR}, 
+      #{orderprice,jdbcType=REAL}, #{orderweight,jdbcType=VARCHAR}, #{ordervolume,jdbcType=VARCHAR}, 
+      #{orderaddress,jdbcType=VARCHAR}, #{orderremark,jdbcType=VARCHAR}, #{esid,jdbcType=INTEGER}, 
+      #{uid,jdbcType=INTEGER}, #{shippertime,jdbcType=TIMESTAMP}, #{shipperphone,jdbcType=VARCHAR}, 
+      #{shipperaddress,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR}, #{consigneephone,jdbcType=VARCHAR}, 
+      #{consigneeaddress,jdbcType=VARCHAR}, #{consigneetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.ssm.model.Express" >
+    insert into t_express
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eid != null" >
+        eid,
+      </if>
+      <if test="orderid != null" >
+        orderId,
+      </if>
+      <if test="ordername != null" >
+        ordername,
+      </if>
+      <if test="orderprice != null" >
+        orderprice,
+      </if>
+      <if test="orderweight != null" >
+        orderweight,
+      </if>
+      <if test="ordervolume != null" >
+        ordervolume,
+      </if>
+      <if test="orderaddress != null" >
+        orderAddress,
+      </if>
+      <if test="orderremark != null" >
+        orderremark,
+      </if>
+      <if test="esid != null" >
+        esid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="shippertime != null" >
+        shipperTime,
+      </if>
+      <if test="shipperphone != null" >
+        shipperPhone,
+      </if>
+      <if test="shipperaddress != null" >
+        shipperaddress,
+      </if>
+      <if test="consignee != null" >
+        consignee,
+      </if>
+      <if test="consigneephone != null" >
+        consigneePhone,
+      </if>
+      <if test="consigneeaddress != null" >
+        consigneeAddress,
+      </if>
+      <if test="consigneetime != null" >
+        consigneeTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eid != null" >
+        #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="ordername != null" >
+        #{ordername,jdbcType=VARCHAR},
+      </if>
+      <if test="orderprice != null" >
+        #{orderprice,jdbcType=REAL},
+      </if>
+      <if test="orderweight != null" >
+        #{orderweight,jdbcType=VARCHAR},
+      </if>
+      <if test="ordervolume != null" >
+        #{ordervolume,jdbcType=VARCHAR},
+      </if>
+      <if test="orderaddress != null" >
+        #{orderaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderremark != null" >
+        #{orderremark,jdbcType=VARCHAR},
+      </if>
+      <if test="esid != null" >
+        #{esid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="shippertime != null" >
+        #{shippertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shipperphone != null" >
+        #{shipperphone,jdbcType=VARCHAR},
+      </if>
+      <if test="shipperaddress != null" >
+        #{shipperaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null" >
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneephone != null" >
+        #{consigneephone,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeaddress != null" >
+        #{consigneeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneetime != null" >
+        #{consigneetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.ssm.model.Express" >
+    update t_express
+    <set >
+      <if test="orderid != null" >
+        orderId = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="ordername != null" >
+        ordername = #{ordername,jdbcType=VARCHAR},
+      </if>
+      <if test="orderprice != null" >
+        orderprice = #{orderprice,jdbcType=REAL},
+      </if>
+      <if test="orderweight != null" >
+        orderweight = #{orderweight,jdbcType=VARCHAR},
+      </if>
+      <if test="ordervolume != null" >
+        ordervolume = #{ordervolume,jdbcType=VARCHAR},
+      </if>
+      <if test="orderaddress != null" >
+        orderAddress = #{orderaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderremark != null" >
+        orderremark = #{orderremark,jdbcType=VARCHAR},
+      </if>
+      <if test="esid != null" >
+        esid = #{esid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="shippertime != null" >
+        shipperTime = #{shippertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shipperphone != null" >
+        shipperPhone = #{shipperphone,jdbcType=VARCHAR},
+      </if>
+      <if test="shipperaddress != null" >
+        shipperaddress = #{shipperaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null" >
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneephone != null" >
+        consigneePhone = #{consigneephone,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeaddress != null" >
+        consigneeAddress = #{consigneeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneetime != null" >
+        consigneeTime = #{consigneetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where eid = #{eid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.ssm.model.Express" >
+    update t_express
+    set orderId = #{orderid,jdbcType=VARCHAR},
+      ordername = #{ordername,jdbcType=VARCHAR},
+      orderprice = #{orderprice,jdbcType=REAL},
+      orderweight = #{orderweight,jdbcType=VARCHAR},
+      ordervolume = #{ordervolume,jdbcType=VARCHAR},
+      orderAddress = #{orderaddress,jdbcType=VARCHAR},
+      orderremark = #{orderremark,jdbcType=VARCHAR},
+      esid = #{esid,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      shipperTime = #{shippertime,jdbcType=TIMESTAMP},
+      shipperPhone = #{shipperphone,jdbcType=VARCHAR},
+      shipperaddress = #{shipperaddress,jdbcType=VARCHAR},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      consigneePhone = #{consigneephone,jdbcType=VARCHAR},
+      consigneeAddress = #{consigneeaddress,jdbcType=VARCHAR},
+      consigneeTime = #{consigneetime,jdbcType=TIMESTAMP}
+    where eid = #{eid,jdbcType=INTEGER}
+  </update>
+</mapper>

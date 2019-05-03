@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.ssm.mapper.CourierUserMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.ssm.model.CourierUser" >
+    <constructor >
+      <idArg column="cuid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="uid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="curemark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="eutime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cuid, uid, curemark, eutime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from courier_user
+    where cuid = #{cuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from courier_user
+    where cuid = #{cuid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.ssm.model.CourierUser" >
+    insert into courier_user (cuid, uid, curemark, 
+      eutime)
+    values (#{cuid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{curemark,jdbcType=VARCHAR}, 
+      #{eutime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.ssm.model.CourierUser" >
+    insert into courier_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cuid != null" >
+        cuid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="curemark != null" >
+        curemark,
+      </if>
+      <if test="eutime != null" >
+        eutime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cuid != null" >
+        #{cuid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="curemark != null" >
+        #{curemark,jdbcType=VARCHAR},
+      </if>
+      <if test="eutime != null" >
+        #{eutime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.ssm.model.CourierUser" >
+    update courier_user
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="curemark != null" >
+        curemark = #{curemark,jdbcType=VARCHAR},
+      </if>
+      <if test="eutime != null" >
+        eutime = #{eutime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cuid = #{cuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.ssm.model.CourierUser" >
+    update courier_user
+    set uid = #{uid,jdbcType=INTEGER},
+      curemark = #{curemark,jdbcType=VARCHAR},
+      eutime = #{eutime,jdbcType=TIMESTAMP}
+    where cuid = #{cuid,jdbcType=INTEGER}
+  </update>
+</mapper>

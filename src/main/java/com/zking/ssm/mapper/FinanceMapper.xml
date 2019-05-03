@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.ssm.mapper.FinanceMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.ssm.model.Finance" >
+    <constructor >
+      <idArg column="fid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="uid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="eid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ftime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="fremark" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fid, uid, eid, ftime, fremark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finance
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_finance
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.ssm.model.Finance" >
+    insert into t_finance (fid, uid, eid, 
+      ftime, fremark)
+    values (#{fid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{eid,jdbcType=INTEGER}, 
+      #{ftime,jdbcType=TIMESTAMP}, #{fremark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.ssm.model.Finance" >
+    insert into t_finance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="eid != null" >
+        eid,
+      </if>
+      <if test="ftime != null" >
+        ftime,
+      </if>
+      <if test="fremark != null" >
+        fremark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="eid != null" >
+        #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="ftime != null" >
+        #{ftime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fremark != null" >
+        #{fremark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.ssm.model.Finance" >
+    update t_finance
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="eid != null" >
+        eid = #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="ftime != null" >
+        ftime = #{ftime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fremark != null" >
+        fremark = #{fremark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.ssm.model.Finance" >
+    update t_finance
+    set uid = #{uid,jdbcType=INTEGER},
+      eid = #{eid,jdbcType=INTEGER},
+      ftime = #{ftime,jdbcType=TIMESTAMP},
+      fremark = #{fremark,jdbcType=VARCHAR}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>
