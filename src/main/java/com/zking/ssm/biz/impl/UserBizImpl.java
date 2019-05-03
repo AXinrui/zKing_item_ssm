@@ -1,9 +1,9 @@
 package com.zking.ssm.biz.impl;
 
-import com.zking.test.biz.IUserBiz;
-import com.zking.test.mapper.UserMapper;
-import com.zking.test.model.User;
-import com.zking.test.shiro.PasswordHelper;
+import com.zking.ssm.biz.IUserBiz;
+import com.zking.ssm.mapper.UserMapper;
+import com.zking.ssm.model.User;
+import com.zking.ssm.shiro.user.PasswordHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

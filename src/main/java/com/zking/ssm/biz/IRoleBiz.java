@@ -1,6 +1,6 @@
 package com.zking.ssm.biz;
 
-import com.zking.test.model.Role;
+import com.zking.ssm.model.Role;
 
 public interface IRoleBiz {
     int add(Role role);

@@ -11,6 +11,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.json.JSONObject;
 
@@ -46,6 +47,13 @@ public class Aute {
         JSONObject jsonObject = new JSONObject(str);
 //        String string = jsonObject.getString("error_code");
         System.out.println(jsonObject.get("result"));
+
+        Random random = new Random();
+        String yzm = "";
+        for (int i =0;i<6;i++){
+            yzm += random.nextInt();
+        }
+        System.out.println(yzm);
 
     }
 

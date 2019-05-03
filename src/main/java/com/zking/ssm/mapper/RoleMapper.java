@@ -1,6 +1,6 @@
 package com.zking.ssm.mapper;
 
-import com.zking.test.model.Role;
+import com.zking.ssm.model.Role;
 
 import org.springframework.stereotype.Repository;
 

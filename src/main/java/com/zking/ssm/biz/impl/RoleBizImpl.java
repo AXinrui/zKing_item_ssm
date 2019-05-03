@@ -1,8 +1,8 @@
 package com.zking.ssm.biz.impl;
 
-import com.zking.test.biz.IRoleBiz;
-import com.zking.test.mapper.RoleMapper;
-import com.zking.test.model.Role;
+import com.zking.ssm.biz.IRoleBiz;
+import com.zking.ssm.mapper.RoleMapper;
+import com.zking.ssm.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
