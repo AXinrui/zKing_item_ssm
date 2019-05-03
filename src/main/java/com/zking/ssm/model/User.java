@@ -1,94 +1,117 @@
 package com.zking.ssm.model;
 
-import java.io.Serializable;
-import java.util.Date;
+import lombok.ToString;
+import org.springframework.stereotype.Component;
 
-public class User implements Serializable {
+@Component
+@ToString
+public class User {
 
     public static final String DEFAULT_PASSWORD = "888888";
 
-    private Long userId;
+    private Integer uid;
 
-    private String username;
+    private String uaccount;
 
-    private String password;
+    private String upassword;
 
-    private String salt;
+    private String usalt;
 
-    private Integer locked;
+    private String uname;
 
-    private java.sql.Timestamp createDatetime;
+    private String uphone;
 
-    public User(Long userId, String username, String password, String salt, Integer locked, java.sql.Timestamp createDatetime) {
-        this.userId = userId;
-        this.username = username;
-        this.password = password;
-        this.salt = salt;
-        this.locked = locked;
-        this.createDatetime = createDatetime;
+    private String uaddress;
+
+    private Integer ustatus;
+
+    private Integer iid;
+
+    public User(Integer uid, String uaccount, String upassword, String usalt, String uname, String uphone, String uaddress, Integer ustatus, Integer iid) {
+        this.uid = uid;
+        this.uaccount = uaccount;
+        this.upassword = upassword;
+        this.usalt = usalt;
+        this.uname = uname;
+        this.uphone = uphone;
+        this.uaddress = uaddress;
+        this.ustatus = ustatus;
+        this.iid = iid;
     }
 
     public User() {
         super();
     }
 
-    public Long getUserId() {
-        return userId;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUaccount() {
+        return uaccount;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUaccount(String uaccount) {
+        this.uaccount = uaccount;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUpassword() {
+        return upassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUpassword(String upassword) {
+        this.upassword = upassword;
     }
 
-    public String getSalt() {
-        return salt;
+    public String getUsalt() {
+        return usalt;
     }
 
-    public void setSalt(String salt) {
-        this.salt = salt;
+    public void setUsalt(String usalt) {
+        this.usalt = usalt;
     }
 
-    public Integer getLocked() {
-        return locked;
+    public String getUname() {
+        return uname;
     }
 
-    public void setLocked(Integer locked) {
-        this.locked = locked;
+    public void setUname(String uname) {
+        this.uname = uname;
     }
 
-    public Date getCreateDatetime() {
-        return createDatetime;
+    public String getUphone() {
+        return uphone;
     }
 
-    public void setCreateDatetime(java.sql.Timestamp createDatetime) {
-        this.createDatetime = createDatetime;
+    public void setUphone(String uphone) {
+        this.uphone = uphone;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", salt='" + salt + '\'' +
-                ", locked=" + locked +
-                ", createDatetime=" + createDatetime +
-                '}';
+    public String getUaddress() {
+        return uaddress;
+    }
+
+    public void setUaddress(String uaddress) {
+        this.uaddress = uaddress;
+    }
+
+    public Integer getUstatus() {
+        return ustatus;
+    }
+
+    public void setUstatus(Integer ustatus) {
+        this.ustatus = ustatus;
+    }
+
+    public Integer getIid() {
+        return iid;
+    }
+
+    public void setIid(Integer iid) {
+        this.iid = iid;
     }
 }

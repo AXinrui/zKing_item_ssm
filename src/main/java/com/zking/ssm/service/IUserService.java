@@ -1,12 +1,11 @@
-package com.zking.ssm.biz;
-
+package com.zking.ssm.service;
 
 import com.zking.ssm.model.User;
 
 import java.util.List;
 import java.util.Set;
 
-public interface IUserBiz {
+public interface IUserService {
     int doRegister(User user);//用户注册
 
     String doLogin(User user);//用户登陆

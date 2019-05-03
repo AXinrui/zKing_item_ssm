@@ -90,4 +90,28 @@
         </property>
     </bean>
 
+    <!--下面的用于开启shiro的权限注解-->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <!--shiro 在spring的unauthorizedUrl配置后不起作用-->
+    <!--原因：这是因为shiro源代码中判断了filter是否为AuthorizationFilter，只有perms，roles，ssl，rest，-->
+    <!--port才是属于AuthorizationFilter，而anon，authcBasic，auchc，user是AuthenticationFilter，-->
+    <!--所以unauthorizedUrl设置后不起作用。-->
+    <!--解决方案：spring-mvc.xml 中加入对应异常处理-->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.apache.shiro.authz.UnauthorizedException">unauthorized</prop>
+                <!--<prop key="org.apache.shiro.authz.UnauthenticatedException">jsp/unauthorized</prop>-->
+                <!--<prop key="org.apache.shiro.authz.AuthorizationException">jsp/unauthorized</prop>-->
+                <!--<prop key="java.lang.Throwable">jsp/unauthorized</prop>-->
+            </props>
+        </property>
+    </bean>
+
 </beans>

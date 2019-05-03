@@ -1,4 +1,4 @@
-package com.zking.ssm.shiro.user;
+package com.zking.ssm.shiro;
 
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

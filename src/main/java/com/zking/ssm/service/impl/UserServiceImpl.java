@@ -1,9 +1,9 @@
-package com.zking.ssm.biz.impl;
+package com.zking.ssm.service.impl;
 
-import com.zking.test.biz.IUserBiz;
-import com.zking.test.mapper.UserMapper;
-import com.zking.test.model.User;
-import com.zking.test.shiro.PasswordHelper;
+import com.zking.ssm.mapper.UserMapper;
+import com.zking.ssm.model.User;
+import com.zking.ssm.service.IUserService;
+import com.zking.ssm.shiro.PasswordHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +11,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Service("userBiz")
-public class UserBizImpl implements IUserBiz {
+@Service("userService")
+public class UserServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;
 
@@ -20,25 +20,25 @@ public class UserBizImpl implements IUserBiz {
     public int doRegister(User user) {
         //md5+盐
         String salt = PasswordHelper.createSalt();
-        String credentials = PasswordHelper.createCredentials(user.getPassword(), salt);
+        String credentials = PasswordHelper.createCredentials(user.getUpassword(), salt);
 
-        user.setSalt(salt);
-        user.setPassword(credentials);
+        user.setUsalt(salt);
+        user.setUpassword(credentials);
         return userMapper.insert(user);
     }
 
     @Override
     public User loadByUsername(User user) {
-        return userMapper.selectByUsername(user.getUsername());
+        return userMapper.selectByUsername(user.getUname());
     }
 
     @Override
     public String doLogin(User user) {
         String message = null;
-        User u = userMapper.selectByUsername(user.getUsername());
-        if (null == u || !PasswordHelper.checkCredentials(user.getPassword(), u.getSalt(), u.getPassword())) {
+        User u = userMapper.selectByUsername(user.getUname());
+        if (null == u || !PasswordHelper.checkCredentials(user.getUpassword(), u.getUsalt(), u.getUpassword())) {
             message = "帐号或密码错误";
-        } else if (new Integer(1).equals(u.getLocked())) {
+        } else if (new Integer(2).equals(u.getUstatus())) {
             message = "帐号已锁定，请与管理员联系";
         }
         return message;
@@ -46,25 +46,27 @@ public class UserBizImpl implements IUserBiz {
 
     @Override
     public Set<String> listPermissionsByUserName(User user) {
-        return new HashSet<String>(userMapper.listPermissionsByUserName(user));
+        //return new HashSet<String>(userMapper.listPermissionsByUserName(user));
+        return null;
     }
 
     @Override
     public Set<String> listRolesByUserName(User user) {
-        return new HashSet<String>(userMapper.listRolesByUserName(user));
+        //return new HashSet<String>(userMapper.listRolesByUserName(user));
+        return null;
     }
 
     @Override
     public int updatePassword(User user) {
         //md5+盐
         String salt = PasswordHelper.createSalt();
-        String credentials = PasswordHelper.createCredentials(user.getPassword(), salt);
+        String credentials = PasswordHelper.createCredentials(user.getUpassword(), salt);
 
 
         User u = new User();
-        u.setUsername(user.getUsername());
-        u.setPassword(credentials);
-        u.setSalt(salt);
+        u.setUname(user.getUname());
+        u.setUpassword(credentials);
+        u.setUsalt(salt);
 
         return userMapper.updateByPrimaryKeySelective(u);
     }
@@ -77,9 +79,9 @@ public class UserBizImpl implements IUserBiz {
 
 
         User u = new User();
-        u.setUsername(user.getUsername());
-        u.setPassword(credentials);
-        u.setSalt(salt);
+        u.setUname(user.getUname());
+        u.setUpassword(credentials);
+        u.setUsalt(salt);
 
         return userMapper.updateByPrimaryKeySelective(u);
     }

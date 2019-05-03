@@ -16,7 +16,7 @@
     </bean>
 
     <!-- 凭证匹配器 -->
-    <bean id="credentialsMatcher" class="com.zking.ssm.shiro.user.RetryLimitHashedCredentialsMatcher" init-method="init">
+    <bean id="credentialsMatcher" class="com.zking.ssm.shiro.RetryLimitHashedCredentialsMatcher" init-method="init">
         <!--使用有参数构造方法创建对象，注入缓存管理器-->
         <constructor-arg ref="cacheManager"/>
 
@@ -36,9 +36,9 @@
     </bean>
 
     <!-- Realm实现 -->
-    <bean id="userRealm" class="com.zking.ssm.shiro.user.UserRealm">
+    <bean id="userRealm" class="com.zking.ssm.shiro.UserRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
-        <property name="userBiz" ref="userBiz"/>
+        <property name="userService" ref="userService"/>
     </bean>
 
     <!-- 安全管理器 -->

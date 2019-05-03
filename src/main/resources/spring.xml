@@ -20,5 +20,5 @@
     <import resource="spring-mybatis.xml"/>
     <import resource="spring-eacache.xml"/>
     <import resource="spring-redis.xml"/>
-    <!--<import resource="spring-shiro.xml"/>-->
+    <import resource="spring-shiro.xml"/>
 </beans>

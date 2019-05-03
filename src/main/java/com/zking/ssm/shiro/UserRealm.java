@@ -1,7 +1,7 @@
-package com.zking.ssm.shiro.user;
+package com.zking.ssm.shiro;
 
-import com.zking.ssm.biz.IUserBiz;
 import com.zking.ssm.model.User;
+import com.zking.ssm.service.IUserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -20,8 +20,8 @@ public class UserRealm extends AuthorizingRealm {
 
     private static final Integer LOCKED = new Integer(1);
 
-    //用户对应的角色信息与权限信息都保存在数据库中，通过IUserBiz获取数据
-    private IUserBiz userBiz;
+    //用户对应的角色信息与权限信息都保存在数据库中，通过IUserService获取数据
+    private IUserService userService;
 
     public UserRealm() {
     }
@@ -38,8 +38,8 @@ public class UserRealm extends AuthorizingRealm {
         super(cacheManager, matcher);
     }
 
-    public void setUserBiz(IUserBiz userBiz) {
-        this.userBiz = userBiz;
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
     }
 
     /**
@@ -74,9 +74,9 @@ public class UserRealm extends AuthorizingRealm {
         //查询用户已授予的角色及权限
         String username = (String) principalCollection.getPrimaryPrincipal();
         User user = new User();
-        user.setUsername(username);
-        Set<String> permissions = userBiz.listPermissionsByUserName(user);
-        Set<String> roles = userBiz.listRolesByUserName(user);
+        user.setUname(username);
+        Set<String> permissions = userService.listPermissionsByUserName(user);
+        Set<String> roles = userService.listRolesByUserName(user);
 
         //返回授权信息
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
@@ -97,21 +97,21 @@ public class UserRealm extends AuthorizingRealm {
         //查询用户已授予的角色及权限
         String username = (String) authenticationToken.getPrincipal();
         User user = new User();
-        user.setUsername(username);
-        User u = userBiz.loadByUsername(user);
+        user.setUname(username);
+        User u = userService.loadByUsername(user);
 
         if (null == u) {
             throw new UnknownAccountException();//帐号不存在
         }
-        if (LOCKED.equals(u.getLocked())) {
+        if (LOCKED.equals(u.getUstatus())) {
             throw new LockedAccountException(); //帐号已锁定
         }
 
         //交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以在此判断或自定义实现
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                u.getUsername(),
-                u.getPassword(),
-                ByteSource.Util.bytes(u.getSalt()),
+                u.getUname(),
+                u.getUpassword(),
+                ByteSource.Util.bytes(u.getUsalt()),
                 getName()
         );
         return authenticationInfo;
