@@ -12,7 +12,12 @@ public class IndexController {
 
     @RequestMapping(value = "/zking/zking.shtml")
     public String toIndex(){
-        return "index";
+        return "admin/index";
+    }
+
+    @RequestMapping(value = "/admin/login.html")
+    public String toAdmin(){
+        return "admin/login";
     }
 
     @RequestMapping(value = "/i18n")
