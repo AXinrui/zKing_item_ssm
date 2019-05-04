@@ -20,6 +20,11 @@ public class IndexController {
         return "admin/login";
     }
 
+    @RequestMapping(value = "/404")
+    public String noResponse(){
+        return "404";
+    }
+
     @RequestMapping(value = "/i18n")
     public String toI18n(String locale, HttpSession session){
 

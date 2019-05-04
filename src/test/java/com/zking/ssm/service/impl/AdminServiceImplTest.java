@@ -30,7 +30,10 @@ public class AdminServiceImplTest extends BaseTestCase {
 
     @Test
     public void login() {
-
+        admin.setAccount("admin");
+        admin.setPassword("admin");
+        boolean login = iAdminService.login(admin);
+        System.out.println("login:"+login);
 
     }
 }

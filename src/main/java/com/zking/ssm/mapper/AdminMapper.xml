@@ -19,7 +19,7 @@
   </select>
     <select id="login" resultType="int" parameterType="admin">
       select
-      <include refid="Base_Column_List" />
+      COUNT(*)
       from t_admin
       where account = #{account,jdbcType=VARCHAR} AND password = #{password,jdbcType=VARCHAR}
     </select>

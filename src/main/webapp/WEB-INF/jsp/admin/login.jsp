@@ -48,6 +48,8 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
+
+    var slider = "";
     layui.config({
         base: '../../../lib/layui_exts/'
     }).extend({
@@ -55,7 +57,7 @@
     }).use(['sliderVerify', 'jquery', 'form'], function() {
         var sliderVerify = layui.sliderVerify,
             form = layui.form;
-        var slider = sliderVerify.render({
+        slider = sliderVerify.render({
             isAutoVerify:true,//自动验证
             elem: '#slider',
             onOk: function(){//当验证通过回调
@@ -69,17 +71,8 @@
                 });
             }
         })
-        //监听提交
-        form.on('submit(formDemo)', function(data) {
-            if(slider.isOk()){
-                layer.msg(JSON.stringify(data.field));
-            }else{
-                layer.msg("请先通过滑块验证");
-            }
-            return false;
-        });
-
     })
+
 </script>
 
 
@@ -109,13 +102,13 @@
                     data : JSON.stringify(json),
                     dataType : 'json',
                     success : function(data) {
-                        if (data != null) {
+                        if (data =="1") {
                             layer.msg("登录成功，跳转中...",function(){
-                                // location.href='index.html'
+                                location.href='index.html'
                             });
                         } else {
+                            slider.reset();
                             layer.msg("登录失败，密码错误",function(){
-                                // location.href='index.html'
                             });
                         }
                     }
