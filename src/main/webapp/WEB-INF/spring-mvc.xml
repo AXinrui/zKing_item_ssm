@@ -41,7 +41,7 @@
     <mvc:resources location="/lib/**" mapping="/lib/**"/>
     <mvc:resources location="/fonts/**" mapping="/fonts/**"/>
 
-    <!--当项目中要使用以下内容时，必须写上以下配置，否则无法拿到该资源-->
+    <!--如果修改这个/static/**必须重启项目-->
     <mvc:resources location="/static/**" mapping="/static/**"/>
 
     <!--springmvc实现动态国际化(中英双语)-->
