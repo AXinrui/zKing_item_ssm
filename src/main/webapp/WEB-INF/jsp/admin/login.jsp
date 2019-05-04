@@ -58,6 +58,9 @@
             isAutoVerify:true,//自动验证
             elem: '#slider',
             onOk: function(){//当验证通过回调
+
+
+
                 layer.msg("滑块验证通过");
             }
         })
