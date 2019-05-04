@@ -11,6 +11,8 @@ public interface IAdminService {
 
     Admin selectByPrimaryKey(Integer aid);
 
+    Admin getAdmin(String account);
+
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);

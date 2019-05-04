@@ -18,4 +18,6 @@ public interface AdminMapper {
     int updateByPrimaryKey(Admin record);
 
     int login(Admin admin);
+
+    Admin getAdmin(String account);
 }

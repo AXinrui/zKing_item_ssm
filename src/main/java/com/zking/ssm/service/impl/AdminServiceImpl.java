@@ -35,6 +35,11 @@ public class AdminServiceImpl implements IAdminService {
     }
 
     @Override
+    public Admin getAdmin(String account) {
+        return adminMapper.getAdmin(account);
+    }
+
+    @Override
     public int updateByPrimaryKeySelective(Admin record) {
         return adminMapper.updateByPrimaryKeySelective(record);
     }

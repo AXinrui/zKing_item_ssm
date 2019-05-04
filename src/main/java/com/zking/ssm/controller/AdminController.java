@@ -22,6 +22,14 @@ public class AdminController {
     @Autowired
     private IAdminService iAdminService;
 
+    /**
+     * 登录的方法，保存admin的session
+     * @param map
+     * @param session
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/doLogin")
      public String login(@RequestBody(required=true) Map<String,Object> map,HttpSession session,HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
@@ -31,10 +39,11 @@ public class AdminController {
         Admin admin = new Admin();
         admin.setAccount(account);
         admin.setPassword(password);
-        if (huadong.equals(session.getAttribute("huadong"))) {
-            boolean login = iAdminService.login(admin);
-            System.out.println("huadong-------:"+huadong+"------login---"+login);
-            if (login==true) {
+        if (huadong.equals(session.getAttribute("huadong"))) {//在服务端判断滑块验证是否匹配
+            boolean login = iAdminService.login(admin);//登录
+            if (login==true) {//判断是否登录成功
+                admin = iAdminService.getAdmin(account);
+                session.setAttribute("admin",admin);
                 out.print("1");
             }else{
                 out.print("0");

@@ -113,8 +113,8 @@
                         }
                     }
                 });
-                return false;
                 //监听提交
+                return false;
             });
         });
     })
