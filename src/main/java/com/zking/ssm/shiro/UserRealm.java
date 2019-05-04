@@ -74,7 +74,7 @@ public class UserRealm extends AuthorizingRealm {
         //查询用户已授予的角色及权限
         String username = (String) principalCollection.getPrimaryPrincipal();
         User user = new User();
-        user.setUname(username);
+        user.setUaccount(username);
         Set<String> permissions = userService.listPermissionsByUserName(user);
         Set<String> roles = userService.listRolesByUserName(user);
 
@@ -97,7 +97,7 @@ public class UserRealm extends AuthorizingRealm {
         //查询用户已授予的角色及权限
         String username = (String) authenticationToken.getPrincipal();
         User user = new User();
-        user.setUname(username);
+        user.setUaccount(username);
         User u = userService.loadByUsername(user);
 
         if (null == u) {
@@ -109,7 +109,7 @@ public class UserRealm extends AuthorizingRealm {
 
         //交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以在此判断或自定义实现
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                u.getUname(),
+                u.getUaccount(),
                 u.getUpassword(),
                 ByteSource.Util.bytes(u.getUsalt()),
                 getName()
