@@ -1,10 +1,8 @@
-package com.zking.ssm.mapper;
+package com.zking.ssm.service;
 
 import com.zking.ssm.model.Admin;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface AdminMapper {
+public interface IAdminService {
     int deleteByPrimaryKey(Integer aid);
 
     int insert(Admin record);
@@ -17,5 +15,6 @@ public interface AdminMapper {
 
     int updateByPrimaryKey(Admin record);
 
-    int login(Admin admin);
+    boolean login(Admin admin);
+
 }

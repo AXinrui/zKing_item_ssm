@@ -1,19 +1,16 @@
 package com.zking.ssm.utils;
 
+import com.sun.security.ntlm.Client;
 import org.springframework.http.HttpRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
+import java.io.*;
+import java.util.*;
 
 public class PropertiesFile {
 
     /**
+     * 根据文件里的所有key和value
      * read properties file
      *
      * @param paramFile file path
@@ -22,9 +19,10 @@ public class PropertiesFile {
     public static Map<String,Object> inputFile(String paramFile) throws Exception {
         Properties props = new Properties();//使用Properties类来加载属性文件
         Map<String,Object> map = new HashMap<>();
-        FileInputStream iFile = new FileInputStream(paramFile);
-        props.load(iFile);
-
+        Properties datas = new Properties();
+        FileInputStream inputStream = new FileInputStream(paramFile);
+        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "GBK"));
+        props.load(br);
         /**begin*******直接遍历文件key值获取*******begin*/
         Iterator<String> iterator = props.stringPropertyNames().iterator();
         while (iterator.hasNext()) {
@@ -34,8 +32,28 @@ public class PropertiesFile {
                 map.put(key,props.getProperty(key));
             }
         }
-        iFile.close();
+        br.close();
+        inputStream.close();
         return map;
+    }
+
+    /**
+     * 根据key拿到单个的value
+     * @param paramFile
+     * @param key
+     * @return
+     * @throws Exception
+     */
+    public static String getInputFile(String paramFile,String key) throws Exception {
+        Properties props = new Properties();//使用Properties类来加载属性文件
+        Map<String,Object> map = new HashMap<>();
+        FileInputStream inputStream = new FileInputStream(paramFile);
+        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "GBK"));
+        props.load(br);
+        String property = props.getProperty(key);
+        br.close();
+        inputStream.close();
+        return property;
     }
 
     /**
@@ -58,18 +76,19 @@ public class PropertiesFile {
     }
 
     public static void main(String[] args) {
-
+        PropertiesFile propertiesFile = new PropertiesFile();
         // 赋值更新
        try {
-            String url = "E:\\idea_project\\zKing_item_ssm\\zKing_item_ssm\\src\\main\\resources\\properties\\jdbc.properties";
-            Map<String, Object> map = PropertiesFile.inputFile(url);
+            String url = "E:\\idea_project\\zKing_item_ssm\\src\\main\\resources\\properties\\ditu.properties";
+            Map<String, Object> map = propertiesFile.inputFile(url);
             for (Map.Entry<String, Object> s : map.entrySet()) {
                 System.out.println(s.getKey()+":"+s.getValue());
             }
-            map.put("x","12.12315");
+            map.put("x","132.12");
             map.put("y","543.45345345");
+            map.put("title","天地物流有限责任公司");
             int i = PropertiesFile.outputFile(url, map);
-            System.out.println(i);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

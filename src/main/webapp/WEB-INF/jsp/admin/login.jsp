@@ -32,15 +32,16 @@
     <div id="darkbannerwrap"></div>
 
     <form method="post" class="layui-form" >
-        <input name="username" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
+        <input id="account"  placeholder="用户名" lay-verify="required"  type="text"  class="layui-input" >
         <hr class="hr15">
-        <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
+        <input id="password"  placeholder="密码" lay-verify="required"  type="password" class="layui-input">
         <hr class="hr15">
         <div class="layui-form-item">
             <div class="layui-input-block" style="width:100%;margin:0px;padding:0px;"   >
                 <div id="slider" ></div>
             </div>
         </div>
+        <input type="hidden" value="" id="yzm" />
         <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
         <hr class="hr20" >
     </form>
@@ -58,10 +59,14 @@
             isAutoVerify:true,//自动验证
             elem: '#slider',
             onOk: function(){//当验证通过回调
-
-
-
-                layer.msg("滑块验证通过");
+                $.ajax({
+                    url : "admin/yz",
+                    dataType:'json',
+                    success : function(data) {
+                        $("#yzm").val(data);
+                        layer.msg("滑块验证通过");
+                    }
+                });
             }
         })
         //监听提交
@@ -86,28 +91,37 @@
             //关闭后的操作
             //   });
             //监听提交
-            form.on('submit(login)', function(data){
+            form.on('submit(login)', function(){
+                var account = $("#account").val();
+                var password = $("#password").val();
+                var yzm = $("#yzm").val();
+                var json = {
+                    "account" : account,
+                    "password" : password,
+                    "huadong":yzm
+                };
+
                 $.ajax({
-                    url : "admin/login",
+                    url : "admin/doLogin",
                     type : "POST",
                     async : true,
                     contentType : "application/json",
-                    data : JSON.stringify(data),
+                    data : JSON.stringify(json),
                     dataType : 'json',
                     success : function(data) {
-                        if (data.userstatus === "success") {
-                            $("#errorMsg").remove();
+                        if (data != null) {
+                            layer.msg("登录成功，跳转中...",function(){
+                                // location.href='index.html'
+                            });
                         } else {
-                            if ($("#errorMsg").length <= 0) {
-                                $("form[name=loginForm]").append(errorMsg);
-                            }
+                            layer.msg("登录失败，密码错误",function(){
+                                // location.href='index.html'
+                            });
                         }
                     }
                 });
-                layer.msg(JSON.stringify(data.field),function(){
-                    location.href='index.html'
-                });
                 return false;
+                //监听提交
             });
         });
     })
