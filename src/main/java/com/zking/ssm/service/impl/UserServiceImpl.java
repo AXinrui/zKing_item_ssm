@@ -29,17 +29,20 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User loadByUsername(User user) {
-        return userMapper.selectByUsername(user.getUname());
+        return userMapper.selectByUsername(user.getUaccount());
     }
 
     @Override
     public String doLogin(User user) {
         String message = null;
-        User u = userMapper.selectByUsername(user.getUname());
+        User u = userMapper.selectByUsername(user.getUaccount());
+        System.out.println("登录用户：" + u);
         if (null == u || !PasswordHelper.checkCredentials(user.getUpassword(), u.getUsalt(), u.getUpassword())) {
             message = "帐号或密码错误";
         } else if (new Integer(2).equals(u.getUstatus())) {
             message = "帐号已锁定，请与管理员联系";
+        } else if(null != u || PasswordHelper.checkCredentials(user.getUpassword(), u.getUsalt(), u.getUpassword())){
+            message = "登录成功";
         }
         return message;
     }
@@ -64,7 +67,7 @@ public class UserServiceImpl implements IUserService {
 
 
         User u = new User();
-        u.setUname(user.getUname());
+        u.setUaccount(user.getUaccount());
         u.setUpassword(credentials);
         u.setUsalt(salt);
 
@@ -79,7 +82,7 @@ public class UserServiceImpl implements IUserService {
 
 
         User u = new User();
-        u.setUname(user.getUname());
+        u.setUaccount(user.getUaccount());
         u.setUpassword(credentials);
         u.setUsalt(salt);
 

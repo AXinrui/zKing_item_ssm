@@ -14,6 +14,7 @@
 
     <div>
         <h1>欢迎！！</h1>
+        <img src="../images/1.jpg" alt="" />
     </div>
 </body>
 </html>

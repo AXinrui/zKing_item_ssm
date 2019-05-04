@@ -37,14 +37,15 @@ public class Aute {
         String url ="http://v.juhe.cn/sms/send";//请求接口地址
         Map params = new HashMap();//请求参数
         params.put("mobile",phone);//接受短信的用户手机号码
-        params.put("tpl_id",yzm);//您申请的短信模板ID，根据实际情况修改
-        params.put("tpl_value","#code#=1235231");//您设置的模板变量，根据实际情况修改
+        params.put("tpl_id","155321");//您申请的短信模板ID，根据实际情况修改
+        params.put("tpl_value","#code#="+yzm);//您设置的模板变量，根据实际情况修改
         params.put("key","d77319d34ec5f412e48fa8df81da4a2b");//应用APPKEY(应用详细页查询)
         try {
             result = net(url, params, "GET");
             JSONObject jsonObject = new JSONObject(result);
-            if("0".equals(jsonObject.get("error_code"))){
-                System.out.println(jsonObject.get("result"));
+            System.out.println("error_code:"+jsonObject.get("error_code"));
+            if("操作成功".equals(jsonObject.get("reason"))){
+                System.out.println("reason:"+jsonObject.get("result"));
                 return yzm;
             }else{
                 String json = jsonObject.get("error_code")+":"+jsonObject.get("reason");

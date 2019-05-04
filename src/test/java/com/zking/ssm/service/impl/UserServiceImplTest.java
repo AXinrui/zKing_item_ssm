@@ -20,12 +20,12 @@ public class UserServiceImplTest extends BaseTestCase {
 
     @Test
     public void doRegister() {
-        user.setUname("admin");
-        user.setUaccount("liu2334693431");
-        user.setUpassword("liu123654");
-        user.setUname("离子");
-        user.setUphone("13407992540");
-        user.setUaddress("湖南长沙");
+        user.setUname("user");
+        user.setUaccount("user_0000001");
+        user.setUpassword("123456");
+        user.setUname("真棒");
+        user.setUphone("15607992781");
+        user.setUaddress("河南郑州");
         user.setUstatus(1);
         user.setIid(1);
 
@@ -34,6 +34,10 @@ public class UserServiceImplTest extends BaseTestCase {
 
     @Test
     public void loadByUsername() {
+        user.setUaccount("liu2334693431");
+        user.setUpassword("liu123654");
+        String login = iUserService.doLogin(user);
+        System.out.println("登录状态:" + login);
     }
 
     @Test

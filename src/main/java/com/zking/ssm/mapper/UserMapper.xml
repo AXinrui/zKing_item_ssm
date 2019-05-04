@@ -26,7 +26,7 @@
     <select id="selectByUsername" resultType="user">
        select *
         from t_user
-        where username = #{uname,jdbcType=VARCHAR}
+        where uaccount = #{uaccount,jdbcType=VARCHAR}
     </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_user
