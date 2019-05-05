@@ -1,6 +1,13 @@
 package com.zking.ssm.model;
 
-public class Property {
+import lombok.ToString;
+import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
+
+@Component
+@ToString
+public class Property implements Serializable {
     private Integer pid;
 
     private Float pbalance;

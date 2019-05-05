@@ -1,7 +1,9 @@
 package com.zking.ssm.service;
 
 import com.zking.ssm.model.User;
+import com.zking.ssm.utils.PageBean;
 
+import java.util.List;
 import java.util.Set;
 
 public interface IUserService {
@@ -17,4 +19,13 @@ public interface IUserService {
     User loadByUsername(User user);//根据用户名查询用户
     Set<String> listPermissionsByUserName(User user);//查询指定用户拥有的权限
     Set<String> listRolesByUserName(User user);//查询指定用户拥有的角色
+
+    List<User> userList(User user, PageBean pageBean); //查询所有
+
+    boolean updateByPrimaryKeySelective(User record); //动态修改
+
+    boolean updateByPrimaryKey(User record); //根据id修改全部
+
+    boolean deleteByPrimaryKey(Integer uid);//根据id删除
+
 }
