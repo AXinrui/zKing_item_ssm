@@ -1,6 +1,5 @@
 package com.zking.ssm.service.impl;
 
-import com.zking.ssm.model.User;
 import com.zking.ssm.service.IUserService;
 import com.zking.ssm.service.impl.base.BaseTestCase;
 import org.junit.Test;

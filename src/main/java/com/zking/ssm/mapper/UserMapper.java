@@ -1,10 +1,6 @@
 package com.zking.ssm.mapper;
 
 import com.zking.ssm.model.User;
-import com.zking.ssm.model.User;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer uid);
@@ -20,5 +16,4 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User selectByUsername(String username);//根据用户名查询用户
-
 }
