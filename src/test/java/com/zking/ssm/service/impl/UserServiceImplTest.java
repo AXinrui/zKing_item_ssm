@@ -6,6 +6,8 @@ import com.zking.ssm.service.impl.base.BaseTestCase;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 public class UserServiceImplTest extends BaseTestCase {
 
     @Autowired
@@ -58,5 +60,15 @@ public class UserServiceImplTest extends BaseTestCase {
 
     @Test
     public void doResetPassword() {
+    }
+
+    @Test
+    public void dolist() {
+        user.setUname("dwad");
+        List<User> users = iUserService.userList(user, pageBean);
+        for (User user1 : users) {
+            System.out.println(user1);
+        }
+
     }
 }

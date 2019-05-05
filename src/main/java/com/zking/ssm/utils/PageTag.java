@@ -28,66 +28,59 @@ public class PageTag extends BodyTagSupport {
 	public int doStartTag() throws JspException {
 		try {
 			JspWriter out = pageContext.getOut();
-			out.println(this.toHtml());
+			out.println(this.toHTML());
 			return SKIP_BODY;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	private String toHtml() {
-		StringBuffer bf = new StringBuffer();
+	private String toHTML() {
 		if (null == pageBean || !pageBean.isPagination()) {
-			return bf.toString();
+			return "";
 		}
-
-		// 1. 鐢熸垚琛ㄥ崟
-		bf.append("<form id='pageBeanForm' action='" + pageBean.getUrl() + "' method='post'>");
+		StringBuffer bf = new StringBuffer();
+		// 生成表单及参数
+		bf.append("<form id='pageBeanForm' action='" + this.pageBean.getUrl() + "' method='post'>");
 		bf.append("<input type='hidden' name='page' value=''>");
+		String name = null;
+		String[] values = null;
 		for (Map.Entry<String, String[]> entry : pageBean.getParameterMap().entrySet()) {
-			String name = entry.getKey();
-			String[] values = entry.getValue();
+			name = entry.getKey();
 			if ("page".equals(name)) {
-				continue;
+				continue;// 通过js代码修改
 			}
-
+			values = entry.getValue();
 			for (String value : values) {
 				bf.append("<input type='hidden' name='" + name + "' value='" + value + "'>");
 			}
 		}
 		bf.append("</form>");
 
-		// 2. 鐢熸垚鎸夐挳
-		bf.append("<div style='text-align: right;font-size: 12px;'>每页" + pageBean.getRows() + "条，共"
-				+ pageBean.getTotal() + "条，第" + pageBean.getPage() + "页，共" + pageBean.getMaxPage()
-				+ "页&nbsp;&nbsp;<a href='javascript:doGotoPage(1)'>首&nbsp;&nbsp;页</a>&nbsp;&nbsp;<a href='javascript:doGotoPage("
-				+ pageBean.getPreviousPage() + ")'>上一页</a>&nbsp;&nbsp;<a href='javascript:doGotoPage("
-				+ pageBean.getNextPage() + ")'>下一页</a>&nbsp;&nbsp;<a href='javascript:doGotoPage("
-				+ pageBean.getMaxPage()
-				+ ")'>末&nbsp;&nbsp;页</a>&nbsp;&nbsp;<input id='pageNumber' type='text' style='text-align: center;width: 30px;'>&nbsp;&nbsp;<a href='javascript:doSkipPage();'>GO</a></div>");
+		// 生成分页按钮
+		bf.append("<div style='text-align: center;font-size: 12px;'>每页" + this.getPageBean().getRows() + "条，共"
+				+ this.pageBean.getTotal() + "条，第" + pageBean.getPage() + "页，共" + pageBean.getMaxPage()
+				+ "页&nbsp;&nbsp;<a href='javascript:gotoPage(1)'>首&nbsp;&nbsp;页</a>&nbsp;&nbsp;<a href='javascript:gotoPage("
+				+ pageBean.getPreviousPage() + ")'>上一页</a>&nbsp;&nbsp;<a href='javascript:gotoPage("
+				+ pageBean.getNextPage() + ")'>下一页</a>&nbsp;&nbsp;<a href='javascript:gotoPage(" + pageBean.getMaxPage()
+				+ ")'>末&nbsp;&nbsp;页</a>&nbsp;&nbsp;<input id='skipPage' type='text' style='text-align: center;font-size: 12px;width:50px;'>&nbsp;&nbsp;<a href='javascript:skipPage();'>GO</a></div>");
 
-		// 3. 鍔ㄦ�佺敓鎴恓s
-		bf.append("<script type='text/javascript'>");
-		bf.append("function doGotoPage(page){");
-		bf.append("  var form = document.getElementById('pageBeanForm');");
-		bf.append("  form.page.value = page;");
-		bf.append("  form.submit();");
+		// 生成js
+		bf.append("<script>");
+		bf.append("function gotoPage(page){");
+		bf.append("  document.getElementById('pageBeanForm').page.value = page;");
+		bf.append("  document.getElementById('pageBeanForm').submit();");
 		bf.append("}");
-		bf.append("function doSkipPage(page){");
-		bf.append("  var page = document.getElementById('pageNumber').value;");
-		bf.append("  if(!page||isNaN(page)||parseInt(page)<1||parseInt(page)>"+pageBean.getMaxPage()+"){");
-		bf.append("    alert('椤电爜蹇呴』涓�1~"+pageBean.getMaxPage()+"涔嬮棿鏁板瓧');");
-		bf.append("    document.getElementById('pageNumber').value = '';");
+		bf.append("var maxPage="+pageBean.getMaxPage()+";");
+		bf.append("function skipPage(){");
+		bf.append("  var page = document.getElementById('skipPage').value;");
+		bf.append("  if(!page||isNaN(page)||parseInt(page)<1||parseInt(page)>maxPage){");
+		bf.append("    alert('请输入1~8之间的数字');");
 		bf.append("    return;");
 		bf.append("  }");
-		bf.append("  doGotoPage(parseInt(page));");
+		bf.append("  gotoPage(page);");
 		bf.append("}");
 		bf.append("</script>");
-		bf.append("");
-		bf.append("");
-		bf.append("");
-		bf.append("");
-		bf.append("");
 		return bf.toString();
 	}
 }

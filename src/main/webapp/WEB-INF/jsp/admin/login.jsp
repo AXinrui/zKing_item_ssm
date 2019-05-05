@@ -62,7 +62,7 @@
             elem: '#slider',
             onOk: function(){//当验证通过回调
                 $.ajax({
-                    url : "admin/yz",
+                    url : "yz",
                     dataType:'json',
                     success : function(data) {
                         $("#yzm").val(data);
@@ -95,7 +95,7 @@
                 };
 
                 $.ajax({
-                    url : "admin/doLogin",
+                    url : "doLogin",
                     type : "POST",
                     async : true,
                     contentType : "application/json",

@@ -2,15 +2,20 @@ package com.zking.ssm.controller.user;
 
 import com.zking.ssm.model.User;
 import com.zking.ssm.service.IUserService;
+import com.zking.ssm.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -101,6 +106,129 @@ public class UserController {
             }
 
         return returnValue;
+    }
+
+    @RequestMapping("/userList")
+    public ModelAndView userList(String uname, HttpServletRequest request,ModelAndView modelAndView){
+        User user = new User();
+        if (null!= uname&&""!=uname) {
+            user.setUname(uname);
+        }
+        PageBean pageBean = new PageBean();
+        pageBean.setRequest(request);
+        List<User> userList = iUserService.userList(user, pageBean);
+        modelAndView.setViewName("admin/user_list");
+        modelAndView.addObject(userList);
+        modelAndView.addObject(pageBean);
+        return modelAndView;
+    }
+
+    @RequestMapping("/userListDel")
+    public ModelAndView userListDel(String uname, HttpServletRequest request,ModelAndView modelAndView){
+        User user = new User();
+        if (null!= uname&&""!=uname) {
+            user.setUname(uname);
+        }
+        user.setUstatus(3);
+        PageBean pageBean = new PageBean();
+        pageBean.setRequest(request);
+        List<User> userList = iUserService.userList(user, pageBean);
+        modelAndView.addObject(userList);
+        modelAndView.addObject(pageBean);
+        modelAndView.setViewName("admin/user_del");
+        return modelAndView;
+    }
+
+    /**
+     * 状态改变
+     * @param id
+     * @param status
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping("/userStatus")
+    public void updateKey(String id,String status,HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        User user = new User();
+        user.setUid(Integer.parseInt(id));
+        user.setUstatus( Integer.parseInt(status));
+        boolean b = iUserService.updateByPrimaryKeySelective(user);
+        if(b) out.print("1");else out.print("0");
+    }
+
+    /**
+     * 用户转到回收站
+     * @param id
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping("/userStatusDel")
+    public void userStatus(String id,HttpServletResponse response)throws IOException{
+        PrintWriter out = response.getWriter();
+        User user = new User();
+        user.setUstatus(3);
+        int toid = 0;
+        boolean b = false;
+        try {
+            toid = Integer.parseInt(id);
+            user.setUid(toid);
+            b = iUserService.updateByPrimaryKeySelective(user);
+            if(b) out.print("1");else out.print("0");
+        }catch (Exception e){
+            //System.out.println("转型异常----执行以下方法");
+            String[] split = id.split(",");
+            for (int i=0;i<split.length;i++){
+                user.setUid(Integer.parseInt(split[i]));
+                b = iUserService.updateByPrimaryKeySelective(user);
+            }
+            if(b) out.print("1");else out.print("0");
+        }
+
+    }
+
+
+    @RequestMapping("/userDel")
+    public void delUser(String id,HttpServletResponse response)throws IOException{
+        PrintWriter out = response.getWriter();
+        int toid = 0;
+        boolean b = false;
+        try {
+             toid = Integer.parseInt(id);
+             b = iUserService.deleteByPrimaryKey(toid);
+             if(b) out.print("1");else out.print("0");
+        }catch (Exception e){
+            //System.out.println("转型异常----执行以下方法");
+            String[] split = id.split(",");
+            for (int i=0;i<split.length;i++){
+                b = iUserService.deleteByPrimaryKey(Integer.parseInt(split[i]));
+            }
+            if(b) out.print("1");else out.print("0");
+        }
+
+    }
+
+    @RequestMapping("/recoverUser")
+    public void recoverUser(String id,HttpServletResponse response)throws IOException{
+        PrintWriter out = response.getWriter();
+        User user = new User();
+        user.setUstatus(1);
+        int toid = 0;
+        boolean b = false;
+        try {
+            toid = Integer.parseInt(id);
+            user.setUid(toid);
+            b = iUserService.updateByPrimaryKeySelective(user);
+            if(b) out.print("1");else out.print("0");
+        }catch (Exception e){
+            //System.out.println("转型异常----执行以下方法");
+            String[] split = id.split(",");
+            for (int i=0;i<split.length;i++){
+                user.setUid(Integer.parseInt(split[i]));
+                b = iUserService.updateByPrimaryKeySelective(user);
+            }
+            if(b) out.print("1");else out.print("0");
+        }
+
     }
 
 

@@ -15,6 +15,30 @@
       <arg column="pid" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
+  <resultMap id="userList" type="com.zking.ssm.model.User" >
+      <id column="uid" property="uid" javaType="java.lang.Integer" />
+      <result column="uaccount" property="uaccount" javaType="java.lang.String" />
+      <result column="upassword" property="upassword" javaType="java.lang.String" />
+      <result column="usalt" property="usalt" javaType="java.lang.String" />
+      <result column="uname" property="uname" javaType="java.lang.String" />
+      <result column="uphone" property="uphone" javaType="java.lang.String" />
+      <result column="uaddress" property="uaddress" javaType="java.lang.String" />
+      <result column="ustatus" property="ustatus" javaType="java.lang.Integer" />
+      <result column="iid" property="iid" javaType="java.lang.Integer" />
+      <result column="pid" property="pid" javaType="java.lang.Integer" />
+  </resultMap>
+  <select id="listUser" resultMap="userList" parameterType="user">
+    SELECT * FROM t_user WHERE 1 = 1
+    <if test="uname!= null and uname != '' ">
+      AND uname LIKE concat("%",#{uname,jdbcType=VARCHAR},"%")
+    </if>
+    <if test="ustatus!= null and ustatus != '' ">
+      AND ustatus = #{ustatus,jdbcType=INTEGER }
+    </if>
+    <if test="ustatus== null or ustatus == '' ">
+      AND ustatus BETWEEN 1 AND 2
+    </if>
+  </select>
   <sql id="Base_Column_List" >
     uid, uaccount, upassword, usalt, uname, uphone, uaddress, ustatus, iid, pid
   </sql>
@@ -24,7 +48,7 @@
     from t_user
     where uid = #{uid,jdbcType=INTEGER}
   </select>
-    <select id="selectByUsername" resultType="user">
+  <select id="selectByUsername" resultType="user">
       select *
         from t_user
         where uaccount = #{uaccount,jdbcType=VARCHAR}

@@ -3,9 +3,11 @@ package com.zking.ssm.model;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 @Component
 @ToString
-public class User {
+public class User implements Serializable {
 
     public static final String DEFAULT_PASSWORD = "888888";
 

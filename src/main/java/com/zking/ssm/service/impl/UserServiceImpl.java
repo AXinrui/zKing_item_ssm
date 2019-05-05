@@ -4,9 +4,11 @@ import com.zking.ssm.mapper.UserMapper;
 import com.zking.ssm.model.User;
 import com.zking.ssm.service.IUserService;
 import com.zking.ssm.shiro.PasswordHelper;
+import com.zking.ssm.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service("userService")
@@ -56,6 +58,29 @@ public class UserServiceImpl implements IUserService {
     public Set<String> listRolesByUserName(User user) {
         //return new HashSet<String>(userMapper.listRolesByUserName(user));
         return null;
+    }
+
+    @Override
+    public List<User> userList(User user, PageBean pageBean) {
+        return userMapper.listUser(user);
+    }
+
+    @Override
+    public boolean updateByPrimaryKeySelective(User record) {
+        int i = userMapper.updateByPrimaryKeySelective(record);
+        return i>0?true:false;
+    }
+
+    @Override
+    public boolean updateByPrimaryKey(User record) {
+        int i = userMapper.updateByPrimaryKey(record);
+        return i>0?true:false;
+    }
+
+    @Override
+    public boolean deleteByPrimaryKey(Integer uid) {
+        int i = userMapper.deleteByPrimaryKey(uid);
+        return i>0?true:false;
     }
 
     @Override

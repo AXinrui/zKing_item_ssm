@@ -3,6 +3,8 @@ package com.zking.ssm.mapper;
 import com.zking.ssm.model.Express;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ExpressMapper {
     int deleteByPrimaryKey(Integer eid);
@@ -16,4 +18,6 @@ public interface ExpressMapper {
     int updateByPrimaryKeySelective(Express record);
 
     int updateByPrimaryKey(Express record);
+
+    List<Express> expressList(Express express);
 }

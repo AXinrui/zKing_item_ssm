@@ -43,6 +43,10 @@ public class Express {
 
     private Date consigneetime;
 
+    private ExpressStatus expressStatus;
+
+    private User user;
+
     public Express(Integer eid, String orderid, String ordername, Float orderprice, String orderweight, String ordervolume, String orderaddress, String orderremark, Integer esid, Integer uid, Date shippertime, String shipperphone, String shipperaddress, String consignee, String consigneephone, String consigneeaddress, Date consigneetime) {
         this.eid = eid;
         this.orderid = orderid;
@@ -201,5 +205,21 @@ public class Express {
 
     public void setConsigneetime(Date consigneetime) {
         this.consigneetime = consigneetime;
+    }
+
+    public ExpressStatus getExpressStatus() {
+        return expressStatus;
+    }
+
+    public void setExpressStatus(ExpressStatus expressStatus) {
+        this.expressStatus = expressStatus;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

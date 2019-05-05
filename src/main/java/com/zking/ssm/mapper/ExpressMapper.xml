@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zking.ssm.mapper.ExpressMapper" >
-  <resultMap id="BaseResultMap" type="com.zking.ssm.model.Express" >
-    <constructor >
-      <idArg column="eid" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="orderId" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="ordername" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="orderprice" jdbcType="REAL" javaType="java.lang.Float" />
-      <arg column="orderweight" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="ordervolume" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="orderAddress" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="orderremark" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="esid" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="uid" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="shipperTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="shipperPhone" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="shipperaddress" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="consignee" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="consigneePhone" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="consigneeAddress" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="consigneeTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-    </constructor>
+  <resultMap id="manydoone" type="com.zking.ssm.model.Express" >
+      <id column="eid" property="eid" javaType="java.lang.Integer" />
+      <result column="orderId" property="orderid" javaType="java.lang.String" />
+      <result column="ordername" property="ordername" javaType="java.lang.String" />
+      <result column="orderprice" property="orderprice" javaType="java.lang.Float" />
+      <result column="orderweight" property="orderweight" javaType="java.lang.String" />
+      <result column="ordervolume" property="ordervolume" javaType="java.lang.String" />
+      <result column="orderAddress" property="orderaddress" javaType="java.lang.String" />
+      <result column="orderremark" property="orderremark" javaType="java.lang.String" />
+      <result column="esid" property="esid" javaType="java.lang.Integer" />
+      <result column="uid" property="uid" javaType="java.lang.Integer" />
+      <result column="shipperTime" property="shippertime" javaType="java.util.Date" />
+      <result column="shipperPhone" property="shipperphone" javaType="java.lang.String" />
+      <result column="shipperaddress" property="shipperaddress" javaType="java.lang.String" />
+      <result column="consignee" property="consignee" javaType="java.lang.String" />
+      <result column="consigneePhone" property="consigneephone" javaType="java.lang.String" />
+      <result column="consigneeAddress" property="consigneeaddress" javaType="java.lang.String" />
+      <result column="consigneeTime" property="consigneetime" javaType="java.util.Date" />
+      <association property="expressStatus" javaType="ExpressStatus">
+        <id column="esid" property="esid" javaType="java.lang.Integer" />
+        <result column="esName" property="esname" javaType="java.lang.String" />
+      </association>
   </resultMap>
   <sql id="Base_Column_List" >
     eid, orderId, ordername, orderprice, orderweight, ordervolume, orderAddress, orderremark, 
@@ -33,7 +35,12 @@
     from t_express
     where eid = #{eid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="expressList" resultType="express" parameterType="express">
+
+
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_express
     where eid = #{eid,jdbcType=INTEGER}
   </delete>

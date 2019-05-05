@@ -15,7 +15,7 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping(value ={"/admin/login","/admin","/admin/login.html"} )
+    @RequestMapping(value ={"/admin/login","/admin/login.html"} )
     public String toAdmin(){
         return "admin/login";
     }
