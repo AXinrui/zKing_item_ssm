@@ -22,5 +22,10 @@ public class UrlController {
         return "admin/user_list";
     }
 
+    @RequestMapping("/doOrderList")
+    public String doOrderList(){
+        return "admin/order_list";
+    }
+
 
 }

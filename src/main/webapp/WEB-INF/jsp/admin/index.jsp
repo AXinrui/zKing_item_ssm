@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="./css/font.css">
     <link rel="stylesheet" href="./css/xadmin.css">
     <!-- <link rel="stylesheet" href="./css/theme5.css"> -->
-    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../../../js/xadmin.js"></script>
+    <script src="${ctx}/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="${ctx}/js/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -35,7 +35,7 @@
 <!-- 顶部开始 -->
 <div class="container">
     <div class="logo">
-        <a href="/">X-admin v2.2</a></div>
+        <a href="${ctx}/url/admin/doIndex">X-admin v2.2</a></div>
     <div class="left_open">
         <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
     </div>
@@ -97,9 +97,9 @@
                             <cite>统计页面</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('会员列表(静态表格)','${ctx}/url/admin/doUserList')">
+                        <a onclick="xadmin.add_tab('用户列表','${ctx}/url/admin/doUserList')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>会员列表(静态表格)</cite></a>
+                            <cite>用户列表</cite></a>
                     </li>
                     <li>
                         <a onclick="xadmin.add_tab('会员列表(动态表格)','member-list1.html',true)">
@@ -138,7 +138,7 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('订单列表','order-list.html')">
+                        <a onclick="xadmin.add_tab('订单列表','${ctx}/url/admin/doOrderList')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>订单列表</cite></a>
                     </li>
