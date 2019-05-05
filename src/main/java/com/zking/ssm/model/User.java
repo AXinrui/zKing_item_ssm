@@ -1,10 +1,5 @@
 package com.zking.ssm.model;
 
-import lombok.ToString;
-import org.springframework.stereotype.Component;
-
-@Component
-@ToString
 public class User {
 
     public static final String DEFAULT_PASSWORD = "888888";
@@ -27,7 +22,9 @@ public class User {
 
     private Integer iid;
 
-    public User(Integer uid, String uaccount, String upassword, String usalt, String uname, String uphone, String uaddress, Integer ustatus, Integer iid) {
+    private Integer pid;
+
+    public User(Integer uid, String uaccount, String upassword, String usalt, String uname, String uphone, String uaddress, Integer ustatus, Integer iid, Integer pid) {
         this.uid = uid;
         this.uaccount = uaccount;
         this.upassword = upassword;
@@ -37,6 +34,7 @@ public class User {
         this.uaddress = uaddress;
         this.ustatus = ustatus;
         this.iid = iid;
+        this.pid = pid;
     }
 
     public User() {
@@ -113,5 +111,13 @@ public class User {
 
     public void setIid(Integer iid) {
         this.iid = iid;
+    }
+
+    public Integer getPid() {
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 }

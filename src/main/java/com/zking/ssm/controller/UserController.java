@@ -1,21 +1,16 @@
 package com.zking.ssm.controller;
 
-import com.sun.deploy.net.HttpResponse;
 import com.zking.ssm.model.User;
 import com.zking.ssm.service.IUserService;
-import com.zking.ssm.utils.Aute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Locale;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -54,10 +49,13 @@ public class UserController {
         System.out.println("用户输入验证码：" + userVerificationCode);
         String verificationCode = (String)session.getAttribute("verificationCode");
         System.out.println("系统验证码：" + verificationCode);
-        if(userVerificationCode.equals(verificationCode) || userVerificationCode == verificationCode){
-            out.print("verificationCode_correct");
+        System.out.println("判断结果：" + userVerificationCode.equals(verificationCode));
+        if(userVerificationCode.equals(verificationCode)){
+            System.out.println("验证码效验正确！");
+            out.print("1");
         } else{
-            out.print("verificationCode_error");
+            System.out.println("验证码效验错误！");
+            out.print("0");
         }
     }
 
@@ -70,7 +68,8 @@ public class UserController {
     @RequestMapping(value = "/userRegister")
     public String userRegister(User u){
         String returnValue = "";
-
+        u.setUaccount(u.getUphone());
+        System.out.println(u);
         int i = iUserService.doRegister(u);
 
         if (i > 0) {

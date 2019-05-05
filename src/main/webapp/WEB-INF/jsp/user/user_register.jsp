@@ -58,10 +58,9 @@
         }
 
         function isVerificationCode() {
-            alert(123456);
             //定义json对象
             var userVerificationCode = $("#veri-code").val();
-            alert(userVerificationCode);
+            //alert(userVerificationCode);
             var json = {
                 "userVerificationCode" : userVerificationCode
             };
@@ -74,8 +73,7 @@
                 data : json,
                 dataType : 'json',
                 success : function(data) {
-                    alert(data);
-                    if(data == "verificationCode_correct"){
+                    if(data == "1"){
                         buttonTransformation();
                     }else{
                         alert("验证码错误,请重新输入！");
@@ -102,9 +100,9 @@
     <div class="wpn">
         <div class="form-data pos">
 
-            <a href=""><img src="../../../images/img/logo.png" class="head-logo"></a>
+            <a href=""><img src="${ctx}/images/img/logo.png" class="head-logo"></a>
             <!--<p class="tel-warn hide"><i class="icon-warn"></i></p>-->
-            <f:form action="${ctx}/user/userRegister" method="post" modelAttribute="user">
+            <form action="${ctx}/user/userRegister" method="post">
                 <p class="p-input pos" id="phone">
                     <label for="tel">手机号</label>
                     <input type="number" id="tel" autocomplete="off" name="uphone" onfocus="checkIsNull()">
@@ -129,7 +127,7 @@
                     <input type="password" id="passport2">
                     <span class="tel-warn confirmpwd-err hide"><em></em><i class="icon-warn" style="margin-left: 5px"></i></span>
                 </p>
-            </f:form>
+
             <div class="reg_checkboxline pos">
                 <span class="z"><i class="icon-ok-sign boxcol" nullmsg="请同意!"></i></span>
                 <input type="hidden" name="agree" value="1">
@@ -139,7 +137,7 @@
             <button class="lang-btn off log-btn" type="button" id="nextStep" onclick="isVerificationCode()">下一步</button>
             <button class="lang-btn" id="register" type="submit" style="display: none;">注册</button>
             <div class="bottom-info">已有账号，<a href="../../../login.html">马上登录</a></div>
-
+            </form>
             <div class="third-party" style="display: none;"><!--onclick="sendVerificationCode()"-->
                 <a href="#" class="log-qq icon-qq-round"></a>
                 <a href="#" class="log-qq icon-weixin"></a>

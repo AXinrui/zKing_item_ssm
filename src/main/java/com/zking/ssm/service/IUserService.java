@@ -2,7 +2,6 @@ package com.zking.ssm.service;
 
 import com.zking.ssm.model.User;
 
-import java.util.List;
 import java.util.Set;
 
 public interface IUserService {
