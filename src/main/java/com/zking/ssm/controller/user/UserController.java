@@ -1,4 +1,4 @@
-package com.zking.ssm.controller;
+package com.zking.ssm.controller.user;
 
 import com.zking.ssm.model.User;
 import com.zking.ssm.service.IUserService;
@@ -69,8 +69,9 @@ public class UserController {
     public String userRegister(User u){
         String returnValue = "";
         u.setUaccount(u.getUphone());
-        System.out.println(u);
+        System.out.println("注册用户1："+ u);
         int i = iUserService.doRegister(u);
+        System.out.println("注册用户2："+ u);
 
         if (i > 0) {
             returnValue = "user/user_login";
@@ -88,12 +89,17 @@ public class UserController {
 
     @RequestMapping(value = "/userLogin")
     public String userLogin(User u){
+        System.out.println(u);
         String returnValue = "";
-        String login = iUserService.doLogin(u);
-        System.out.println(login);
-        if (login.equals("登录成功")){
-            returnValue = "index";
-        }
+            String login = iUserService.doLogin(u);
+            System.out.println(login);
+            if (login.equals("登录成功")){
+                returnValue = "index";
+            }
+            if (login.equals("帐号已锁定，请与管理员联系")){
+                returnValue = "user/user_login";
+            }
+
         return returnValue;
     }
 

@@ -1,5 +1,10 @@
 package com.zking.ssm.model;
 
+import lombok.ToString;
+import org.springframework.stereotype.Component;
+
+@Component
+@ToString
 public class User {
 
     public static final String DEFAULT_PASSWORD = "888888";

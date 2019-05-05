@@ -65,12 +65,16 @@
            },1000);
        });
 	$(".message").click(function () {
+        document.getElementById("messageLogin").style.display = "block";
+        document.getElementById("passwordLogin").style.display = "none";
 		$(this).addClass("on");
         $(".account_number").removeClass("on");
 		$(".form2").removeClass("hide");
 		$(".form1").addClass("hide")
     });
 	$(".account_number").click(function () {
+        document.getElementById("messageLogin").style.display = "none";
+        document.getElementById("passwordLogin").style.display = "block";
         $(this).addClass("on");
         $(".message").removeClass("on");
            $(".form2").addClass("hide");

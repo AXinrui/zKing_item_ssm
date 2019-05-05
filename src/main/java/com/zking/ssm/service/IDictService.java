@@ -1,8 +1,9 @@
-package com.zking.ssm.mapper;
+package com.zking.ssm.service;
 
 import com.zking.ssm.model.Dict;
 
-public interface DictMapper {
+public interface IDictService {
+
     int deleteByPrimaryKey(Integer tid);
 
     int insert(Dict record);
@@ -14,4 +15,5 @@ public interface DictMapper {
     int updateByPrimaryKeySelective(Dict record);
 
     int updateByPrimaryKey(Dict record);
+
 }

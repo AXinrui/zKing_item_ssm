@@ -117,8 +117,8 @@
                 </p>
                 <p class="p-input pos hide" id="pwd">
                     <label for="passport">输入密码</label>
-                    <input type="password" style="display: none" name="upassword" id="upassword"/>
-                    <input type="password" id="passport">
+                    <input type="password" style="display: none" />
+                    <input type="password" id="passport" name="upassword" />
                     <span class="tel-warn pwd-err hide"><em></em><i class="icon-warn" style="margin-left: 5px"></i></span>
                 </p>
                 <p class="p-input pos hide" id="confirmpwd">

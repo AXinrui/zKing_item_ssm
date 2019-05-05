@@ -1,5 +1,6 @@
 package com.zking.ssm.service.impl;
 
+import com.zking.ssm.model.User;
 import com.zking.ssm.service.IUserService;
 import com.zking.ssm.service.impl.base.BaseTestCase;
 import org.junit.Test;
@@ -33,16 +34,14 @@ public class UserServiceImplTest extends BaseTestCase {
 
     @Test
     public void loadByUsername() {
-        user.setUaccount("liu2334693431");
-        user.setUpassword("liu123654");
-        String login = iUserService.doLogin(user);
-        System.out.println("登录状态:" + login);
     }
 
     @Test
     public void doLogin() {
-
-
+        user.setUaccount("18569039677");
+        user.setUpassword("123456");
+        String login = iUserService.doLogin(user);
+        System.out.println("登录状态:" + login);
     }
 
     @Test
