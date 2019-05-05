@@ -104,7 +104,7 @@
                     success : function(data) {
                         if (data =="1") {
                             layer.msg("登录成功，跳转中...",function(){
-                                location.href='index.html'
+                                location.href='/url/admin/doIndex'
                             });
                         } else {
                             slider.reset();

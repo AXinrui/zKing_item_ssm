@@ -12,7 +12,7 @@ public class IndexController {
 
     @RequestMapping(value = "/zking/zking.shtml")
     public String toIndex(){
-        return "admin/index";
+        return "index";
     }
 
     @RequestMapping(value ={"/admin/login","/admin","/admin/login.html"} )
@@ -20,10 +20,10 @@ public class IndexController {
         return "admin/login";
     }
 
-    @RequestMapping(value = "/404")
-    public String noResponse(){
-        return "404";
-    }
+//    @RequestMapping(value = "/")
+//    public String noResponse(){
+//        return "404";
+//    }
 
     @RequestMapping(value = "/i18n")
     public String toI18n(String locale, HttpSession session){

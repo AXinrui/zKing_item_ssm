@@ -1,4 +1,4 @@
-package com.zking.ssm.controller;
+package com.zking.ssm.controller.admin;
 
 import com.zking.ssm.model.Admin;
 import com.zking.ssm.service.IAdminService;
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,12 +31,12 @@ public class AdminController {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "/doLogin")
+    @RequestMapping(value = "/doLogin",method = RequestMethod.POST)
      public String login(@RequestBody(required=true) Map<String,Object> map,HttpSession session,HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
-        String account = map.get("account").toString();
-        String password = map.get("password").toString();
-        String huadong = map.get("huadong").toString();
+        String account = map.get("account")+"";
+        String password = map.get("password")+"";
+        String huadong = map.get("huadong")+"";
         Admin admin = new Admin();
         admin.setAccount(account);
         admin.setPassword(password);
@@ -46,8 +47,8 @@ public class AdminController {
                 session.setAttribute("admin",admin);
                 out.print("1");
             }else{
-                out.print("0");
                 session.setAttribute("huadong",null);
+                out.print("0");
             }
             return null;
         }else{
@@ -65,9 +66,8 @@ public class AdminController {
             yzm += random.nextInt(9);
         }
         session.setAttribute("huadong",yzm);
-        session.setMaxInactiveInterval(120);
+        //session.setMaxInactiveInterval(120);
         out.print(yzm);
     }
-
 
 }
