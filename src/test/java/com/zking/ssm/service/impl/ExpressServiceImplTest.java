@@ -33,8 +33,18 @@ public class ExpressServiceImplTest extends BaseTestCase {
         express.setOrdername("车辆");
         express.setOrderprice(50f);
         express.setOrdervolume("15");
-        express.setOrderremark("20");
+        express.setOrderweight("20");
+        express.setOrderremark("这个是一个备注");
         express.setOrderaddress("湖南");
+        express.setShipper("大刘");
+        express.setShipperaddress("北京");
+        express.setShipperphone("1845465455");
+        express.setConsignee("小刘");
+        express.setConsigneeaddress("上海");
+        express.setConsigneephone("18489498489");
+        express.setUid(5);
+        boolean b = iExpressService.insertSelective(express);
+        System.out.println(b);
 
     }
 
