@@ -1,9 +1,11 @@
 package com.zking.ssm.mapper;
 
 import com.zking.ssm.model.Dict;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface DictMapper {
     int deleteByPrimaryKey(Integer tid);
 

@@ -1,4 +1,4 @@
-package com.zking.ssm.controller;
+package com.zking.ssm.controller.frontEnd;
 
 import com.zking.ssm.model.Dict;
 import com.zking.ssm.service.IDictService;
