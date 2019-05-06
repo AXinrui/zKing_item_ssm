@@ -11,6 +11,15 @@
       <arg column="dict_is_editable" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
+
+  <resultMap id="ResultList" type="com.zking.ssm.model.Dict" >
+      <id column="tid" property="tid" javaType="java.lang.Integer" />
+      <result column="dict_type" property="dictType" javaType="java.lang.String" />
+      <result column="dict_item" property="dictItem" javaType="java.lang.String" />
+      <result column="dict_value" property="dictValue" javaType="java.lang.String" />
+      <result column="dict_logo" property="dictLogo" javaType="java.lang.String" />
+      <result column="dict_is_editable" property="dictIsEditable" javaType="java.lang.Integer" />
+  </resultMap>
   <sql id="Base_Column_List" >
     tid, dict_type, dict_item, dict_value, dict_logo, dict_is_editable
   </sql>
@@ -20,7 +29,12 @@
     from t_dict
     where tid = #{tid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="listDict" resultMap="ResultList" parameterType="com.zking.ssm.model.Dict">
+
+      SELECT * FROM t_dict WHERE 1 = 1
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_dict
     where tid = #{tid,jdbcType=INTEGER}
   </delete>

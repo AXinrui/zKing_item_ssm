@@ -1,11 +1,17 @@
 package com.zking.ssm.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zking.ssm.mapper.DictMapper;
 import com.zking.ssm.model.Dict;
 import com.zking.ssm.service.IDictService;
+import com.zking.ssm.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.awt.print.Book;
+import java.util.List;
 
 @Service
 @Transactional
@@ -42,5 +48,11 @@ public class DictServiceImpl implements IDictService {
     @Override
     public int updateByPrimaryKey(Dict record) {
         return dictMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<Dict> listDict(Dict dict, PageBean pageBean) {
+        List<Dict> dictList = dictMapper.listDict(dict);
+        return dictList;
     }
 }

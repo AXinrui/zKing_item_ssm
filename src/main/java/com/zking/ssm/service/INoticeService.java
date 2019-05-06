@@ -1,12 +1,11 @@
-package com.zking.ssm.mapper;
+package com.zking.ssm.service;
 
 import com.zking.ssm.model.Notice;
-import org.springframework.stereotype.Repository;
+import com.zking.ssm.utils.PageBean;
 
 import java.util.List;
 
-@Repository
-public interface NoticeMapper {
+public interface INoticeService {
     int deleteByPrimaryKey(Integer nid);
 
     int insert(Notice record);
@@ -19,5 +18,6 @@ public interface NoticeMapper {
 
     int updateByPrimaryKey(Notice record);
 
-    List<Notice> listNotice(Notice notice);
+    List<Notice> listNotice(Notice notice, PageBean pageBean);
+
 }
