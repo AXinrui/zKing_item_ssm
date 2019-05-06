@@ -3,11 +3,9 @@ package com.zking.ssm.model;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
-
 @Component
 @ToString
-public class Property implements Serializable {
+public class Property {
     private Integer pid;
 
     private Float pbalance;

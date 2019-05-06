@@ -11,6 +11,15 @@
       <arg column="nstatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
+
+  <resultMap id="ResultList" type="com.zking.ssm.model.Notice" >
+      <id column="nid" property="nid" javaType="java.lang.Integer" />
+      <result column="nname" property="nname" javaType="java.lang.String" />
+      <result column="ncontent" property="ncontent" javaType="java.lang.String" />
+      <result column="dict_item" property="dictItem" javaType="java.lang.String" />
+      <result column="ntime" property="ntime" javaType="java.util.Date" />
+      <result column="nstatus" property="nstatus" javaType="java.lang.Integer" />
+  </resultMap>
   <sql id="Base_Column_List" >
     nid, nname, ncontent, dict_item, ntime, nstatus
   </sql>
@@ -20,7 +29,16 @@
     from t_notice
     where nid = #{nid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="listNotice" resultMap="ResultList" parameterType="com.zking.ssm.model.Notice">
+
+      SELECT * FROM t_notice WHERE 1 = 1
+
+      <if test="dictItem != null" >
+        AND dict_item = #{dictItem,jdbcType=VARCHAR}
+      </if>
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_notice
     where nid = #{nid,jdbcType=INTEGER}
   </delete>

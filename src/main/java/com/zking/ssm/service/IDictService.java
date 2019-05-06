@@ -1,10 +1,12 @@
-package com.zking.ssm.mapper;
+package com.zking.ssm.service;
 
 import com.zking.ssm.model.Dict;
+import com.zking.ssm.utils.PageBean;
 
 import java.util.List;
 
-public interface DictMapper {
+public interface IDictService {
+
     int deleteByPrimaryKey(Integer tid);
 
     int insert(Dict record);
@@ -17,5 +19,6 @@ public interface DictMapper {
 
     int updateByPrimaryKey(Dict record);
 
-    List<Dict> listDict(Dict dict);
+    List<Dict> listDict(Dict dict, PageBean pageBean);
+
 }

@@ -18,6 +18,41 @@
     <link rel="stylesheet" href="../../../css/iconfont.css">
     <link rel="stylesheet" href="../../../css/reg.css">
     <%@include file="/common/head.jsp"%>
+
+    <script type="text/javascript">
+
+        function myfa() {
+            //alert("num2:"+document.getElementById("num2").value);
+            document.getElementById("tel").value = document.getElementById("num2").value;
+            //alert("tel:"+document.getElementById("tel").value);
+        }
+
+        function isVerificationCode() {
+            //定义json对象
+            var userVerificationCode = $("#veri-code").val();
+            //alert(userVerificationCode);
+            var json = {
+                "userVerificationCode" : userVerificationCode
+            };
+
+            // Jquery Ajax请求
+            $.ajax({
+                url : "user/isVerificationCode",
+                type : "POST",
+                async : true,
+                data : json,
+                dataType : 'json',
+                success : function(data) {
+                    if(data == "1"){
+                            location.href='/zking/zking.shtml'
+                    }else{
+                        alert("验证码错误,请重新输入!");
+                    }
+                }
+            });
+        }
+
+    </script>
 </head>
 <body>
 <div id="ajax-hook"></div>
@@ -29,16 +64,17 @@
                 <p class="account_number on">账号登录</p>
                 <p class="message">短信登录</p>
             </div>
+        <form action="${ctx}/user/userLogin" method="post">
             <div class="form1">
                 <p class="p-input pos">
-                    <label for="num">手机号/用户名/UID/邮箱</label>
-                    <input type="text" id="num">
+                    <label for="num">请输入用户名</label>
+                    <input type="text" id="num" name="uaccount">
                     <span class="tel-warn num-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
                 </p>
                 <p class="p-input pos">
                     <label for="pass">请输入密码</label>
                     <input type="password" style="display:none"/>
-                    <input type="password" id="pass" autocomplete="new-password">
+                    <input type="password" id="pass" autocomplete="new-password" name="upassword">
                     <span class="tel-warn pass-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
                 </p>
                 <p class="p-input pos code hide">
@@ -52,7 +88,8 @@
             <div class="form2 hide">
                 <p class="p-input pos">
                     <label for="num2">手机号</label>
-                    <input type="number" id="num2">
+                    <input type="number" id="num2" name="uphone" onchange="myfa()" />
+                    <input type="hidden" id="tel" />
                     <span class="tel-warn num2-err hide"><em>账号或密码错误</em><i class="icon-warn"></i></span>
                 </p>
                 <p class="p-input pos">
@@ -67,7 +104,9 @@
                 <a href="./reg.html" class="z">账号注册</a>
                 <a href="./getpass.html" class="y">忘记密码</a>
             </div>
-            <button class="lang-btn off log-btn">登录</button>
+            <button class="lang-btn off log-btn" id="passwordLogin">登录1</button>
+            <button class="lang-btn off log-btn" style="display: none;" onclick="isVerificationCode()" id="messageLogin">登录2</button>
+        </form>
             <div class="third-party">
                 <a href="#" class="log-qq icon-qq-round"></a>
                 <a href="#" class="log-qq icon-weixin"></a>
@@ -80,5 +119,6 @@
 <script src="../../../js/jquery.js"></script>
 <script src="../../../js/agree.js"></script>
 <script src="../../../js/login.js"></script>
+
 </body>
 </html>

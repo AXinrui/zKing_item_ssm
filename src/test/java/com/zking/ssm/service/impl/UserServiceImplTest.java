@@ -36,16 +36,14 @@ public class UserServiceImplTest extends BaseTestCase {
 
     @Test
     public void loadByUsername() {
-        user.setUaccount("liu2334693431");
-        user.setUpassword("liu123654");
-        String login = iUserService.doLogin(user);
-        System.out.println("登录状态:" + login);
     }
 
     @Test
     public void doLogin() {
-
-
+        user.setUaccount("18569039677");
+        user.setUpassword("123456");
+        String login = iUserService.doLogin(user);
+        System.out.println("登录状态:" + login);
     }
 
     @Test

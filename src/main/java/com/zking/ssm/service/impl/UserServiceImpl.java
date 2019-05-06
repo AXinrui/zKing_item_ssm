@@ -35,6 +35,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public String doLogin(User user) {
         String message = null;
+        System.out.println("用户输入："+user);
         User u = userMapper.selectByUsername(user.getUaccount());
         System.out.println("登录用户：" + u);
         if (null == u || !PasswordHelper.checkCredentials(user.getUpassword(), u.getUsalt(), u.getUpassword())) {
