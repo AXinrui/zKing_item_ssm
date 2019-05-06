@@ -7,21 +7,25 @@
       <arg column="nname" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="ncontent" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="dict_item" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="nimg" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="ntime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="nstatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
 
   <resultMap id="ResultList" type="com.zking.ssm.model.Notice" >
-      <id column="nid" property="nid" javaType="java.lang.Integer" />
-      <result column="nname" property="nname" javaType="java.lang.String" />
-      <result column="ncontent" property="ncontent" javaType="java.lang.String" />
-      <result column="dict_item" property="dictItem" javaType="java.lang.String" />
-      <result column="ntime" property="ntime" javaType="java.util.Date" />
-      <result column="nstatus" property="nstatus" javaType="java.lang.Integer" />
+    <id column="nid" property="nid" javaType="java.lang.Integer" />
+    <result column="nname" property="nname" javaType="java.lang.String" />
+    <result column="ncontent" property="ncontent" javaType="java.lang.String" />
+    <result column="dict_item" property="dictItem" javaType="java.lang.String" />
+    <result column="nimg" property="nimg" javaType="java.lang.String" />
+    <result column="ntime" property="ntime" javaType="java.util.Date" />
+    <result column="nstatus" property="nstatus" javaType="java.lang.Integer" />
   </resultMap>
+
+
   <sql id="Base_Column_List" >
-    nid, nname, ncontent, dict_item, ntime, nstatus
+    nid, nname, ncontent, dict_item, nimg, ntime, nstatus
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -29,26 +33,26 @@
     from t_notice
     where nid = #{nid,jdbcType=INTEGER}
   </select>
-    <select id="listNotice" resultMap="ResultList" parameterType="com.zking.ssm.model.Notice">
 
-      SELECT * FROM t_notice WHERE 1 = 1
+  <select id="listNotice" resultMap="ResultList" parameterType="com.zking.ssm.model.Notice">
+    SELECT * FROM t_notice WHERE 1 = 1
+    <if test="dictItem != null" >
+      AND dict_item = #{dictItem,jdbcType=VARCHAR}
+    </if>
+  </select>
 
-      <if test="dictItem != null" >
-        AND dict_item = #{dictItem,jdbcType=VARCHAR}
-      </if>
 
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_notice
     where nid = #{nid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zking.ssm.model.Notice" >
     insert into t_notice (nid, nname, ncontent, 
-      dict_item, ntime, nstatus
-      )
+      dict_item, nimg, ntime, 
+      nstatus)
     values (#{nid,jdbcType=INTEGER}, #{nname,jdbcType=VARCHAR}, #{ncontent,jdbcType=VARCHAR}, 
-      #{dictItem,jdbcType=VARCHAR}, #{ntime,jdbcType=TIMESTAMP}, #{nstatus,jdbcType=INTEGER}
-      )
+      #{dictItem,jdbcType=VARCHAR}, #{nimg,jdbcType=VARCHAR}, #{ntime,jdbcType=TIMESTAMP}, 
+      #{nstatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.zking.ssm.model.Notice" >
     insert into t_notice
@@ -64,6 +68,9 @@
       </if>
       <if test="dictItem != null" >
         dict_item,
+      </if>
+      <if test="nimg != null" >
+        nimg,
       </if>
       <if test="ntime != null" >
         ntime,
@@ -85,6 +92,9 @@
       <if test="dictItem != null" >
         #{dictItem,jdbcType=VARCHAR},
       </if>
+      <if test="nimg != null" >
+        #{nimg,jdbcType=VARCHAR},
+      </if>
       <if test="ntime != null" >
         #{ntime,jdbcType=TIMESTAMP},
       </if>
@@ -105,6 +115,9 @@
       <if test="dictItem != null" >
         dict_item = #{dictItem,jdbcType=VARCHAR},
       </if>
+      <if test="nimg != null" >
+        nimg = #{nimg,jdbcType=VARCHAR},
+      </if>
       <if test="ntime != null" >
         ntime = #{ntime,jdbcType=TIMESTAMP},
       </if>
@@ -119,6 +132,7 @@
     set nname = #{nname,jdbcType=VARCHAR},
       ncontent = #{ncontent,jdbcType=VARCHAR},
       dict_item = #{dictItem,jdbcType=VARCHAR},
+      nimg = #{nimg,jdbcType=VARCHAR},
       ntime = #{ntime,jdbcType=TIMESTAMP},
       nstatus = #{nstatus,jdbcType=INTEGER}
     where nid = #{nid,jdbcType=INTEGER}

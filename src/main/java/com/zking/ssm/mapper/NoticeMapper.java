@@ -1,5 +1,6 @@
 package com.zking.ssm.mapper;
 
+import com.zking.ssm.model.Dict;
 import com.zking.ssm.model.Notice;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +21,5 @@ public interface NoticeMapper {
     int updateByPrimaryKey(Notice record);
 
     List<Notice> listNotice(Notice notice);
+
 }

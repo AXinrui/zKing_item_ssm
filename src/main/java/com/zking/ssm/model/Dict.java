@@ -1,5 +1,11 @@
 package com.zking.ssm.model;
 
+
+import lombok.ToString;
+import org.springframework.stereotype.Component;
+
+@Component
+@ToString
 public class Dict {
     private Integer tid;
 
@@ -9,16 +15,13 @@ public class Dict {
 
     private String dictValue;
 
-    private String dictLogo;
-
     private Integer dictIsEditable;
 
-    public Dict(Integer tid, String dictType, String dictItem, String dictValue, String dictLogo, Integer dictIsEditable) {
+    public Dict(Integer tid, String dictType, String dictItem, String dictValue, Integer dictIsEditable) {
         this.tid = tid;
         this.dictType = dictType;
         this.dictItem = dictItem;
         this.dictValue = dictValue;
-        this.dictLogo = dictLogo;
         this.dictIsEditable = dictIsEditable;
     }
 
@@ -56,14 +59,6 @@ public class Dict {
 
     public void setDictValue(String dictValue) {
         this.dictValue = dictValue;
-    }
-
-    public String getDictLogo() {
-        return dictLogo;
-    }
-
-    public void setDictLogo(String dictLogo) {
-        this.dictLogo = dictLogo;
     }
 
     public Integer getDictIsEditable() {

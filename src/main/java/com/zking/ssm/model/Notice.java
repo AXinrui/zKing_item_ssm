@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-
 @Component
 @ToString
 public class Notice {
@@ -17,15 +16,18 @@ public class Notice {
 
     private String dictItem;
 
+    private String nimg;
+
     private Date ntime;
 
     private Integer nstatus;
 
-    public Notice(Integer nid, String nname, String ncontent, String dictItem, Date ntime, Integer nstatus) {
+    public Notice(Integer nid, String nname, String ncontent, String dictItem, String nimg, Date ntime, Integer nstatus) {
         this.nid = nid;
         this.nname = nname;
         this.ncontent = ncontent;
         this.dictItem = dictItem;
+        this.nimg = nimg;
         this.ntime = ntime;
         this.nstatus = nstatus;
     }
@@ -64,6 +66,14 @@ public class Notice {
 
     public void setDictItem(String dictItem) {
         this.dictItem = dictItem;
+    }
+
+    public String getNimg() {
+        return nimg;
+    }
+
+    public void setNimg(String nimg) {
+        this.nimg = nimg;
     }
 
     public Date getNtime() {

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: lenovo
-  Date: 2019/5/2
-  Time: 16:54
+  Date: 2019/5/6
+  Time: 11:49
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -19,7 +19,6 @@
 </head>
 
 <body>
-
 <nav class="navbar navbar-default">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -36,7 +35,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active">
+                <li>
                     <a href="index.html">网站首页</a>
                 </li>
                 <li>
@@ -48,14 +47,13 @@
                 <li>
                     <a href="service.html">业务范围</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="news.html">新闻资讯</a>
                 </li>
                 <li>
                     <a href="contact.html">联系我们</a>
                 </li>
             </ul>
-
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -93,99 +91,64 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-<!-- sec -->
-<div class="sec">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-5">
-                <div class="online-add square-title">
-                    <div>
-                        <p>网上下单<span class="glyphicon glyphicon-arrow-right"></span></p>
-                    </div>
-                    <ul class="clearfix">
-                        <li>
-                            <a href="online.html">
-                                立即下单
-                            </a>
-                        </li>
-                        <li>
-                            <a href="problem.html">
-                                常见问题
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="service square-title">
-                    <div>
-                        <p>服务介绍<span class="glyphicon glyphicon-arrow-right"></span></p>
-                    </div>
-                    <ul class="clearfix">
 
-                        <c:forEach items="${listNotice}" var="n">
-                            <c:if test="${n.dictItem == '服务介绍'}">
-                                <li>
-                                    <a href="${ctx}/notice/loadService?nid=${n.nid}">
-                                        <img src="${n.nimg}" />
-                                        <span>${n.nname}</span>
-                                    </a>
-                                </li>
-                            </c:if>
-                        </c:forEach>
+<!--aboupg-->
+<div class="sec aboutpg container">
+    <div class="pg-nav col-sm-3">
+        <div class="tit-ab">
+            <p>新闻资讯</p>
+        </div>
+        <ul>
+            <li><a href="news.html">新闻中心</a></li>
+        </ul>
+        <div class="tit-ol">
+            <p>在线下单</p>
+        </div>
+        <ul>
+            <li><a href="online.html">立即下单</a></li>
+            <li><a href="problem.html">常见问题</a></li>
+        </ul>
+        <div class="tit-co">
+            <p>联系我们</p>
+        </div>
+        <ul>
+            <li><a href="contact.html">在线留言</a></li>
+        </ul>
+    </div>
+    <div class="col-sm-9">
+        <section class="title">
+            <h1>
+                新闻中心
+                <span>NEWS CENTER</span>
+            </h1>
+        </section>
+        <div class="news-con con-pad">
+            <ul>
 
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-7">
-                <ul class="clearfix quicklink">
-                    <li class="link-yf">
-                        <a href="problem-detail3.html">
-                            <img src="${ctx}/static/images/serli/7.png" />
-                            <div>
-                                <span>运费咨询</span>
-                            </div>
+                <c:if test="${n.dictItem == '新闻资讯'}">
+                    <li>
+                        <a href="${ctx}/notice/loadNews?nid=${n.nid}">
+                            <span>${n.ntime}</span>
+                            <p>${n.nname}</p>
                         </a>
                     </li>
-                    <li class="link-wd">
-                        <a href="problem-detail7.html">
-                            <img src="${ctx}/static/images/serli/8.png" />
-                            <div>
-                                <span>网点查询</span>
-                            </div>
+
+                    <li>
+                        <a href="news-detail1.html">
+                            <h2>国家邮政局发通告要求严格落实收寄验视制度</h2>
+                            <span>2017-7-13</span>
+                            <p>
+                                新华网北京8月1日电国家邮政局近日会同公安部、国家安全部联合发出通告，要求切实维护南京青奥会期间的寄递物品安全，严格落实收寄验视制度.
+                            </p>
                         </a>
                     </li>
-                    <li class="link-jj">
-                        <a href="problem-detail5.html">
-                            <img src="${ctx}/static/images/serli/9.png" />
-                            <div>
-                                <span>解决方案</span>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <div class="news">
-                    <div class="news-type">
-                        <ul class="clearfix">
-                            <li>新闻资讯</li>
-                            <li class="more"><a href="news.html">查看更多</a></li>
-                        </ul>
-                    </div>
-                    <ul class="news-list">
+                </c:if>
 
-                        <c:if test="${n.dictItem == '新闻资讯'}">
-                            <li>
-                                <a href="${ctx}/notice/loadNews?nid=${n.nid}">
-                                    <span>${n.ntime}</span>
-                                    <p>${n.nname}</p>
-                                </a>
-                            </li>
-                        </c:if>
-
-                    </ul>
-                </div>
-            </div>
+            </ul>
         </div>
     </div>
 </div>
+
 <footer>
     <div class="container">
         <ul class="foot-nav clearfix">
