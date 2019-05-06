@@ -29,7 +29,7 @@ public class ExpressServiceImplTest extends BaseTestCase {
 
     @Test
     public void insert() {
-        express.setOrderid("123123");
+        express.setOrderid("1132311132312312");
         express.setOrdername("车辆");
         express.setOrderprice(50f);
         express.setOrdervolume("15");
@@ -42,7 +42,7 @@ public class ExpressServiceImplTest extends BaseTestCase {
         express.setConsignee("小刘");
         express.setConsigneeaddress("上海");
         express.setConsigneephone("18489498489");
-        express.setUid(5);
+        express.setUid(4);
         boolean b = iExpressService.insertSelective(express);
         System.out.println(b);
 

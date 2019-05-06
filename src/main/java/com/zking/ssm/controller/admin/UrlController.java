@@ -27,5 +27,12 @@ public class UrlController {
         return "admin/order_list";
     }
 
+    @RequestMapping("/doOrderView")
+    public String doOrderView(String name){
+        System.out.println("name:-----"+name);
+
+        return "admin/order_view";
+    }
+
 
 }
