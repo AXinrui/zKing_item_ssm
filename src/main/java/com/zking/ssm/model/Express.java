@@ -9,217 +9,229 @@ import java.util.Date;
 @Component
 @ToString
 public class Express {
-    private Integer eid;
 
-    private String orderid;
+        private Integer eid;
 
-    private String ordername;
+        private String orderid;
 
-    private Float orderprice;
+        private String ordername;
 
-    private String orderweight;
+        private Float orderprice;
 
-    private String ordervolume;
+        private String orderweight;
 
-    private String orderaddress;
+        private String ordervolume;
 
-    private String orderremark;
+        private String orderaddress;
 
-    private Integer esid;
+        private String orderremark;
 
-    private Integer uid;
+        private Integer esid;
 
-    private Date shippertime;
+        private Integer uid;
 
-    private String shipperphone;
+        private String shipper;
 
-    private String shipperaddress;
+        private Date shippertime;
 
-    private String consignee;
+        private String shipperphone;
 
-    private String consigneephone;
+        private String shipperaddress;
 
-    private String consigneeaddress;
+        private String consignee;
 
-    private Date consigneetime;
+        private String consigneephone;
 
-    private ExpressStatus expressStatus;
+        private String consigneeaddress;
 
-    private User user;
+        private Date consigneetime;
 
-    public Express(Integer eid, String orderid, String ordername, Float orderprice, String orderweight, String ordervolume, String orderaddress, String orderremark, Integer esid, Integer uid, Date shippertime, String shipperphone, String shipperaddress, String consignee, String consigneephone, String consigneeaddress, Date consigneetime) {
-        this.eid = eid;
-        this.orderid = orderid;
-        this.ordername = ordername;
-        this.orderprice = orderprice;
-        this.orderweight = orderweight;
-        this.ordervolume = ordervolume;
-        this.orderaddress = orderaddress;
-        this.orderremark = orderremark;
-        this.esid = esid;
-        this.uid = uid;
-        this.shippertime = shippertime;
-        this.shipperphone = shipperphone;
-        this.shipperaddress = shipperaddress;
-        this.consignee = consignee;
-        this.consigneephone = consigneephone;
-        this.consigneeaddress = consigneeaddress;
-        this.consigneetime = consigneetime;
-    }
+        private ExpressStatus expressStatus;
 
-    public Express() {
-        super();
-    }
+        private User user;
 
-    public Integer getEid() {
-        return eid;
-    }
+        public Express(Integer eid, String orderid, String ordername, Float orderprice, String orderweight, String ordervolume, String orderaddress, String orderremark, Integer esid, Integer uid, String shipper, Date shippertime, String shipperphone, String shipperaddress, String consignee, String consigneephone, String consigneeaddress, Date consigneetime) {
+            this.eid = eid;
+            this.orderid = orderid;
+            this.ordername = ordername;
+            this.orderprice = orderprice;
+            this.orderweight = orderweight;
+            this.ordervolume = ordervolume;
+            this.orderaddress = orderaddress;
+            this.orderremark = orderremark;
+            this.esid = esid;
+            this.uid = uid;
+            this.shipper = shipper;
+            this.shippertime = shippertime;
+            this.shipperphone = shipperphone;
+            this.shipperaddress = shipperaddress;
+            this.consignee = consignee;
+            this.consigneephone = consigneephone;
+            this.consigneeaddress = consigneeaddress;
+            this.consigneetime = consigneetime;
+        }
 
-    public void setEid(Integer eid) {
-        this.eid = eid;
-    }
+        public Express() {
+            super();
+        }
 
-    public String getOrderid() {
-        return orderid;
-    }
+        public Integer getEid() {
+            return eid;
+        }
 
-    public void setOrderid(String orderid) {
-        this.orderid = orderid;
-    }
+        public void setEid(Integer eid) {
+            this.eid = eid;
+        }
 
-    public String getOrdername() {
-        return ordername;
-    }
+        public String getOrderid() {
+            return orderid;
+        }
 
-    public void setOrdername(String ordername) {
-        this.ordername = ordername;
-    }
+        public void setOrderid(String orderid) {
+            this.orderid = orderid;
+        }
 
-    public Float getOrderprice() {
-        return orderprice;
-    }
+        public String getOrdername() {
+            return ordername;
+        }
 
-    public void setOrderprice(Float orderprice) {
-        this.orderprice = orderprice;
-    }
+        public void setOrdername(String ordername) {
+            this.ordername = ordername;
+        }
 
-    public String getOrderweight() {
-        return orderweight;
-    }
+        public Float getOrderprice() {
+            return orderprice;
+        }
 
-    public void setOrderweight(String orderweight) {
-        this.orderweight = orderweight;
-    }
+        public void setOrderprice(Float orderprice) {
+            this.orderprice = orderprice;
+        }
 
-    public String getOrdervolume() {
-        return ordervolume;
-    }
+        public String getOrderweight() {
+            return orderweight;
+        }
 
-    public void setOrdervolume(String ordervolume) {
-        this.ordervolume = ordervolume;
-    }
+        public void setOrderweight(String orderweight) {
+            this.orderweight = orderweight;
+        }
 
-    public String getOrderaddress() {
-        return orderaddress;
-    }
+        public String getOrdervolume() {
+            return ordervolume;
+        }
 
-    public void setOrderaddress(String orderaddress) {
-        this.orderaddress = orderaddress;
-    }
+        public void setOrdervolume(String ordervolume) {
+            this.ordervolume = ordervolume;
+        }
 
-    public String getOrderremark() {
-        return orderremark;
-    }
+        public String getOrderaddress() {
+            return orderaddress;
+        }
 
-    public void setOrderremark(String orderremark) {
-        this.orderremark = orderremark;
-    }
+        public void setOrderaddress(String orderaddress) {
+            this.orderaddress = orderaddress;
+        }
 
-    public Integer getEsid() {
-        return esid;
-    }
+        public String getOrderremark() {
+            return orderremark;
+        }
 
-    public void setEsid(Integer esid) {
-        this.esid = esid;
-    }
+        public void setOrderremark(String orderremark) {
+            this.orderremark = orderremark;
+        }
 
-    public Integer getUid() {
-        return uid;
-    }
+        public Integer getEsid() {
+            return esid;
+        }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
+        public void setEsid(Integer esid) {
+            this.esid = esid;
+        }
 
-    public Date getShippertime() {
-        return shippertime;
-    }
+        public Integer getUid() {
+            return uid;
+        }
 
-    public void setShippertime(Date shippertime) {
-        this.shippertime = shippertime;
-    }
+        public void setUid(Integer uid) {
+            this.uid = uid;
+        }
 
-    public String getShipperphone() {
-        return shipperphone;
-    }
+        public String getShipper() {
+            return shipper;
+        }
 
-    public void setShipperphone(String shipperphone) {
-        this.shipperphone = shipperphone;
-    }
+        public void setShipper(String shipper) {
+            this.shipper = shipper;
+        }
 
-    public String getShipperaddress() {
-        return shipperaddress;
-    }
+        public Date getShippertime() {
+            return shippertime;
+        }
 
-    public void setShipperaddress(String shipperaddress) {
-        this.shipperaddress = shipperaddress;
-    }
+        public void setShippertime(Date shippertime) {
+            this.shippertime = shippertime;
+        }
 
-    public String getConsignee() {
-        return consignee;
-    }
+        public String getShipperphone() {
+            return shipperphone;
+        }
 
-    public void setConsignee(String consignee) {
-        this.consignee = consignee;
-    }
+        public void setShipperphone(String shipperphone) {
+            this.shipperphone = shipperphone;
+        }
 
-    public String getConsigneephone() {
-        return consigneephone;
-    }
+        public String getShipperaddress() {
+            return shipperaddress;
+        }
 
-    public void setConsigneephone(String consigneephone) {
-        this.consigneephone = consigneephone;
-    }
+        public void setShipperaddress(String shipperaddress) {
+            this.shipperaddress = shipperaddress;
+        }
 
-    public String getConsigneeaddress() {
-        return consigneeaddress;
-    }
+        public String getConsignee() {
+            return consignee;
+        }
 
-    public void setConsigneeaddress(String consigneeaddress) {
-        this.consigneeaddress = consigneeaddress;
-    }
+        public void setConsignee(String consignee) {
+            this.consignee = consignee;
+        }
 
-    public Date getConsigneetime() {
-        return consigneetime;
-    }
+        public String getConsigneephone() {
+            return consigneephone;
+        }
 
-    public void setConsigneetime(Date consigneetime) {
-        this.consigneetime = consigneetime;
-    }
+        public void setConsigneephone(String consigneephone) {
+            this.consigneephone = consigneephone;
+        }
 
-    public ExpressStatus getExpressStatus() {
-        return expressStatus;
-    }
+        public String getConsigneeaddress() {
+            return consigneeaddress;
+        }
 
-    public void setExpressStatus(ExpressStatus expressStatus) {
-        this.expressStatus = expressStatus;
-    }
+        public void setConsigneeaddress(String consigneeaddress) {
+            this.consigneeaddress = consigneeaddress;
+        }
 
-    public User getUser() {
-        return user;
-    }
+        public Date getConsigneetime() {
+            return consigneetime;
+        }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+        public void setConsigneetime(Date consigneetime) {
+            this.consigneetime = consigneetime;
+        }
+
+        public ExpressStatus getExpressStatus() {
+            return expressStatus;
+        }
+
+        public void setExpressStatus(ExpressStatus expressStatus) {
+            this.expressStatus = expressStatus;
+        }
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
 }

@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zking.ssm.mapper.ExpressMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.ssm.model.Express" >
+    <constructor >
+      <idArg column="eid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="orderId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ordername" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="orderprice" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="orderweight" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ordervolume" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="orderAddress" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="orderremark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="esid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="uid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="shipper" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="shipperTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="shipperPhone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="shipperaddress" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="consignee" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="consigneePhone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="consigneeAddress" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="consigneeTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+
+  <!--多对一-->
   <resultMap id="manydoone" type="com.zking.ssm.model.Express" >
       <id column="eid" property="eid" javaType="java.lang.Integer" />
       <result column="orderId" property="orderid" javaType="java.lang.String" />
@@ -12,6 +36,7 @@
       <result column="orderremark" property="orderremark" javaType="java.lang.String" />
       <result column="esid" property="esid" javaType="java.lang.Integer" />
       <result column="uid" property="uid" javaType="java.lang.Integer" />
+      <result column="shipper" property="shipper" javaType="java.lang.String" />
       <result column="shipperTime" property="shippertime" javaType="java.util.Date" />
       <result column="shipperPhone" property="shipperphone" javaType="java.lang.String" />
       <result column="shipperaddress" property="shipperaddress" javaType="java.lang.String" />
@@ -23,40 +48,52 @@
         <id column="esid" property="esid" javaType="java.lang.Integer" />
         <result column="esName" property="esname" javaType="java.lang.String" />
       </association>
+      <association property="user" javaType="User">
+        <id column="uid" property="uid" javaType="java.lang.Integer" />
+        <result column="uaccount" property="uaccount" javaType="java.lang.String" />
+        <result column="upassword" property="upassword" javaType="java.lang.String" />
+        <result column="usalt" property="usalt" javaType="java.lang.String" />
+        <result column="uname" property="uname" javaType="java.lang.String" />
+        <result column="uphone" property="uphone" javaType="java.lang.String" />
+        <result column="uaddress" property="uaddress" javaType="java.lang.String" />
+        <result column="ustatus" property="ustatus" javaType="java.lang.Integer" />
+        <result column="iid" property="iid" javaType="java.lang.Integer" />
+        <result column="pid" property="pid" javaType="java.lang.Integer" />
+      </association>
   </resultMap>
   <sql id="Base_Column_List" >
     eid, orderId, ordername, orderprice, orderweight, ordervolume, orderAddress, orderremark, 
-    esid, uid, shipperTime, shipperPhone, shipperaddress, consignee, consigneePhone, 
+    esid, uid, shipper, shipperTime, shipperPhone, shipperaddress, consignee, consigneePhone,
     consigneeAddress, consigneeTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_express
     where eid = #{eid,jdbcType=INTEGER}
   </select>
-    <select id="expressList" resultType="express" parameterType="express">
-
-
-
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <select id="expressList" resultMap="manydoone" parameterType="express">
+    SELECT * FROM t_express WHERE 1=1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_express
     where eid = #{eid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zking.ssm.model.Express" >
-    insert into t_express (eid, orderId, ordername, 
-      orderprice, orderweight, ordervolume, 
-      orderAddress, orderremark, esid, 
-      uid, shipperTime, shipperPhone, 
-      shipperaddress, consignee, consigneePhone, 
-      consigneeAddress, consigneeTime)
-    values (#{eid,jdbcType=INTEGER}, #{orderid,jdbcType=VARCHAR}, #{ordername,jdbcType=VARCHAR}, 
-      #{orderprice,jdbcType=REAL}, #{orderweight,jdbcType=VARCHAR}, #{ordervolume,jdbcType=VARCHAR}, 
-      #{orderaddress,jdbcType=VARCHAR}, #{orderremark,jdbcType=VARCHAR}, #{esid,jdbcType=INTEGER}, 
-      #{uid,jdbcType=INTEGER}, #{shippertime,jdbcType=TIMESTAMP}, #{shipperphone,jdbcType=VARCHAR}, 
-      #{shipperaddress,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR}, #{consigneephone,jdbcType=VARCHAR}, 
-      #{consigneeaddress,jdbcType=VARCHAR}, #{consigneetime,jdbcType=TIMESTAMP})
+    insert into t_express (eid, orderId, ordername,
+    orderprice, orderweight, ordervolume,
+    orderAddress, orderremark, esid,
+    uid, shipper, shipperTime,
+    shipperPhone, shipperaddress, consignee,
+    consigneePhone, consigneeAddress, consigneeTime
+    )
+    values (#{eid,jdbcType=INTEGER}, #{orderid,jdbcType=VARCHAR}, #{ordername,jdbcType=VARCHAR},
+    #{orderprice,jdbcType=REAL}, #{orderweight,jdbcType=VARCHAR}, #{ordervolume,jdbcType=VARCHAR},
+    #{orderaddress,jdbcType=VARCHAR}, #{orderremark,jdbcType=VARCHAR}, #{esid,jdbcType=INTEGER},
+    #{uid,jdbcType=INTEGER}, #{shipper,jdbcType=VARCHAR}, #{shippertime,jdbcType=TIMESTAMP},
+    #{shipperphone,jdbcType=VARCHAR}, #{shipperaddress,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR},
+    #{consigneephone,jdbcType=VARCHAR}, #{consigneeaddress,jdbcType=VARCHAR}, #{consigneetime,jdbcType=TIMESTAMP}
+    )
   </insert>
   <insert id="insertSelective" parameterType="com.zking.ssm.model.Express" >
     insert into t_express
@@ -90,6 +127,9 @@
       </if>
       <if test="uid != null" >
         uid,
+      </if>
+      <if test="shipper != null" >
+        shipper,
       </if>
       <if test="shippertime != null" >
         shipperTime,
@@ -144,6 +184,9 @@
       <if test="uid != null" >
         #{uid,jdbcType=INTEGER},
       </if>
+      <if test="shipper != null" >
+        #{shipper,jdbcType=VARCHAR},
+      </if>
       <if test="shippertime != null" >
         #{shippertime,jdbcType=TIMESTAMP},
       </if>
@@ -197,6 +240,9 @@
       <if test="uid != null" >
         uid = #{uid,jdbcType=INTEGER},
       </if>
+      <if test="shipper != null" >
+        shipper = #{shipper,jdbcType=VARCHAR},
+      </if>
       <if test="shippertime != null" >
         shipperTime = #{shippertime,jdbcType=TIMESTAMP},
       </if>
@@ -232,6 +278,7 @@
       orderremark = #{orderremark,jdbcType=VARCHAR},
       esid = #{esid,jdbcType=INTEGER},
       uid = #{uid,jdbcType=INTEGER},
+      shipper = #{shipper,jdbcType=VARCHAR},
       shipperTime = #{shippertime,jdbcType=TIMESTAMP},
       shipperPhone = #{shipperphone,jdbcType=VARCHAR},
       shipperaddress = #{shipperaddress,jdbcType=VARCHAR},
