@@ -66,4 +66,14 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping(value = "/contactUs")
+    public String toContactUs(){
+        return "frontEnd/contactUs";
+    }
+
+    @RequestMapping(value = "/solution")
+    public String toSolution(){
+        return "frontEnd/solution";
+    }
+
 }

@@ -11,7 +11,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>天地物流有限公司</title>
+    <title>天地物流有限公司 - 服务介绍</title>
     <%@include file="/common/head.jsp"%>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" />
@@ -35,8 +35,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="index.html">网站首页</a>
+                <li class="active">
+                    <a href="${ctx}/zking/zking.shtml">网站首页</a>
                 </li>
                 <li>
                     <a href="about.html">关于我们</a>
@@ -44,11 +44,11 @@
                 <li>
                     <a href="online.html">在线下单</a>
                 </li>
-                <li class="active">
-                    <a href="service.html">业务范围</a>
+                <li>
+                    <a href="${ctx}/notice/loadService?nid=1">业务范围</a>
                 </li>
                 <li>
-                    <a href="news.html">新闻资讯</a>
+                    <a href="${ctx}/notice/loadService?nid=1">新闻资讯</a>
                 </li>
                 <li>
                     <a href="contact.html">联系我们</a>
@@ -138,11 +138,11 @@
 <footer>
     <div class="container">
         <ul class="foot-nav clearfix">
-            <li><a href="index.html">网站首页</a></li>
+            <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
             <li><a href="about.html">关于我们</a></li>
             <li><a href="online.html">在线下单</a></li>
-            <li><a href="service.html">业务范围</a></li>
-            <li><a href="news.html">新闻资讯</a></li>
+            <li><a href="${ctx}/notice/loadService?nid=1">业务范围</a></li>
+            <li><a href="${ctx}/notice/loadNews?nid=7">新闻资讯</a></li>
             <li><a href="contact.html">联系我们</a></li>
         </ul>
         <p class="cpr">

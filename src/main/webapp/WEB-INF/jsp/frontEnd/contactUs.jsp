@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2019/5/6
-  Time: 12:09
+  Time: 20:55
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -10,11 +10,12 @@
 <html lang="zh-cn">
 
 <head>
-    <title>天地物流有限公司 - 新闻详情</title>
+    <meta charset="utf-8" />
+    <title>天地物流有限公司 - 联系我们</title>
     <%@include file="/common/head.jsp"%>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="static/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/main.css" />
 </head>
 
 <body>
@@ -28,14 +29,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="static/images/logo.png"></a>
+            <a class="navbar-brand" href="index.html"><img src="${ctx}/static/images/logo.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active">
-                    <a href="${ctx}/zking/zking.shtml">网站首页</a>
+                <li>
+                    <a href="index.html">网站首页</a>
                 </li>
                 <li>
                     <a href="about.html">关于我们</a>
@@ -44,15 +45,16 @@
                     <a href="online.html">在线下单</a>
                 </li>
                 <li>
-                    <a href="${ctx}/notice/loadService?nid=1">业务范围</a>
+                    <a href="service.html">业务范围</a>
                 </li>
                 <li>
-                    <a href="${ctx}/notice/loadService?nid=1">新闻资讯</a>
+                    <a href="news.html">新闻资讯</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="contact.html">联系我们</a>
                 </li>
             </ul>
+
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -70,13 +72,13 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
         <div class="item active">
-            <img src="static/images/banner/banner1.jpg" >
+            <img src="${ctx}/static/images/banner/banner1.jpg" >
         </div>
         <div class="item">
-            <img src="static/images/banner/banner2.jpg" >
+            <img src="${ctx}/static/images/banner/banner2.jpg" >
         </div>
         <div class="item">
-            <img src="static/images/banner/banner3.jpg" >
+            <img src="${ctx}/static/images/banner/banner3.jpg" >
         </div>
     </div>
 
@@ -95,48 +97,55 @@
 <div class="sec aboutpg container">
     <div class="pg-nav col-sm-3">
         <div class="tit-ab">
-            <p>新闻资讯</p>
+            <p>联系我们</p>
         </div>
         <ul>
-            <li><a href="news.html">新闻中心</a></li>
+            <li><a href="contact.html">联系我们</a></li>
+            <li><a href="contact.html#message">在线留言</a></li>
         </ul>
         <div class="tit-ol">
             <p>在线下单</p>
         </div>
         <ul>
             <li><a href="online.html">立即下单</a></li>
-            <li><a href="${ctx}/notice/listProblem">常见问题</a></li>
-        </ul>
-        <div class="tit-co">
-            <p>联系我们</p>
-        </div>
-        <ul>
-            <li><a href="contact.html">在线留言</a></li>
+            <li><a href="problem.html">常见问题</a></li>
         </ul>
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-9 introduce">
         <section class="title">
             <h1>
-                新闻中心
-                <span>NEWS CENTER</span>
+                联系我们
+                <span>CONTACT US</span>
             </h1>
         </section>
-        <div class="news-detail con-pad">
-            <h1>${notice.nname}</h1>
-            <p>发布时间：<fmt:formatDate value="${n.ntime}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
-            <div>
-                ${notice.ncontent}
+        <div class="contact con-pad">
+            <div class="address">
+                <p>公司地址：湖南省长沙市岳麓区梅溪湖创新中心</p>
+                <p>联系电话：18569039677</p>
+                <p>联系邮箱：2334693431@qq.com</p>
             </div>
-            <nav>
-                <ul class="pager">
-                    <li class="previous">
-                        <a href="javascript:void(0);">上一篇</a>
-                    </li>
-                    <li class="next">
-                        <a href="news-detail2.html">下一篇</a>
-                    </li>
-                </ul>
-            </nav>
+            <div class="map">
+                <iframe src="${ctx}/static/map/map.html"></iframe>
+                <span>地图加载中...</span>
+            </div>
+            <div id="message" class="row">
+                <p>在线留言</p>
+                <form>
+                    <div class="col-sm-6">
+                        <p>姓名：</p>
+                        <input type="text" placeholder="姓名" />
+                    </div>
+                    <div class="col-sm-6">
+                        <p>联系电话：</p>
+                        <input type="tel" placeholder="电话号码" />
+                    </div>
+                    <div class="col-xs-12">
+                        <p>发送的消息：</p>
+                        <textarea placeholder="消息"></textarea>
+                        <input type="button" value="立即发送" />
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -144,11 +153,11 @@
 <footer>
     <div class="container">
         <ul class="foot-nav clearfix">
-            <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
+            <li><a href="index.html">网站首页</a></li>
             <li><a href="about.html">关于我们</a></li>
             <li><a href="online.html">在线下单</a></li>
-            <li><a href="${ctx}/notice/loadService?nid=1">业务范围</a></li>
-            <li><a href="${ctx}/notice/loadNews?nid=7">新闻资讯</a></li>
+            <li><a href="service.html">业务范围</a></li>
+            <li><a href="news.html">新闻资讯</a></li>
             <li><a href="contact.html">联系我们</a></li>
         </ul>
         <p class="cpr">
@@ -163,9 +172,9 @@
         <li><a href="">在线留言</a></li>
     </ul>
 </div>
-<script src="static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="static/js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/static/js/main.js" type="text/javascript" charset="utf-8"></script>
 </body>
 
 </html>
