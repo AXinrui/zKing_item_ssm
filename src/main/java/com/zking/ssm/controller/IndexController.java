@@ -30,6 +30,11 @@ public class IndexController {
         PageBean pageBean = new PageBean();
 
         List<Notice> listNotice = iNoticeService.listNotice(notice, pageBean);
+
+        for (Notice notice1 : listNotice) {
+            System.out.println(notice1);
+        }
+
         List<Dict> listDict = iDictService.listDict(dict, pageBean);
 
         modelAndView.addObject("pageBean",pageBean);

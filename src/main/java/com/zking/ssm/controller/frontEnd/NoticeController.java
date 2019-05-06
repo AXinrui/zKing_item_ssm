@@ -72,7 +72,7 @@ public class NoticeController {
         modelAndView.addObject("listNotice",listNotice);
         modelAndView.addObject("notice",loadNotice);
 
-        modelAndView.setViewName("frontEnd/news");
+        modelAndView.setViewName("frontEnd/news_details");
 
         return modelAndView;
     }

@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: lenovo
-  Date: 2019/5/6
+  Date: 2019/5/6se'r
   Time: 11:11
   To change this template use File | Settings | File Templates.
 --%>
@@ -255,12 +255,11 @@
             <p>业务范围</p>
         </div>
         <ul>
-            <li><a href="service.html">物流卡航</a></li>
-            <li><a href="service1.html">物流空运</a></li>
-            <li><a href="service2.html">限时到达</a></li>
-            <li><a href="service3.html">物流普运</a></li>
-            <li><a href="service4.html">城际快线</a></li>
-            <li><a href="service5.html">合作共赢</a></li>
+            <c:forEach items="${listNotice}" var="n">
+                <c:if test="${n.dictItem == '服务介绍'}">
+                    <li><a href="${ctx}/notice/loadService?nid=${n.nid}">${n.nname}</a></li>
+                </c:if>
+            </c:forEach>
         </ul>
         <div class="tit-ol">
             <p>在线下单</p>

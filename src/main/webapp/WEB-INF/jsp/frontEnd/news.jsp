@@ -45,7 +45,7 @@
                     <a href="online.html">在线下单</a>
                 </li>
                 <li>
-                    <a href="service.html">业务范围</a>
+                    <a href="${ctx}/notice/loadService?nid=1">业务范围</a>
                 </li>
                 <li class="active">
                     <a href="news.html">新闻资讯</a>
@@ -128,7 +128,7 @@
                 <c:if test="${n.dictItem == '新闻资讯'}">
                     <li>
                         <a href="${ctx}/notice/loadNews?nid=${n.nid}">
-                            <span>${n.ntime}</span>
+                            <span><fmt:formatDate value="${n.ntime}" pattern="yyyy-MM-dd HH:mm:ss" /></span>
                             <p>${n.nname}</p>
                         </a>
                     </li>
@@ -155,7 +155,7 @@
             <li><a href="index.html">网站首页</a></li>
             <li><a href="about.html">关于我们</a></li>
             <li><a href="online.html">在线下单</a></li>
-            <li><a href="service.html">业务范围</a></li>
+            <li><a href="${ctx}/notice/loadService?nid=1">业务范围</a></li>
             <li><a href="news.html">新闻资讯</a></li>
             <li><a href="contact.html">联系我们</a></li>
         </ul>
