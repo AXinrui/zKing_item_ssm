@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zking.ssm.mapper.ExpressMapper" >
+
+  <cache type="com.zking.ssm.redis.RedisCache" />
+
   <resultMap id="BaseResultMap" type="com.zking.ssm.model.Express" >
     <constructor >
       <idArg column="eid" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -72,7 +75,7 @@
     from t_express
     where eid = #{eid,jdbcType=INTEGER}
   </select>
-  <select id="expressList" resultMap="manydoone" parameterType="express">
+  <select id="listExpress" resultMap="manydoone" parameterType="express">
     SELECT * FROM t_express a join t_express_status b on a.esid=b.esid join t_user c on c.uid=a.uid WHERE 1=1
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

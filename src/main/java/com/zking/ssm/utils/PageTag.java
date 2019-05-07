@@ -36,6 +36,7 @@ public class PageTag extends BodyTagSupport {
 	}
 
 	private String toHTML() {
+
 		if (null == pageBean || !pageBean.isPagination()) {
 			return "";
 		}

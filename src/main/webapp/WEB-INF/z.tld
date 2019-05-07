@@ -1,0 +1,48 @@
+<!DOCTYPE taglib
+  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+   "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<!-- 标签库描述符 -->
+<taglib xmlns="http://java.sun.com/JSP/TagLibraryDescriptor">
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>1.2</jsp-version>
+	<short-name>Simple Tags</short-name>
+	<uri>/zking</uri>
+	
+	<tag>
+		<name>page</name>
+		<tag-class>com.zking.ssm.utils.PageTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>pageBean</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>pageLayui</name>
+		<tag-class>com.zking.ssm.utils.PageTagLayui</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>pageBean</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>rownum</name>
+		<tag-class>com.zking.ssm.utils.RownumTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>pageBean</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>count</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>

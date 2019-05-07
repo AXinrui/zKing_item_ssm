@@ -49,7 +49,7 @@ public class ExpressServiceImpl implements IExpressService {
     }
 
     @Override
-    public List<Express> expressList(Express express, PageBean pageBean) {
-        return expressMapper.expressList(express);
+    public List<Express> listExpress(Express express, PageBean pageBean) {
+        return expressMapper.listExpress(express);
     }
 }
