@@ -4,9 +4,11 @@ package com.zking.ssm.model;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 @Component
 @ToString
-public class ExpressStatus {
+public class ExpressStatus implements Serializable {
     private Integer esid;
 
     private String esname;

@@ -47,11 +47,11 @@
       <result column="consigneePhone" property="consigneephone" javaType="java.lang.String" />
       <result column="consigneeAddress" property="consigneeaddress" javaType="java.lang.String" />
       <result column="consigneeTime" property="consigneetime" javaType="java.util.Date" />
-      <association property="expressStatus" javaType="ExpressStatus">
+      <collection property="expressStatus" javaType="ExpressStatus">
         <id column="esid" property="esid" javaType="java.lang.Integer" />
         <result column="esName" property="esname" javaType="java.lang.String" />
-      </association>
-      <association property="user" javaType="User">
+      </collection>
+      <collection property="user" javaType="User">
         <id column="uid" property="uid" javaType="java.lang.Integer" />
         <result column="uaccount" property="uaccount" javaType="java.lang.String" />
         <result column="upassword" property="upassword" javaType="java.lang.String" />
@@ -62,7 +62,7 @@
         <result column="ustatus" property="ustatus" javaType="java.lang.Integer" />
         <result column="iid" property="iid" javaType="java.lang.Integer" />
         <result column="pid" property="pid" javaType="java.lang.Integer" />
-      </association>
+      </collection>
   </resultMap>
   <sql id="Base_Column_List" >
     eid, orderId, ordername, orderprice, orderweight, ordervolume, orderAddress, orderremark, 
@@ -76,7 +76,16 @@
     where eid = #{eid,jdbcType=INTEGER}
   </select>
   <select id="listExpress" resultMap="manydoone" parameterType="express">
-    SELECT * FROM t_express a join t_express_status b on a.esid=b.esid join t_user c on c.uid=a.uid WHERE 1=1
+    SELECT a.*, b.*,c.* FROM t_express a join t_express_status b on a.esid=b.esid join t_user c on c.uid=a.uid WHERE 1=1
+    <if test="consigneetime != null  and shippertime !=null " >
+      AND a.shipperTime BETWEEN #{shippertime,jdbcType=TIMESTAMP} AND #{consigneetime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="orderid != null and orderid != ''" >
+      AND a.orderId LIKE concat("%",#{orderid,jdbcType=VARCHAR},"%")
+    </if>
+    <if test="esid != null and esid != '' ">
+      AND a.esid = #{esid,jdbcType=INTEGER}
+    </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_express

@@ -19,10 +19,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <link rel="stylesheet" href="${ctx}/css/font.css">
     <link rel="stylesheet" href="${ctx}/css/xadmin.css">
-    <script src="${ctx}/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="${ctx}/js/xadmin.js"></script>
 </head>
-
 <body>
 <div class="x-nav">
             <span class="layui-breadcrumb">
@@ -40,32 +37,32 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body ">
-                    <form class="layui-form layui-col-space5">
+                    <form class="layui-form" action="/express/expressList" method="post" >
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input class="layui-input" placeholder="开始日" name="start" id="start"></div>
+                            <input class="layui-input" placeholder="开始日" name="dateOne" id="start"></div>
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input class="layui-input" placeholder="截止日" name="end" id="end"></div>
+                            <input class="layui-input" placeholder="截止日" name="dateTwo" id="end"></div>
+                        <%--<div class="layui-input-inline layui-show-xs-block">--%>
+                            <%--<select name="contrller">--%>
+                                <%--<option>支付方式</option>--%>
+                                <%--<option>支付宝</option>--%>
+                                <%--<option>微信</option>vvv--%>
+                                <%--<option>货到付款</option></select>--%>
+                        <%--</div>--%>
                         <div class="layui-input-inline layui-show-xs-block">
-                            <select name="contrller">
-                                <option>支付方式</option>
-                                <option>支付宝</option>
-                                <option>微信</option>vvv
-                                <option>货到付款</option></select>
-                        </div>
-                        <div class="layui-input-inline layui-show-xs-block">
-                            <select name="contrller">
+                            <select name="esid">
                                 <option value="">订单状态</option>
-                                <option value="0">待确认</option>
-                                <option value="1">已确认</option>
-                                <option value="2">已收货</option>
-                                <option value="3">已取消</option>
-                                <option value="4">已完成</option>
-                                <option value="5">已作废</option></select>
+                                <option value="1">等待物流公司确认</option>
+                                <option value="2">等待物流公司揽件</option>
+                                <option value="3">快递运输中</option>
+                                <option value="4">等待收件人签收</option>
+                                <option value="5">收件人已签收</option>
+                                </select>
                         </div>
+                        <div class="layui-input-inline layui-show-xs-block" >
+                            <input type="text" value="${orderId}" name="orderid" placeholder="请输入订单号" autocomplete="off" class="layui-input"></div>
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input type="text" name="username" placeholder="请输入订单号" autocomplete="off" class="layui-input"></div>
-                        <div class="layui-input-inline layui-show-xs-block">
-                            <button class="layui-btn" lay-submit="" lay-filter="sreach">
+                            <button onsubmit="" class="layui-btn" lay-submit="" lay-filter="sreach">
                                 <i class="layui-icon">&#xe615;</i></button>
                         </div>
                     </form>
@@ -80,7 +77,7 @@
                         <thead>
                         <tr>
                             <th>
-                                <input type="checkbox" name="" lay-skin="primary">
+                                <input type="checkbox" lay-filter="checkall" lay-skin="primary">
                             </th>
                             <th>订单编号</th>
                             <th>快递名称</th>
@@ -96,7 +93,7 @@
                         <c:forEach var="i" items="${expressList}">
                         <tr>
                             <td>
-                                <input type="checkbox" name="" lay-skin="primary"></td>
+                                <input type="checkbox" name="id" value="${i.eid}" lay-skin="primary"></td>
                             <td>${i.orderid}</td>
                             <td>${i.ordername}</td>
                             <td>${i.user.uaccount}</td>
@@ -107,9 +104,9 @@
                             <td>${i.orderremark}</td>
                             <td class="td-manage">
                                 <a title="查看取件人" onclick="xadmin.open('查看取件人','${ctx}/express/expressGet?name=${i.eid},1',350,250)" href="javascript:;">
-                                    <i class="layui-icon">&#xe749;</i></a>
+                                    <i class="layui-icon">&#xe63c;</i></a>
                                 <a title="查看发件人" onclick="xadmin.open('查看发件人','${ctx}/express/expressGet?name=${i.eid},2',350,250)" href="javascript:;">
-                                    <i class="layui-icon">&#xe74a;</i></a>
+                                    <i class="layui-icon">&#xe63c;</i></a>
                                 <a title="删除" id="${i.eid}" onclick="member_del(this,this.id)" href="javascript:;">
                                     <i class="layui-icon">&#xe640;</i></a>
                             </td>
@@ -118,27 +115,18 @@
                         </tbody>
                     </table>
                 </div>
-                <%--<div class="layui-card-body ">--%>
-                    <%--<div class="page">--%>
-                        <%--<div>--%>
-                            <%--<a class="prev" href="">上一页</a>--%>
-                            <%--<a class="num" href="">1</a>--%>
-                            <%--<span class="current">2</span>--%>
-                            <%--<a class="num" href="">3</a>--%>
-                            <%--<a class="num" href="">489</a>--%>
-                            <%--<a class="next" href="">下一页</a></div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
                 <z:pageLayui pageBean="${pageBean}"/>
             </div>
         </div>
     </div>
 </div>
 </body>
+<script src="${ctx}/lib/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="${ctx}/js/xadmin.js"></script>
 <script>layui.use(['laydate', 'form'],
     function() {
         var laydate = layui.laydate;
-
+        var  form = layui.form;
         //执行一个laydate实例
         laydate.render({
             elem: '#start' //指定元素
@@ -148,64 +136,63 @@
         laydate.render({
             elem: '#end' //指定元素
         });
-    });
 
-/*用户-停用*/
-function member_stop(obj, id) {
-    layer.confirm('确认要停用吗？',
-        function(index) {
+        // 监听全选
+        form.on('checkbox(checkall)', function(data){
 
-            if ($(obj).attr('title') == '启用') {
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title', '停用');
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!', {
-                    icon: 5,
-                    time: 1000
-                });
-
-            } else {
-                $(obj).attr('title', '启用');
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!', {
-                    icon: 5,
-                    time: 1000
-                });
+            if(data.elem.checked){
+                $('tbody input').prop('checked',true);
+            }else{
+                $('tbody input').prop('checked',false);
             }
-
+            form.render('checkbox');
         });
-}
+    });
 
 /*用户-删除*/
 function member_del(obj, id) {
     layer.confirm('确认要删除吗？',
-        function(index) {
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!', {
-                icon: 1,
-                time: 1000
+        function() {
+            $.ajax({
+                url : "express/expressDel?id="+id,
+                dataType:'json',
+                success : function(data) {
+                    if(data="1"){
+                        //发异步删除数据
+                        $(obj).parents("tr").remove();
+                        layer.msg('已移除!',{icon:1,time:1000});
+                    }
+                }
             });
         });
 }
 
-function delAll(argument) {
+function delAll (argument) {
+    var ids = [];
 
-    var data = tableCheck.getData();
-
-    layer.confirm('确认要删除吗？' + data,
-        function(index) {
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {
-                icon: 1
+    // 获取选中的id
+    $('tbody input').each(function(index, el) {
+        if($(this).prop('checked')){
+            ids.push($(this).val())
+        }
+    });
+    if (""!=ids.toString()){
+        layer.confirm('确认要把所勾选的删除吗？'+ids.toString(),function(index){
+            $.ajax({
+                url : "express/expressDel?id="+ids.toString(),
+                dataType:'json',
+                success : function(data) {
+                    if(data="1"){
+                        //捉到所有被选中的，发异步进行删除
+                        layer.msg('删除成功', {icon: 1});
+                        $(".layui-form-checked").not('.header').parents('tr').remove();
+                    }
+                }
             });
-            $(".layui-form-checked").not('.header').parents('tr').remove();
         });
-}</script>
-
+    }else{
+        layer.msg('请选择!',{icon:5,time:1000});
+    }
+}
+</script>
 </html>
