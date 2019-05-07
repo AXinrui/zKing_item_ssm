@@ -39,10 +39,10 @@
                     <a href="${ctx}/zking/zking.shtml">网站首页</a>
                 </li>
                 <li>
-                    <a href="about.html">关于我们</a>
+                    <a href="${ctx}/notice/aboutUs?nid=18">关于我们</a>
                 </li>
                 <li>
-                    <a href="online.html">在线下单</a>
+                    <a href="${ctx}/express/toOrderOnline">在线下单</a>
                 </li>
                 <li>
                     <a href="${ctx}/notice/loadService?nid=1">业务范围</a>
@@ -51,7 +51,7 @@
                     <a href="${ctx}/notice/loadService?nid=1">新闻资讯</a>
                 </li>
                 <li>
-                    <a href="contact.html">联系我们</a>
+                    <a href="${ctx}/contactUs">联系我们</a>
                 </li>
             </ul>
         </div>
@@ -105,8 +105,16 @@
             <p>在线下单</p>
         </div>
         <ul>
-            <li><a href="online.html">立即下单</a></li>
-            <li><a href="${ctx}/notice/listProblem">常见问题</a></li>
+            <li>
+                <a href="${ctx}/express/toOrderOnline">
+                    立即下单
+                </a>
+            </li>
+            <li>
+                <a href="${ctx}/notice/listProblem">
+                    常见问题
+                </a>
+            </li>
         </ul>
         <div class="tit-co">
             <p>联系我们</p>
@@ -145,11 +153,11 @@
     <div class="container">
         <ul class="foot-nav clearfix">
             <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
-            <li><a href="about.html">关于我们</a></li>
-            <li><a href="online.html">在线下单</a></li>
+            <li><a href="${ctx}/notice/aboutUs?nid=18">关于我们</a></li>
+            <li><a href="${ctx}/express/toOrderOnline">在线下单</a></li>
             <li><a href="${ctx}/notice/loadService?nid=1">业务范围</a></li>
             <li><a href="${ctx}/notice/loadNews?nid=7">新闻资讯</a></li>
-            <li><a href="contact.html">联系我们</a></li>
+            <li><a href="${ctx}/contactUs">联系我们</a></li>
         </ul>
         <p class="cpr">
             Copyright © 2009-2011,All rights reserved 更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a>
@@ -159,8 +167,8 @@
 <div class="fl">
     <ul>
         <li><a href="tel:15995656015">电话咨询</a></li>
-        <li><a href="index.html">网站首页</a></li>
-        <li><a href="">在线留言</a></li>
+        <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
+        <li><a href="${ctx}/solution">在线留言</a></li>
     </ul>
 </div>
 <script src="${ctx}/static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>

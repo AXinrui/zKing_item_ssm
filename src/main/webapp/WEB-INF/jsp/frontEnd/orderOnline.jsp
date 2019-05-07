@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: lenovo
-  Date: 2019/5/6se'r
-  Time: 11:11
+  Date: 2019/5/7
+  Time: 10:45
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,11 +11,11 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>天地物流有限公司 - 服务介绍</title>
+    <title>天地物流有限公司 - 在线下单</title>
     <%@include file="/common/head.jsp"%>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="static/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/main.css" />
 </head>
 
 <body>
@@ -29,7 +29,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="static/images/logo.png"></a>
+            <a class="navbar-brand" href="index.html"><img src="${ctx}/static/images/logo.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -72,13 +72,13 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
         <div class="item active">
-            <img src="static/images/banner/banner1.jpg" >
+            <img src="${ctx}/static/images/banner/banner1.jpg" >
         </div>
         <div class="item">
-            <img src="static/images/banner/banner2.jpg" >
+            <img src="${ctx}/static/images/banner/banner2.jpg" >
         </div>
         <div class="item">
-            <img src="static/images/banner/banner3.jpg" >
+            <img src="${ctx}/static/images/banner/banner3.jpg" >
         </div>
     </div>
 
@@ -97,16 +97,10 @@
 <div class="sec aboutpg container">
     <div class="pg-nav col-sm-3">
         <div class="tit-ab">
-            <p>业务范围</p>
+            <p>在线下单</p>
         </div>
         <ul>
-
-            <c:forEach items="${listNotice}" var="n">
-                <c:if test="${n.dictItem == '服务介绍'}">
-                    <li><a href="${ctx}/notice/loadService?nid=${n.nid}">${n.nname}</a></li>
-                </c:if>
-            </c:forEach>
-
+            <li><a href="online.html">在线下单</a></li>
         </ul>
         <div class="tit-ol">
             <p>在线下单</p>
@@ -130,18 +124,84 @@
             <li><a href="contact.html">在线留言</a></li>
         </ul>
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-9 introduce">
         <section class="title">
             <h1>
-                ${notice.nname}
-                <span>天地物流</span>
+                在线下单
+                <span>ORDER ONLINE</span>
             </h1>
         </section>
-        <div class="ser-con con-pad">
-            ${notice.ncontent}
+
+        <form action="/express/orderOnline" method="post">
+
+        <div class="onlinepg con-pad">
+            <div>
+                <p>发货人信息</p>
+                <ul class="row">
+                    <li class="col-sm-6 col-xs-12">
+                        <p><i>*</i>发货人：</p>
+                        <input type="text" name="shipper"/>
+                    </li>
+                    <li class="col-sm-6 col-xs-12">
+                        <p><i>*</i>手机</p>
+                        <input type="text" name="shipperPhone"/>
+                    </li>
+                    <li class="col-sm-6 col-xs-12">
+                        <p><i>*</i>发货地址</p>
+                        <input type="text" name="shipperaddress"/>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <p>收货人信息</p>
+                <ul class="row">
+                    <li class="col-sm-6 col-xs-12">
+                        <p><i>*</i>收货人：</p>
+                        <input type="text" name="consignee"/>
+                    </li>
+                    <li class="col-sm-6 col-xs-12">
+                        <p><i>*</i>手机</p>
+                        <input type="text" name="consigneePhone"/>
+                    </li>
+                    <li class="col-sm-6 col-xs-12">
+                        <p><i>*</i>发货地址</p>
+                        <input type="text" name="consigneeAddress"/>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <p>货物信息</p>
+                <ul class="row">
+                    <li class="col-sm-6 col-xs-12">
+                        <p><i>*</i>货物名称：</p>
+                        <input type="text" name="ordername"/>
+                    </li>
+                    <li class="col-sm-6 col-xs-12">
+                        <p>货物重量：</p>
+                        <input type="text" name="orderweight"/>
+                    </li>
+                    <li class="col-sm-6 col-xs-12">
+                        <p>货物体积：</p>
+                        <input type="text" name="ordervolume"/>
+                    </li>
+                    <li class="sm">
+                        <p>注：我们的工作人员会在接货时重新称重，此估算仅供参考。</p>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <p>备注信息</p>
+                <textarea name="orderremark"></textarea>
+            </div>
+            <p class="mes">注：我们的工作人员在收到发货请求会主动联系，请注意接听电话。</p>
+            <input type="button" value="立即发送" />
         </div>
+        </form>
+
+
     </div>
 </div>
+
 
 <footer>
     <div class="container">
@@ -165,9 +225,9 @@
         <li><a href="${ctx}/solution">在线留言</a></li>
     </ul>
 </div>
-<script src="static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="static/js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/static/js/main.js" type="text/javascript" charset="utf-8"></script>
 </body>
 
 </html>

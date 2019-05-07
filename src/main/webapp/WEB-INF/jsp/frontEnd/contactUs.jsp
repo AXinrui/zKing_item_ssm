@@ -35,23 +35,23 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="index.html">网站首页</a>
-                </li>
-                <li>
-                    <a href="about.html">关于我们</a>
-                </li>
-                <li>
-                    <a href="online.html">在线下单</a>
-                </li>
-                <li>
-                    <a href="service.html">业务范围</a>
-                </li>
-                <li>
-                    <a href="news.html">新闻资讯</a>
-                </li>
                 <li class="active">
-                    <a href="contact.html">联系我们</a>
+                    <a href="${ctx}/zking/zking.shtml">网站首页</a>
+                </li>
+                <li>
+                    <a href="${ctx}/notice/aboutUs?nid=18">关于我们</a>
+                </li>
+                <li>
+                    <a href="${ctx}/express/toOrderOnline">在线下单</a>
+                </li>
+                <li>
+                    <a href="${ctx}/notice/loadService?nid=1">业务范围</a>
+                </li>
+                <li>
+                    <a href="${ctx}/notice/loadService?nid=1">新闻资讯</a>
+                </li>
+                <li>
+                    <a href="${ctx}/contactUs">联系我们</a>
                 </li>
             </ul>
 
@@ -107,8 +107,16 @@
             <p>在线下单</p>
         </div>
         <ul>
-            <li><a href="online.html">立即下单</a></li>
-            <li><a href="problem.html">常见问题</a></li>
+            <li>
+                <a href="${ctx}/express/toOrderOnline">
+                    立即下单
+                </a>
+            </li>
+            <li>
+                <a href="${ctx}/notice/listProblem">
+                    常见问题
+                </a>
+            </li>
         </ul>
     </div>
     <div class="col-sm-9 introduce">
@@ -128,24 +136,6 @@
                 <iframe src="${ctx}/static/map/map.html"></iframe>
                 <span>地图加载中...</span>
             </div>
-            <div id="message" class="row">
-                <p>在线留言</p>
-                <form>
-                    <div class="col-sm-6">
-                        <p>姓名：</p>
-                        <input type="text" placeholder="姓名" />
-                    </div>
-                    <div class="col-sm-6">
-                        <p>联系电话：</p>
-                        <input type="tel" placeholder="电话号码" />
-                    </div>
-                    <div class="col-xs-12">
-                        <p>发送的消息：</p>
-                        <textarea placeholder="消息"></textarea>
-                        <input type="button" value="立即发送" />
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
 </div>
@@ -153,12 +143,12 @@
 <footer>
     <div class="container">
         <ul class="foot-nav clearfix">
-            <li><a href="index.html">网站首页</a></li>
-            <li><a href="about.html">关于我们</a></li>
-            <li><a href="online.html">在线下单</a></li>
-            <li><a href="service.html">业务范围</a></li>
-            <li><a href="news.html">新闻资讯</a></li>
-            <li><a href="contact.html">联系我们</a></li>
+            <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
+            <li><a href="${ctx}/notice/aboutUs?nid=18">关于我们</a></li>
+            <li><a href="${ctx}/express/toOrderOnline">在线下单</a></li>
+            <li><a href="${ctx}/notice/loadService?nid=1">业务范围</a></li>
+            <li><a href="${ctx}/notice/loadNews?nid=7">新闻资讯</a></li>
+            <li><a href="${ctx}/contactUs">联系我们</a></li>
         </ul>
         <p class="cpr">
             Copyright © 2009-2011,All rights reserved 更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a>
@@ -168,8 +158,8 @@
 <div class="fl">
     <ul>
         <li><a href="tel:15995656015">电话咨询</a></li>
-        <li><a href="index.html">网站首页</a></li>
-        <li><a href="">在线留言</a></li>
+        <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
+        <li><a href="${ctx}/solution">在线留言</a></li>
     </ul>
 </div>
 <script src="${ctx}/static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
