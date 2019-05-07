@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: lenovo
-  Date: 2019/5/6se'r
-  Time: 11:11
+  Date: 2019/5/6
+  Time: 20:55
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,11 +11,11 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>天地物流有限公司 - 服务介绍</title>
+    <title>天地物流有限公司 - 解决方案</title>
     <%@include file="/common/head.jsp"%>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="static/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/main.css" />
 </head>
 
 <body>
@@ -29,7 +29,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="static/images/logo.png"></a>
+            <a class="navbar-brand" href="index.html"><img src="${ctx}/static/images/logo.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -72,13 +72,13 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
         <div class="item active">
-            <img src="static/images/banner/banner1.jpg" >
+            <img src="${ctx}/static/images/banner/banner1.jpg" >
         </div>
         <div class="item">
-            <img src="static/images/banner/banner2.jpg" >
+            <img src="${ctx}/static/images/banner/banner2.jpg" >
         </div>
         <div class="item">
-            <img src="static/images/banner/banner3.jpg" >
+            <img src="${ctx}/static/images/banner/banner3.jpg" >
         </div>
     </div>
 
@@ -97,16 +97,11 @@
 <div class="sec aboutpg container">
     <div class="pg-nav col-sm-3">
         <div class="tit-ab">
-            <p>业务范围</p>
+            <p>联系我们</p>
         </div>
         <ul>
-
-            <c:forEach items="${listNotice}" var="n">
-                <c:if test="${n.dictItem == '服务介绍'}">
-                    <li><a href="${ctx}/notice/loadService?nid=${n.nid}">${n.nname}</a></li>
-                </c:if>
-            </c:forEach>
-
+            <li><a href="contact.html">联系我们</a></li>
+            <li><a href="contact.html#message">在线留言</a></li>
         </ul>
         <div class="tit-ol">
             <p>在线下单</p>
@@ -123,22 +118,19 @@
                 </a>
             </li>
         </ul>
-        <div class="tit-co">
-            <p>联系我们</p>
-        </div>
-        <ul>
-            <li><a href="contact.html">在线留言</a></li>
-        </ul>
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-9 introduce">
         <section class="title">
             <h1>
-                ${notice.nname}
-                <span>天地物流</span>
+                解决方案
+                <span>SOLUTION</span>
             </h1>
         </section>
-        <div class="ser-con con-pad">
-            ${notice.ncontent}
+        <div class="contact con-pad">
+            <div id="message" class="row">
+                <h1>反馈成功</h1>
+                <a href="${ctx}/zking/zking.shtml">返回首页</a>
+            </div>
         </div>
     </div>
 </div>
@@ -165,9 +157,9 @@
         <li><a href="${ctx}/solution">在线留言</a></li>
     </ul>
 </div>
-<script src="static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="static/js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/static/js/main.js" type="text/javascript" charset="utf-8"></script>
 </body>
 
 </html>

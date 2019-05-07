@@ -135,6 +135,9 @@ public class NoticeController {
         PageBean pageBean = new PageBean();
 
         List<Notice> listNotice = iNoticeService.listNotice(n, pageBean);
+        for (Notice nn : listNotice) {
+            System.out.println(nn);
+        }
 
         modelAndView.addObject("pageBean",pageBean);
         modelAndView.addObject("listNotice",listNotice);

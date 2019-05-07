@@ -44,5 +44,20 @@ public class ExpressController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/toOrderOnline")
+    public String toOrderOnline(Express express){return "frontEnd/orderOnline";}
+
+    @RequestMapping(value = "/orderOnline")
+    public String orderOnline(Express express){
+        boolean b = iExpressService.insertSelective(express);
+        if (b == true){
+            return "";
+        } else {
+            return "";
+        }
+    }
+
+
+
 
 }
