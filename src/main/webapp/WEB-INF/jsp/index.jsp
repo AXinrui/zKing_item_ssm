@@ -53,6 +53,9 @@
                 <li>
                     <a href="${ctx}/contactUs">联系我们</a>
                 </li>
+                <c:if test="${not empty user}">
+                    <li><a href="${ctx}/user/toUserCenter">个人中心</a></li>
+                </c:if>
             </ul>
 
         </div>
@@ -196,6 +199,9 @@
             <li><a href="${ctx}/notice/loadService?nid=1">业务范围</a></li>
             <li><a href="${ctx}/notice/loadNews?nid=7">新闻资讯</a></li>
             <li><a href="${ctx}/contactUs">联系我们</a></li>
+            <c:if test="${not empty user}">
+                <li><a href="${ctx}/user/toUserCenter">个人中心</a></li>
+            </c:if>
         </ul>
         <p class="cpr">
             Copyright © 2009-2011,All rights reserved 更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a>

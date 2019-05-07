@@ -11,11 +11,24 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>天地物流有限公司 - 关于我们</title>
+    <title>天地物流有限公司 - 用户中心 - 修改密码</title>
     <%@include file="/common/head.jsp"%>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/main.css" />
+
+    <script type="text/javascript">
+
+        function validationPassword() {
+            var validationPassword = document.getElementById("validationPassword").value;
+            var originalPassword = document.getElementById("originalPassword").value;
+            if(validationPassword != originalPassword){
+                alert("原密码输入错误，请重新输入");
+            }
+        }
+
+    </script>
+
 </head>
 
 <body>
@@ -97,48 +110,67 @@
 <div class="sec aboutpg container">
     <div class="pg-nav col-sm-3">
         <div class="tit-ab">
-            <p>关于我们</p>
+            <p>用户操作</p>
         </div>
         <ul>
-
-            <c:forEach items="${listNotice}" var="n">
-                <li><a href="${ctx}/notice/aboutUs?nid=${n.nid}">${n.nname}</a></li>
-            </c:forEach>
-
+            <li><a href="${ctx}/aboutUs?nid=${n.nid}">用户信息</a></li>
+            <li><a href="${ctx}/aboutUs?nid=${n.nid}">完善个人信息</a></li>
+            <li><a href="${ctx}/aboutUs?nid=${n.nid}">修改密码</a></li>
+            <li><a href="${ctx}/aboutUs?nid=${n.nid}">退出登录</a></li>
+            <li><a href="${ctx}/aboutUs?nid=${n.nid}">账号注销</a></li>
         </ul>
         <div class="tit-ol">
-            <p>在线下单</p>
+            <p>用户钱包</p>
         </div>
         <ul>
-            <li>
-                <a href="${ctx}/express/toOrderOnline">
-                    立即下单
-                </a>
-            </li>
-            <li>
-                <a href="${ctx}/notice/listProblem">
-                    常见问题
-                </a>
-            </li>
+            <c:if test="${sessionScope.user.pid == null}">
+                <li>
+                    <a href="${ctx}/express/toOrderOnline">
+                        开通钱包
+                    </a>
+                </li>
+            </c:if>
+            <c:if test="${sessionScope.user.pid != null}">
+                <li>
+                    <a href="${ctx}/express/toOrderOnline">
+                        账户余额
+                    </a>
+                </li>
+                <li>
+                    <a href="${ctx}/notice/listProblem">
+                        更改交易密码
+                    </a>
+                </li>
+            </c:if>
         </ul>
         <div class="tit-co">
-            <p>联系我们</p>
+            <p>我的物流</p>
         </div>
         <ul>
-            <li><a href="contact.html">在线留言</a></li>
+            <li><a href="contact.html">寄出包裹</a></li>
+            <li><a href="contact.html">我的包裹</a></li>
         </ul>
     </div>
+
+    <form action="${ctx}/user/updateUser" method="post">
     <div class="col-sm-9 introduce">
         <section class="title">
             <h1>
-                ${notice.nname}
-                <span>关于我们</span>
+                用户中心
+                <span>修改密码</span>
+                <input type="hidden" value="${sessionScope.user.upassword}" id="validationPassword" />
             </h1>
         </section>
-        <div class="intro-con con-pad">
-            ${notice.ncontent}
+        <div class="contact con-pad">
+            <div class="address">
+                <p>原始密码：<input type="password" id="originalPassword" onblur="validationPassword()" /></p>
+                <p>修改密码：<input type="password"  /></p>
+                <p>确认密码：<input type="password" name="upassword" /></p>
+            </div>
         </div>
     </div>
+    </form>
+
 </div>
 
 <footer>
@@ -156,13 +188,6 @@
         </p>
     </div>
 </footer>
-<div class="fl">
-    <ul>
-        <li><a href="tel:15995656015">电话咨询</a></li>
-        <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
-        <li><a href="${ctx}/solution">在线留言</a></li>
-    </ul>
-</div>
 <script src="${ctx}/static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="${ctx}/static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="${ctx}/static/js/main.js" type="text/javascript" charset="utf-8"></script>

@@ -28,4 +28,6 @@ public interface IUserService {
 
     boolean deleteByPrimaryKey(Integer uid);//根据id删除
 
+    User selectByUphone(User user);//根据电话查询用户
+
 }
