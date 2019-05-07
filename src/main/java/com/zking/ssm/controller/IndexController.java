@@ -30,6 +30,11 @@ public class IndexController {
         PageBean pageBean = new PageBean();
 
         List<Notice> listNotice = iNoticeService.listNotice(notice, pageBean);
+
+        for (Notice notice1 : listNotice) {
+            System.out.println(notice1);
+        }
+
         List<Dict> listDict = iDictService.listDict(dict, pageBean);
 
         modelAndView.addObject("pageBean",pageBean);
@@ -59,6 +64,16 @@ public class IndexController {
             session.setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME,Locale.US);
         }
         return "index";
+    }
+
+    @RequestMapping(value = "/contactUs")
+    public String toContactUs(){
+        return "frontEnd/contactUs";
+    }
+
+    @RequestMapping(value = "/solution")
+    public String toSolution(){
+        return "frontEnd/solution";
     }
 
 }

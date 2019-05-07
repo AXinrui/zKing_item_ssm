@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2019/5/6
-  Time: 12:09
+  Time: 20:10
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -10,11 +10,12 @@
 <html lang="zh-cn">
 
 <head>
-    <title>天地物流有限公司 - 新闻详情</title>
+    <meta charset="utf-8" />
+    <title>天地物流有限公司 - 常见问题</title>
     <%@include file="/common/head.jsp"%>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="static/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/main.css" />
 </head>
 
 <body>
@@ -28,7 +29,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="static/images/logo.png"></a>
+            <a class="navbar-brand" href="index.html"><img src="${ctx}/static/images/logo.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -70,13 +71,13 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
         <div class="item active">
-            <img src="static/images/banner/banner1.jpg" >
+            <img src="${ctx}/static/images/banner/banner1.jpg" >
         </div>
         <div class="item">
-            <img src="static/images/banner/banner2.jpg" >
+            <img src="${ctx}/static/images/banner/banner2.jpg" >
         </div>
         <div class="item">
-            <img src="static/images/banner/banner3.jpg" >
+            <img src="${ctx}/static/images/banner/banner3.jpg" >
         </div>
     </div>
 
@@ -94,12 +95,6 @@
 <!--aboupg-->
 <div class="sec aboutpg container">
     <div class="pg-nav col-sm-3">
-        <div class="tit-ab">
-            <p>新闻资讯</p>
-        </div>
-        <ul>
-            <li><a href="news.html">新闻中心</a></li>
-        </ul>
         <div class="tit-ol">
             <p>在线下单</p>
         </div>
@@ -117,26 +112,21 @@
     <div class="col-sm-9">
         <section class="title">
             <h1>
-                新闻中心
-                <span>NEWS CENTER</span>
+                常见问题
+                <span>COMMON PROBLEMS</span>
             </h1>
         </section>
-        <div class="news-detail con-pad">
-            <h1>${notice.nname}</h1>
-            <p>发布时间：<fmt:formatDate value="${n.ntime}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
-            <div>
-                ${notice.ncontent}
-            </div>
-            <nav>
-                <ul class="pager">
-                    <li class="previous">
-                        <a href="javascript:void(0);">上一篇</a>
-                    </li>
-                    <li class="next">
-                        <a href="news-detail2.html">下一篇</a>
-                    </li>
-                </ul>
-            </nav>
+        <div class="problem con-pad">
+            <ul>
+                <c:forEach items="${listNotice}" var="n">
+                    <c:if test="${n.dictItem == '常见问题'}">
+                        <li><a href="${ctx}/notice/loadProblem?nid=${n.nid}">
+                                ${n.nname}
+                        </a></li>
+                    </c:if>
+                </c:forEach>
+
+            </ul>
         </div>
     </div>
 </div>
@@ -163,9 +153,9 @@
         <li><a href="">在线留言</a></li>
     </ul>
 </div>
-<script src="static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="static/js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/static/js/main.js" type="text/javascript" charset="utf-8"></script>
 </body>
 
 </html>

@@ -19,7 +19,6 @@
 </head>
 
 <body>
-
 <nav class="navbar navbar-default">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -37,22 +36,22 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li class="active">
-                    <a href="index.html">网站首页</a>
+                    <a href="${ctx}/zking/zking.shtml">网站首页</a>
                 </li>
                 <li>
-                    <a href="about.html">关于我们</a>
+                    <a href="${ctx}/aboutUs?nid=18">关于我们</a>
                 </li>
                 <li>
                     <a href="online.html">在线下单</a>
                 </li>
                 <li>
-                    <a href="service.html">业务范围</a>
+                    <a href="${ctx}/notice/loadService?nid=1">业务范围</a>
                 </li>
                 <li>
-                    <a href="news.html">新闻资讯</a>
+                    <a href="${ctx}/notice/loadService?nid=1">新闻资讯</a>
                 </li>
                 <li>
-                    <a href="contact.html">联系我们</a>
+                    <a href="${ctx}/contactUs">联系我们</a>
                 </li>
             </ul>
 
@@ -109,7 +108,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="problem.html">
+                            <a href="${ctx}/notice/listProblem">
                                 常见问题
                             </a>
                         </li>
@@ -154,7 +153,7 @@
                         </a>
                     </li>
                     <li class="link-jj">
-                        <a href="problem-detail5.html">
+                        <a href="${ctx}/solution">
                             <img src="${ctx}/static/images/serli/9.png" />
                             <div>
                                 <span>解决方案</span>
@@ -166,19 +165,21 @@
                     <div class="news-type">
                         <ul class="clearfix">
                             <li>新闻资讯</li>
-                            <li class="more"><a href="news.html">查看更多</a></li>
+                            <li class="more"><a href="${ctx}/notice/listNews">查看更多</a></li>
                         </ul>
                     </div>
                     <ul class="news-list">
 
-                        <c:if test="${n.dictItem == '新闻资讯'}">
-                            <li>
-                                <a href="${ctx}/notice/loadNews?nid=${n.nid}">
-                                    <span>${n.ntime}</span>
-                                    <p>${n.nname}</p>
-                                </a>
-                            </li>
-                        </c:if>
+                        <c:forEach items="${listNotice}" var="n">
+                            <c:if test="${n.dictItem == '新闻资讯'}">
+                                <li>
+                                    <a href="${ctx}/notice/loadNews?nid=${n.nid}">
+                                        <span><fmt:formatDate value="${n.ntime}" pattern="yyyy-MM-dd HH:mm:ss" /></span>
+                                        <p>${n.nname}</p>
+                                    </a>
+                                </li>
+                            </c:if>
+                        </c:forEach>
 
                     </ul>
                 </div>
@@ -189,11 +190,11 @@
 <footer>
     <div class="container">
         <ul class="foot-nav clearfix">
-            <li><a href="index.html">网站首页</a></li>
+            <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
             <li><a href="about.html">关于我们</a></li>
             <li><a href="online.html">在线下单</a></li>
-            <li><a href="service.html">业务范围</a></li>
-            <li><a href="news.html">新闻资讯</a></li>
+            <li><a href="${ctx}/notice/loadService?nid=1">业务范围</a></li>
+            <li><a href="${ctx}/notice/loadNews?nid=7">新闻资讯</a></li>
             <li><a href="contact.html">联系我们</a></li>
         </ul>
         <p class="cpr">

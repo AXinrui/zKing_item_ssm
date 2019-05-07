@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2019/5/6
-  Time: 12:09
+  Time: 20:28
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -10,7 +10,8 @@
 <html lang="zh-cn">
 
 <head>
-    <title>天地物流有限公司 - 新闻详情</title>
+    <meta charset="utf-8" />
+    <title>天地物流有限公司 - 问题解决及详情</title>
     <%@include file="/common/head.jsp"%>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" />
@@ -94,12 +95,6 @@
 <!--aboupg-->
 <div class="sec aboutpg container">
     <div class="pg-nav col-sm-3">
-        <div class="tit-ab">
-            <p>新闻资讯</p>
-        </div>
-        <ul>
-            <li><a href="news.html">新闻中心</a></li>
-        </ul>
         <div class="tit-ol">
             <p>在线下单</p>
         </div>
@@ -117,15 +112,16 @@
     <div class="col-sm-9">
         <section class="title">
             <h1>
-                新闻中心
-                <span>NEWS CENTER</span>
+                常见问题
+                <span>COMMON PROBLEMS</span>
             </h1>
         </section>
         <div class="news-detail con-pad">
             <h1>${notice.nname}</h1>
-            <p>发布时间：<fmt:formatDate value="${n.ntime}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
             <div>
-                ${notice.ncontent}
+                <p>
+                    ${notice.ncontent}
+                </p>
             </div>
             <nav>
                 <ul class="pager">
@@ -133,7 +129,7 @@
                         <a href="javascript:void(0);">上一篇</a>
                     </li>
                     <li class="next">
-                        <a href="news-detail2.html">下一篇</a>
+                        <a href="problem-detail2.html">下一篇</a>
                     </li>
                 </ul>
             </nav>

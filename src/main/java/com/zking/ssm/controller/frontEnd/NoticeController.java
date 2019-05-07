@@ -26,7 +26,7 @@ public class NoticeController {
         model.addAttribute("notice",notice);
     }
 
-    @RequestMapping(value = "/noticeList")
+    /*@RequestMapping(value = "/noticeList")
     public ModelAndView noticeList(Notice n, ModelAndView modelAndView, HttpServletRequest request){
 
         PageBean pageBean = new PageBean();
@@ -39,7 +39,7 @@ public class NoticeController {
         //modelAndView.setViewName("sys/listBook");
 
         return modelAndView;
-    }
+    }*/
 
     @RequestMapping(value = "/loadService")
     public ModelAndView loadService(Notice n, ModelAndView modelAndView, HttpServletRequest request){
@@ -59,6 +59,21 @@ public class NoticeController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/listNews")
+    public ModelAndView listNews(Notice n, ModelAndView modelAndView, HttpServletRequest request){
+
+        n.setDictItem("新闻资讯");
+        PageBean pageBean = new PageBean();
+        List<Notice> listNotice = iNoticeService.listNotice(n, pageBean);
+
+        modelAndView.addObject("pageBean",pageBean);
+        modelAndView.addObject("listNotice",listNotice);
+
+        modelAndView.setViewName("frontEnd/news");
+
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/loadNews")
     public ModelAndView loadNews(Notice n, ModelAndView modelAndView, HttpServletRequest request){
 
@@ -72,7 +87,60 @@ public class NoticeController {
         modelAndView.addObject("listNotice",listNotice);
         modelAndView.addObject("notice",loadNotice);
 
-        modelAndView.setViewName("frontEnd/news");
+        modelAndView.setViewName("frontEnd/news_details");
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/listProblem")
+    public ModelAndView listProblem(Notice n, ModelAndView modelAndView, HttpServletRequest request){
+
+        n.setDictItem("常见问题");
+        PageBean pageBean = new PageBean();
+        List<Notice> listNotice = iNoticeService.listNotice(n, pageBean);
+
+        modelAndView.addObject("pageBean",pageBean);
+        modelAndView.addObject("listNotice",listNotice);
+
+        modelAndView.setViewName("frontEnd/problem");
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/loadProblem")
+    public ModelAndView loadProblem(Notice n, ModelAndView modelAndView, HttpServletRequest request){
+
+        Notice loadNotice = iNoticeService.selectByPrimaryKey(n.getNid());
+
+        PageBean pageBean = new PageBean();
+
+        List<Notice> listNotice = iNoticeService.listNotice(n, pageBean);
+
+        modelAndView.addObject("pageBean",pageBean);
+        modelAndView.addObject("listNotice",listNotice);
+        modelAndView.addObject("notice",loadNotice);
+
+        modelAndView.setViewName("frontEnd/problem_details");
+
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/aboutUs")
+    public ModelAndView aboutUs(Notice n, ModelAndView modelAndView, HttpServletRequest request){
+
+        Notice loadNotice = iNoticeService.selectByPrimaryKey(n.getNid());
+
+        n.setDictItem("关于我们");
+        PageBean pageBean = new PageBean();
+
+        List<Notice> listNotice = iNoticeService.listNotice(n, pageBean);
+
+        modelAndView.addObject("pageBean",pageBean);
+        modelAndView.addObject("listNotice",listNotice);
+        modelAndView.addObject("notice",loadNotice);
+
+        modelAndView.setViewName("frontEnd/aboutUs");
 
         return modelAndView;
     }

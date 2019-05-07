@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2019/5/6
-  Time: 12:09
+  Time: 21:16
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -10,8 +10,8 @@
 <html lang="zh-cn">
 
 <head>
-    <title>天地物流有限公司 - 新闻详情</title>
-    <%@include file="/common/head.jsp"%>
+    <meta charset="utf-8" />
+    <title>天地物流有限公司 - 关于我们</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="static/css/main.css" />
@@ -34,25 +34,26 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active">
-                    <a href="${ctx}/zking/zking.shtml">网站首页</a>
-                </li>
                 <li>
+                    <a href="index.html">网站首页</a>
+                </li>
+                <li class="active">
                     <a href="about.html">关于我们</a>
                 </li>
                 <li>
                     <a href="online.html">在线下单</a>
                 </li>
                 <li>
-                    <a href="${ctx}/notice/loadService?nid=1">业务范围</a>
+                    <a href="service.html">业务范围</a>
                 </li>
                 <li>
-                    <a href="${ctx}/notice/loadService?nid=1">新闻资讯</a>
+                    <a href="news.html">新闻资讯</a>
                 </li>
                 <li>
                     <a href="contact.html">联系我们</a>
                 </li>
             </ul>
+
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -95,17 +96,23 @@
 <div class="sec aboutpg container">
     <div class="pg-nav col-sm-3">
         <div class="tit-ab">
-            <p>新闻资讯</p>
+            <p>关于我们</p>
         </div>
         <ul>
-            <li><a href="news.html">新闻中心</a></li>
+
+            <c:forEach items="${listNotice}" var="n">
+                <c:if test="${n.dictItem == '关于我们'}">
+                    <li><a href="${ctx}/aboutUs?nid=${n.nid}">${n.nname}</a></li>
+                </c:if>
+            </c:forEach>
+
         </ul>
         <div class="tit-ol">
             <p>在线下单</p>
         </div>
         <ul>
             <li><a href="online.html">立即下单</a></li>
-            <li><a href="${ctx}/notice/listProblem">常见问题</a></li>
+            <li><a href="problem.html">常见问题</a></li>
         </ul>
         <div class="tit-co">
             <p>联系我们</p>
@@ -114,29 +121,15 @@
             <li><a href="contact.html">在线留言</a></li>
         </ul>
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-9 introduce">
         <section class="title">
             <h1>
-                新闻中心
-                <span>NEWS CENTER</span>
+                ${notice.nname}
+                <span>关于我们</span>
             </h1>
         </section>
-        <div class="news-detail con-pad">
-            <h1>${notice.nname}</h1>
-            <p>发布时间：<fmt:formatDate value="${n.ntime}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
-            <div>
-                ${notice.ncontent}
-            </div>
-            <nav>
-                <ul class="pager">
-                    <li class="previous">
-                        <a href="javascript:void(0);">上一篇</a>
-                    </li>
-                    <li class="next">
-                        <a href="news-detail2.html">下一篇</a>
-                    </li>
-                </ul>
-            </nav>
+        <div class="intro-con con-pad">
+            ${notice.ncontent}
         </div>
     </div>
 </div>
@@ -144,11 +137,11 @@
 <footer>
     <div class="container">
         <ul class="foot-nav clearfix">
-            <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
+            <li><a href="index.html">网站首页</a></li>
             <li><a href="about.html">关于我们</a></li>
             <li><a href="online.html">在线下单</a></li>
-            <li><a href="${ctx}/notice/loadService?nid=1">业务范围</a></li>
-            <li><a href="${ctx}/notice/loadNews?nid=7">新闻资讯</a></li>
+            <li><a href="service.html">业务范围</a></li>
+            <li><a href="news.html">新闻资讯</a></li>
             <li><a href="contact.html">联系我们</a></li>
         </ul>
         <p class="cpr">

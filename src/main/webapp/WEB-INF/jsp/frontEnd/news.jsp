@@ -11,7 +11,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>天地物流有限公司</title>
+    <title>天地物流有限公司 - 新闻中心</title>
     <%@include file="/common/head.jsp"%>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap.min.css" />
@@ -35,8 +35,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="index.html">网站首页</a>
+                <li class="active">
+                    <a href="${ctx}/zking/zking.shtml">网站首页</a>
                 </li>
                 <li>
                     <a href="about.html">关于我们</a>
@@ -45,10 +45,10 @@
                     <a href="online.html">在线下单</a>
                 </li>
                 <li>
-                    <a href="service.html">业务范围</a>
+                    <a href="${ctx}/notice/loadService?nid=1">业务范围</a>
                 </li>
-                <li class="active">
-                    <a href="news.html">新闻资讯</a>
+                <li>
+                    <a href="${ctx}/notice/loadService?nid=1">新闻资讯</a>
                 </li>
                 <li>
                     <a href="contact.html">联系我们</a>
@@ -106,7 +106,7 @@
         </div>
         <ul>
             <li><a href="online.html">立即下单</a></li>
-            <li><a href="problem.html">常见问题</a></li>
+            <li><a href="${ctx}/notice/listProblem">常见问题</a></li>
         </ul>
         <div class="tit-co">
             <p>联系我们</p>
@@ -125,24 +125,16 @@
         <div class="news-con con-pad">
             <ul>
 
-                <c:if test="${n.dictItem == '新闻资讯'}">
-                    <li>
-                        <a href="${ctx}/notice/loadNews?nid=${n.nid}">
-                            <span>${n.ntime}</span>
-                            <p>${n.nname}</p>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="news-detail1.html">
-                            <h2>国家邮政局发通告要求严格落实收寄验视制度</h2>
-                            <span>2017-7-13</span>
-                            <p>
-                                新华网北京8月1日电国家邮政局近日会同公安部、国家安全部联合发出通告，要求切实维护南京青奥会期间的寄递物品安全，严格落实收寄验视制度.
-                            </p>
-                        </a>
-                    </li>
-                </c:if>
+                <c:forEach items="${listNotice}" var="n">
+                    <c:if test="${n.dictItem == '新闻资讯'}">
+                        <li>
+                            <a href="${ctx}/notice/loadNews?nid=${n.nid}">
+                                <span><fmt:formatDate value="${n.ntime}" pattern="yyyy-MM-dd HH:mm:ss" /></span>
+                                <p>${n.nname}</p>
+                            </a>
+                        </li>
+                    </c:if>
+                </c:forEach>
 
             </ul>
         </div>
@@ -152,11 +144,11 @@
 <footer>
     <div class="container">
         <ul class="foot-nav clearfix">
-            <li><a href="index.html">网站首页</a></li>
+            <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
             <li><a href="about.html">关于我们</a></li>
             <li><a href="online.html">在线下单</a></li>
-            <li><a href="service.html">业务范围</a></li>
-            <li><a href="news.html">新闻资讯</a></li>
+            <li><a href="${ctx}/notice/loadService?nid=1">业务范围</a></li>
+            <li><a href="${ctx}/notice/loadNews?nid=7">新闻资讯</a></li>
             <li><a href="contact.html">联系我们</a></li>
         </ul>
         <p class="cpr">
