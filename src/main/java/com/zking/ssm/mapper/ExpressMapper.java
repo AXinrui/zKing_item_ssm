@@ -19,5 +19,5 @@ public interface ExpressMapper {
 
     int updateByPrimaryKey(Express record);
 
-    List<Express> expressList(Express express);
+    List<Express> listExpress(Express express);
 }

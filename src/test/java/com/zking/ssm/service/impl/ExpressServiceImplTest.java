@@ -3,6 +3,7 @@ package com.zking.ssm.service.impl;
 import com.zking.ssm.model.Express;
 import com.zking.ssm.service.IExpressService;
 import com.zking.ssm.service.impl.base.BaseTestCase;
+import com.zking.ssm.utils.PageBean;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,23 +30,24 @@ public class ExpressServiceImplTest extends BaseTestCase {
 
     @Test
     public void insert() {
-        express.setOrderid("1132311132312312");
-        express.setOrdername("车辆");
-        express.setOrderprice(50f);
-        express.setOrdervolume("15");
-        express.setOrderweight("20");
-        express.setOrderremark("这个是一个备注");
-        express.setOrderaddress("湖南");
-        express.setShipper("大刘");
-        express.setShipperaddress("北京");
-        express.setShipperphone("1845465455");
-        express.setConsignee("小刘");
-        express.setConsigneeaddress("上海");
-        express.setConsigneephone("18489498489");
-        express.setUid(4);
-        boolean b = iExpressService.insertSelective(express);
-        System.out.println(b);
-
+        for (int i =0;i<10;i++){
+            express.setOrderid("23125544335113445321"+i);
+            express.setOrdername("一把伞"+i);
+            express.setOrderprice(50f+i);
+            express.setOrdervolume("10");
+            express.setOrderweight("15");
+            express.setOrderremark("这个是一个备注"+i);
+            express.setOrderaddress("上海");
+            express.setShipper("大刘");
+            express.setShipperaddress("云南");
+            express.setShipperphone("1845465455");
+            express.setConsignee("小刘");
+            express.setConsigneeaddress("黑龙江");
+            express.setConsigneephone("18489498489");
+            express.setUid(1);
+            boolean b = iExpressService.insertSelective(express);
+            System.out.println(b);
+        }
     }
 
     @Test
@@ -58,6 +60,7 @@ public class ExpressServiceImplTest extends BaseTestCase {
 
     @Test
     public void updateByPrimaryKeySelective() {
+
     }
 
     @Test
@@ -66,9 +69,15 @@ public class ExpressServiceImplTest extends BaseTestCase {
 
     @Test
     public void expressList() {
-        List<Express> expresses = iExpressService.expressList(express, null);
+        PageBean pageBean = new PageBean();
+        pageBean.setRows(1);
+        List<Express> expresses = iExpressService.listExpress(express, pageBean);
         for (Express express1 : expresses) {
-            System.out.println(express1.toString());
+            System.out.println("express1:-----"+express1.toString());
+        }
+        List<Express> expresses1 = iExpressService.listExpress(express, pageBean);
+        for (Express express1 : expresses1) {
+            System.out.println("express1:-----"+express1.toString());
         }
 
     }

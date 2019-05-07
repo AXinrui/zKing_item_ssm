@@ -1,5 +1,6 @@
 package com.zking.ssm.controller;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.zking.ssm.model.Express;
 import com.zking.ssm.service.IExpressService;
 import com.zking.ssm.utils.PageBean;
@@ -22,20 +23,19 @@ public class ExpressController {
 
     @RequestMapping("/expressList")
     public ModelAndView expressList(Express express, HttpServletRequest request, ModelAndView modelAndView){
-        express = new Express();
-        System.out.println("express"+express);
         PageBean pageBean = new PageBean();
+        pageBean.setRows(5);
         pageBean.setRequest(request);
-        List<Express> expressList = iExpressService.expressList(express, pageBean);
+        List<Express> expressList = iExpressService.listExpress(express, pageBean);
+        System.out.println("expressList:"+expressList.size());
         modelAndView.setViewName("admin/order_list");
         modelAndView.addObject(expressList);
-        modelAndView.addObject(pageBean);
+        modelAndView.addObject("pageBean",pageBean);
         return modelAndView;
     }
 
     @RequestMapping(value = "/expressGet",method = RequestMethod.GET)
     public ModelAndView expressGet(ModelAndView modelAndView,String name){
-        System.out.println("name:"+name);
         String[] split = name.split(",");
         Express express = iExpressService.selectByPrimaryKey(Integer.parseInt(split[0]));
         modelAndView.addObject(express);

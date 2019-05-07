@@ -19,6 +19,6 @@ public interface IExpressService {
 
     boolean updateByPrimaryKey(Express record);
 
-    List<Express> expressList(Express express, PageBean pageBean);
+    List<Express> listExpress(Express express, PageBean pageBean);
 
 }

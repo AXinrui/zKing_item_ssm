@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../../../common/head.jsp"%>
+<%@taglib prefix="z" uri="/zking" %>
 <!DOCTYPE html>
 <html class="x-admin-sm">
 
@@ -117,17 +118,18 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="layui-card-body ">
-                    <div class="page">
-                        <div>
-                            <a class="prev" href="">&lt;&lt;</a>
-                            <a class="num" href="">1</a>
-                            <span class="current">2</span>
-                            <a class="num" href="">3</a>
-                            <a class="num" href="">489</a>
-                            <a class="next" href="">&gt;&gt;</a></div>
-                    </div>
-                </div>
+                <%--<div class="layui-card-body ">--%>
+                    <%--<div class="page">--%>
+                        <%--<div>--%>
+                            <%--<a class="prev" href="">上一页</a>--%>
+                            <%--<a class="num" href="">1</a>--%>
+                            <%--<span class="current">2</span>--%>
+                            <%--<a class="num" href="">3</a>--%>
+                            <%--<a class="num" href="">489</a>--%>
+                            <%--<a class="next" href="">下一页</a></div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+                <z:pageLayui pageBean="${pageBean}"/>
             </div>
         </div>
     </div>

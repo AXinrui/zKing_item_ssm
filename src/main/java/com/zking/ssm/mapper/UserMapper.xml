@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zking.ssm.mapper.UserMapper" >
+
+  <cache type="com.zking.ssm.redis.RedisCache"
+         eviction="LRU"
+         flushInterval="6000000"
+         size="1024"
+         readOnly="false"
+  />
+
   <resultMap id="BaseResultMap" type="com.zking.ssm.model.User" >
     <constructor >
       <idArg column="uid" jdbcType="INTEGER" javaType="java.lang.Integer" />
