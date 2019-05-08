@@ -64,7 +64,6 @@ public class UserController {
         }
     }
 
-
     @RequestMapping(value = "/toUserRegister")
     public String toUserRegister(){
         return "user/user_register";
@@ -72,6 +71,8 @@ public class UserController {
 
     @RequestMapping(value = "/userRegister")
     public String userRegister(User u){
+        u.setIid(1);
+        u.setUstatus(1);
         String returnValue = "";
         u.setUaccount(u.getUphone());
         System.out.println("注册用户1："+ u);
@@ -93,17 +94,19 @@ public class UserController {
     }
 
     @RequestMapping(value = "/userLogin")
-    public String userLogin(User u){
+    public String userLogin(User u, HttpSession session){
         System.out.println(u);
         String returnValue = "";
-            String login = iUserService.doLogin(u);
-            System.out.println(login);
-            if (login.equals("登录成功")){
-                returnValue = "index";
-            }
-            if (login.equals("帐号已锁定，请与管理员联系")){
-                returnValue = "user/user_login";
-            }
+        String login = iUserService.doLogin(u);
+        System.out.println(login);
+        if (login.equals("登录成功")){
+            User user1 = iUserService.loadByUsername(u);
+            session.setAttribute("user",user1);
+            returnValue = "redirect:/zking/zking.shtml";
+        }
+        if (login.equals("帐号已锁定，请与管理员联系")){
+            returnValue = "user/user_login";
+        }
 
         return returnValue;
     }
@@ -229,6 +232,57 @@ public class UserController {
             if(b) out.print("1");else out.print("0");
         }
 
+    }
+
+    //判断短信验证码
+    @RequestMapping(value = "isVerificationCodeLogin")
+    public void isVerificationCodeLogin(User u, HttpSession session, String userVerificationCode, HttpServletResponse response) throws Exception {
+        PrintWriter out = response.getWriter();
+        System.out.println("用户输入验证码：" + userVerificationCode);
+        String verificationCode = (String)session.getAttribute("verificationCode");
+        System.out.println("系统验证码：" + verificationCode);
+        System.out.println("判断结果：" + userVerificationCode.equals(verificationCode));
+        if(userVerificationCode.equals(verificationCode)){
+            User user1 = iUserService.selectByUphone(u);
+            session.setAttribute("user",user1);
+            System.out.println("验证码效验正确！");
+            out.print("1");
+        } else{
+            System.out.println("验证码效验错误！");
+            out.print("0");
+        }
+    }
+
+    @RequestMapping("/toUserCenter")
+    public String toUserCenter(){
+        return "user/user_center";
+    }
+
+    @RequestMapping("/updateUser")
+    public String updateUser(User u){
+        boolean b = iUserService.updateByPrimaryKeySelective(u);
+        if (b == true){
+            return "user/user_center";
+        } else {
+            return "user/perfect_information";
+        }
+    }
+
+    @RequestMapping("/userExit")
+    public String userExit(HttpSession session){
+        session.setAttribute("user",null);
+        return "user/user_login";
+    }
+
+    @RequestMapping("/Cancellation")
+    public void Cancellation(User u, HttpSession session, String userVerificationCode, HttpServletResponse response) throws Exception {
+        PrintWriter out = response.getWriter();
+        boolean b = iUserService.deleteByPrimaryKey(u.getUid());
+        if(b){
+            out.print("1");
+        } else{
+            out.print("0");
+        }
     }
 
 

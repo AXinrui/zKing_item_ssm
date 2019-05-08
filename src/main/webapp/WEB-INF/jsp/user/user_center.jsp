@@ -11,11 +11,40 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>天地物流有限公司 - 关于我们</title>
+    <title>天地物流有限公司 - 用户中心</title>
     <%@include file="/common/head.jsp"%>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/main.css" />
+    <script type="text/javascript">
+
+        function Cancellation() {
+            //定义json对象
+            var uid = $("#uid").val();
+            alert(uid);
+            //alert(userVerificationCode);
+            var json = {
+                "uid" : uid
+            };
+
+            // Jquery Ajax请求
+            $.ajax({
+                url : "user/Cancellation",
+                type : "POST",
+                async : true,
+                data : json,
+                dataType : 'json',
+                success : function(data) {
+                    if(data == "1"){
+                        location.href='/user/toUserLogin'
+                    }else{
+                        alert("密码错误,请重新输入!");
+                    }
+                }
+            });
+        }
+
+    </script>
 </head>
 
 <body>
@@ -97,46 +126,85 @@
 <div class="sec aboutpg container">
     <div class="pg-nav col-sm-3">
         <div class="tit-ab">
-            <p>关于我们</p>
+            <p>用户操作</p>
         </div>
         <ul>
-
-            <c:forEach items="${listNotice}" var="n">
-                <li><a href="${ctx}/notice/aboutUs?nid=${n.nid}">${n.nname}</a></li>
-            </c:forEach>
-
+            <li><a href="${ctx}/aboutUs?nid=${n.nid}">用户信息</a></li>
+            <li><a href="${ctx}/aboutUs?nid=${n.nid}">完善个人信息</a></li>
+            <li><a href="${ctx}/aboutUs?nid=${n.nid}">修改密码</a></li>
+            <li><a href="${ctx}/aboutUs?nid=${n.nid}">退出登录</a></li>
+            <li><a href="" onclick="Cancellation()">账号注销</a></li>
+            <input type="hidden" id="uid" value="${sessionScope.user.uid}" />
+            <%--${ctx}/user/Cancellation?uid=${sessionScope.user.uid}--%>
         </ul>
         <div class="tit-ol">
-            <p>在线下单</p>
+            <p>用户钱包</p>
         </div>
         <ul>
-            <li>
-                <a href="${ctx}/express/toOrderOnline">
-                    立即下单
-                </a>
-            </li>
-            <li>
-                <a href="${ctx}/notice/listProblem">
-                    常见问题
-                </a>
-            </li>
+            <c:if test="${sessionScope.user.pid == null}">
+                <li>
+                    <a href="${ctx}/express/toOrderOnline">
+                        开通钱包
+                    </a>
+                </li>
+            </c:if>
+            <c:if test="${sessionScope.user.pid != null}">
+                <li>
+                    <a href="${ctx}/express/toOrderOnline">
+                        账户余额
+                    </a>
+                </li>
+                <li>
+                    <a href="${ctx}/notice/listProblem">
+                        更改交易密码
+                    </a>
+                </li>
+            </c:if>
         </ul>
         <div class="tit-co">
-            <p>联系我们</p>
+            <p>我的物流</p>
         </div>
         <ul>
-            <li><a href="contact.html">在线留言</a></li>
+            <li><a href="contact.html">寄出包裹</a></li>
+            <li><a href="contact.html">我的包裹</a></li>
         </ul>
     </div>
     <div class="col-sm-9 introduce">
         <section class="title">
             <h1>
-                ${notice.nname}
-                <span>关于我们</span>
+                用户中心
+                <span>用户信息</span>
             </h1>
         </section>
-        <div class="intro-con con-pad">
-            ${notice.ncontent}
+        <div class="contact con-pad">
+            <div class="address">
+                <p>用户账号：${sessionScope.user.uaccount}</p>
+                <p>用户昵称：
+                    <c:if test="${sessionScope.user.uname != null}">
+                        ${sessionScope.user.uname}
+                    </c:if>
+                    <c:if test="${sessionScope.user.uname == null}">
+                        user_${sessionScope.user.uid}
+                    </c:if>
+                </p>
+                <p>绑定手机：${sessionScope.user.uphone}</p>
+                <P>我的地址：
+                    <c:if test="${sessionScope.user.uaddress != null}">
+                        ${sessionScope.user.uaddress}
+                    </c:if>
+                    <c:if test="${sessionScope.user.uaddress == null}">
+                        <a href="#">编辑地址</a>
+                    </c:if>
+                </P>
+                <P>用户身份：
+                    <c:if test="${sessionScope.user.iid == 1}">
+                        普通用户
+                    </c:if>
+                    <c:if test="${sessionScope.user.iid == 2}">
+                        物流派送员
+                    </c:if>
+                </P>
+            </div>
         </div>
     </div>
 </div>
@@ -156,13 +224,6 @@
         </p>
     </div>
 </footer>
-<div class="fl">
-    <ul>
-        <li><a href="tel:15995656015">电话咨询</a></li>
-        <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
-        <li><a href="${ctx}/solution">在线留言</a></li>
-    </ul>
-</div>
 <script src="${ctx}/static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="${ctx}/static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="${ctx}/static/js/main.js" type="text/javascript" charset="utf-8"></script>

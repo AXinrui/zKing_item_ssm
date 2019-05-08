@@ -37,7 +37,7 @@
 
             // Jquery Ajax请求
             $.ajax({
-                url : "user/isVerificationCode",
+                url : "user/isVerificationCodeLogin",
                 type : "POST",
                 async : true,
                 data : json,
@@ -104,8 +104,8 @@
                 <a href="./reg.html" class="z">账号注册</a>
                 <a href="./getpass.html" class="y">忘记密码</a>
             </div>
-            <button class="lang-btn off log-btn" id="passwordLogin">登录1</button>
-            <button class="lang-btn off log-btn" style="display: none;" onclick="isVerificationCode()" id="messageLogin">登录2</button>
+            <button class="lang-btn off log-btn" id="passwordLogin">登录</button>
+            <button class="lang-btn off log-btn" style="display: none;" onclick="isVerificationCode()" id="messageLogin">登录</button>
         </form>
             <div class="third-party">
                 <a href="#" class="log-qq icon-qq-round"></a>

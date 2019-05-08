@@ -112,4 +112,9 @@ public class UserServiceImpl implements IUserService {
 
         return userMapper.updateByPrimaryKeySelective(u);
     }
+
+    @Override
+    public User selectByUphone(User user) {
+        return userMapper.selectByUphone(user);
+    }
 }

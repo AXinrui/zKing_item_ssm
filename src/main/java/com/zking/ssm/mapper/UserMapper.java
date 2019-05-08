@@ -22,4 +22,6 @@ public interface UserMapper {
     User selectByUsername(String username);//根据用户名查询用户
 
     List<User> listUser(User user);
+
+    User selectByUphone(User user);//根据电话查询用户
 }
