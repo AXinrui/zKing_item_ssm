@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zking.ssm.mapper.CourierSonUserMapper" >
+  <cache type="com.zking.ssm.redis.RedisCache" />
   <resultMap id="BaseResultMap" type="com.zking.ssm.model.CourierSonUser" >
     <constructor >
       <idArg column="csuid" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -8,6 +9,39 @@
       <arg column="eid" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
+  <!--一对一-->
+  <resultMap id="onetomeny" type="com.zking.ssm.model.CourierSonUser" >
+      <id column="csuid" property="csuid" javaType="java.lang.Integer" />
+      <result column="cuid" property="cuid" javaType="java.lang.Integer" />
+      <result column="eid" property="eid" javaType="java.lang.Integer" />
+      <collection property="courierUser" javaType="courierUser">
+        <id column="cuid" property="cuid" javaType="java.lang.Integer" />
+        <result column="uid" property="uid" javaType="java.lang.Integer" />
+        <result column="curemark" property="curemark" javaType="java.lang.String" />
+        <result column="eutime" property="eutime" javaType="java.util.Date" />
+      </collection>
+      <collection property="express" javaType="express">
+        <id column="eid" property="eid" javaType="java.lang.Integer" />
+        <result column="orderId" property="orderid" javaType="java.lang.String" />
+        <result column="ordername" property="ordername" javaType="java.lang.String" />
+        <result column="orderprice" property="orderprice" javaType="java.lang.Float" />
+        <result column="orderweight" property="orderweight" javaType="java.lang.String" />
+        <result column="ordervolume" property="ordervolume" javaType="java.lang.String" />
+        <result column="orderAddress" property="orderaddress" javaType="java.lang.String" />
+        <result column="orderremark" property="orderremark" javaType="java.lang.String" />
+        <result column="esid" property="esid" javaType="java.lang.Integer" />
+        <result column="uid" property="uid" javaType="java.lang.Integer" />
+        <result column="shipper" property="shipper" javaType="java.lang.String" />
+        <result column="shipperTime" property="shippertime" javaType="java.util.Date" />
+        <result column="shipperPhone" property="shipperphone" javaType="java.lang.String" />
+        <result column="shipperaddress" property="shipperaddress" javaType="java.lang.String" />
+        <result column="consignee" property="consignee" javaType="java.lang.String" />
+        <result column="consigneePhone" property="consigneephone" javaType="java.lang.String" />
+        <result column="consigneeAddress" property="consigneeaddress" javaType="java.lang.String" />
+        <result column="consigneeTime" property="consigneetime" javaType="java.util.Date" />
+      </collection>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     csuid, cuid, eid
   </sql>
@@ -17,7 +51,13 @@
     from courier_son_user
     where csuid = #{csuid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="listCourierSonUser" resultMap="onetomeny" parameterType="courierSonUser">
+        SELECT a.*,b.*,c.* FROM courier_son_user a JOIN courier_user b ON a.cuid = b.cuid JOIN t_express c ON a.eid = c.eid WHERE 1=1
+        <if test="cuid != null and cuid != ''" >
+          AND a.cuid = #{cuid,jdbcType=INTEGER}
+        </if>
+</select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from courier_son_user
     where csuid = #{csuid,jdbcType=INTEGER}
   </delete>

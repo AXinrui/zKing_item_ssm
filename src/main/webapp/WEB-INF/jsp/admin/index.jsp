@@ -102,7 +102,12 @@
                             <cite>用户列表</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('会员删除','${ctx}/user/userListDel')">
+                        <a onclick="xadmin.add_tab('快递员列表','${ctx}/user/userList')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>快递员列表</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('用户删除','${ctx}/user/userListDel')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>会员删除</cite></a>
                     </li>
@@ -120,9 +125,9 @@
                             <cite>订单列表</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('订单列表1','order-list1.html')">
+                        <a onclick="xadmin.add_tab('订单分配管理','${ctx}/courierUser/courierUserList')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>订单列表1</cite></a>
+                            <cite>订单分配管理</cite></a>
                     </li>
                 </ul>
             </li>

@@ -4,20 +4,21 @@ package com.zking.ssm.model;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 @Component
 @ToString
-public class CourierSonUser {
+public class CourierSonUser implements Serializable {
     private Integer csuid;
 
     private Integer cuid;
 
     private Integer eid;
 
-    public CourierSonUser(Integer csuid, Integer cuid, Integer eid) {
-        this.csuid = csuid;
-        this.cuid = cuid;
-        this.eid = eid;
-    }
+    private CourierUser courierUser;
+
+    private Express express;
+
 
     public CourierSonUser() {
         super();
@@ -45,5 +46,21 @@ public class CourierSonUser {
 
     public void setEid(Integer eid) {
         this.eid = eid;
+    }
+
+    public CourierUser getCourierUser() {
+        return courierUser;
+    }
+
+    public void setCourierUser(CourierUser courierUser) {
+        this.courierUser = courierUser;
+    }
+
+    public Express getExpress() {
+        return express;
+    }
+
+    public void setExpress(Express express) {
+        this.express = express;
     }
 }

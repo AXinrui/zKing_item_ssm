@@ -17,6 +17,8 @@ public class CourierUser {
 
     private Date eutime;
 
+    private User user;
+
     public CourierUser(Integer cuid, Integer uid, String curemark, Date eutime) {
         this.cuid = cuid;
         this.uid = uid;
@@ -58,5 +60,13 @@ public class CourierUser {
 
     public void setEutime(Date eutime) {
         this.eutime = eutime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
