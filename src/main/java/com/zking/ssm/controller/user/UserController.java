@@ -3,6 +3,7 @@ package com.zking.ssm.controller.user;
 import com.zking.ssm.model.User;
 import com.zking.ssm.service.IUserService;
 import com.zking.ssm.utils.PageBean;
+import com.zking.ssm.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -117,9 +119,11 @@ public class UserController {
         if (null!= uname&&""!=uname) {
             user.setUname(uname);
         }
+        user.setUstatus(1);
         PageBean pageBean = new PageBean();
+        pageBean.setRows(5);
         pageBean.setRequest(request);
-        List<User> userList = iUserService.userList(user, pageBean);
+        List<User> userList = iUserService.listUser(user, pageBean);
         modelAndView.setViewName("admin/user_list");
         modelAndView.addObject(userList);
         modelAndView.addObject(pageBean);
@@ -135,7 +139,7 @@ public class UserController {
         user.setUstatus(3);
         PageBean pageBean = new PageBean();
         pageBean.setRequest(request);
-        List<User> userList = iUserService.userList(user, pageBean);
+        List<User> userList = iUserService.listUser(user, pageBean);
         modelAndView.addObject(userList);
         modelAndView.addObject(pageBean);
         modelAndView.setViewName("admin/user_del");
@@ -309,6 +313,40 @@ public class UserController {
         } else{
             out.print("0");
         }
+    }
+
+    @RequestMapping("/userExpressList")
+    public ModelAndView userExpressList(String uname, HttpServletRequest request,ModelAndView modelAndView){
+        User user = new User();
+        if (null!= uname&&""!=uname) {
+            user.setUname(uname);
+        }
+        user.setUstatus(2);
+        PageBean pageBean = new PageBean();
+        pageBean.setRows(5);
+        pageBean.setRequest(request);
+        List<User> userList = iUserService.listUser(user, pageBean);
+        List<UserVo> userVos = new ArrayList<UserVo>();
+        UserVo userVo = null;
+        int start = 0;
+        int end = 0;
+        for (User user1 : userList) {
+            userVo = new UserVo();
+            user.setUid(user1.getUid());
+            userVo.setUser(user1);
+            user.setUname("正在派送中");
+            start = iUserService.getUserExpressSum(user);
+            user.setUname("派送完毕");
+            end = iUserService.getUserExpressSum(user);
+            userVo.setStart(start);
+            userVo.setEnd(end);
+            System.out.println(userVo.toString());
+            userVos.add(userVo);
+        }
+        modelAndView.setViewName("admin/user_express_list");
+        modelAndView.addObject("userVo",userVos);
+        modelAndView.addObject(pageBean);
+        return modelAndView;
     }
 
 

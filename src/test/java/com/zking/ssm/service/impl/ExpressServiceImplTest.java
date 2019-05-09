@@ -7,6 +7,7 @@ import com.zking.ssm.utils.PageBean;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -56,6 +57,14 @@ public class ExpressServiceImplTest extends BaseTestCase {
 
     @Test
     public void selectByPrimaryKey() {
+        String string = "2019-05-07";
+        String[] split = string.split("-");
+        Date date = new Date();
+        date.setYear(Integer.parseInt(split[0]));
+        date.setMonth(Integer.parseInt(split[1]));
+        date.setDate(Integer.parseInt(split[2]));
+        System.out.println(date.toLocaleString());
+
     }
 
     @Test
@@ -70,7 +79,7 @@ public class ExpressServiceImplTest extends BaseTestCase {
     @Test
     public void expressList() {
         PageBean pageBean = new PageBean();
-        pageBean.setRows(1);
+        pageBean.setRows(10);
         List<Express> expresses = iExpressService.listExpress(express, pageBean);
         for (Express express1 : expresses) {
             System.out.println("express1:-----"+express1.toString());

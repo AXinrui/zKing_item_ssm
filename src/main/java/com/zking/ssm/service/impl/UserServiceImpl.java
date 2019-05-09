@@ -7,11 +7,13 @@ import com.zking.ssm.shiro.PasswordHelper;
 import com.zking.ssm.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
 
 @Service("userService")
+@Transactional
 public class UserServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;
@@ -61,7 +63,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public List<User> userList(User user, PageBean pageBean) {
+    public List<User> listUser(User user, PageBean pageBean) {
         return userMapper.listUser(user);
     }
 
@@ -120,6 +122,11 @@ public class UserServiceImpl implements IUserService {
         u.setUsalt(salt);
 
         return userMapper.updateByPrimaryKeySelective(u);
+    }
+
+    @Override
+    public int getUserExpressSum(User user) {
+        return userMapper.getUserExpressSum(user);
     }
 
     @Override

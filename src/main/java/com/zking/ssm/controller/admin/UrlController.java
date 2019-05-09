@@ -34,5 +34,10 @@ public class UrlController {
         return "admin/order_view";
     }
 
+    @RequestMapping("/doUserExpressAdd")
+    public String doUserExpressAdd(){
+        return "admin/member_add";
+    }
+
 
 }

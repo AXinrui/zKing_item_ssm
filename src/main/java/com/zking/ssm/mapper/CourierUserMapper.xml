@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zking.ssm.mapper.CourierUserMapper" >
+  <cache type="com.zking.ssm.redis.RedisCache" />
   <resultMap id="BaseResultMap" type="com.zking.ssm.model.CourierUser" >
     <constructor >
       <idArg column="cuid" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -9,6 +10,25 @@
       <arg column="eutime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
+  <resultMap id="onetoone" type="com.zking.ssm.model.CourierUser" >
+      <id column="cuid" property="cuid" javaType="java.lang.Integer" />
+      <result column="uid" property="uid" javaType="java.lang.Integer" />
+      <result column="curemark" property="curemark" javaType="java.lang.String" />
+      <result column="eutime" property="eutime" javaType="java.util.Date" />
+      <collection property="user" javaType="user" >
+        <id column="uid" property="uid" javaType="java.lang.Integer" />
+        <result column="uaccount" property="uaccount" javaType="java.lang.String" />
+        <result column="upassword" property="upassword" javaType="java.lang.String" />
+        <result column="usalt" property="usalt" javaType="java.lang.String" />
+        <result column="uname" property="uname" javaType="java.lang.String" />
+        <result column="uphone" property="uphone" javaType="java.lang.String" />
+        <result column="uaddress" property="uaddress" javaType="java.lang.String" />
+        <result column="ustatus" property="ustatus" javaType="java.lang.Integer" />
+        <result column="iid" property="iid" javaType="java.lang.Integer" />
+        <result column="pid" property="pid" javaType="java.lang.Integer" />
+      </collection>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     cuid, uid, curemark, eutime
   </sql>
@@ -18,17 +38,29 @@
     from courier_user
     where cuid = #{cuid,jdbcType=INTEGER}
   </select>
+    <select id="listCourierUser" resultMap="onetoone" parameterType="com.zking.ssm.vo.CourierUserVo">
+      SELECT a.*,b.* FROM courier_user a JOIN t_user b on a.uid = b.uid WHERE 1=1
+      <if test="string1 != '' and string1 != null" >
+        AND b.uaccount LIKE concat("%",#{user.uaccount,jdbcType=VARCHAR},"%")
+      </if>
+      <if test="string2 != '' and string2 != null" >
+        AND a.cuid LIKE concat("%",#{string2,jdbcType=VARCHAR},"%")
+      </if>
+      <if test="dateOne !=null and dateTwo != null " >
+        AND a.eutime BETWEEN #{dateOne,jdbcType=TIMESTAMP} AND #{dateTwo,jdbcType=TIMESTAMP}
+      </if>
+    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from courier_user
     where cuid = #{cuid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zking.ssm.model.CourierUser" >
-    insert into courier_user (cuid, uid, curemark, 
+  <insert id="insert" useGeneratedKeys="true" keyProperty="cuid" parameterType="com.zking.ssm.model.CourierUser" >
+    insert into courier_user ( uid, curemark,
       eutime)
-    values (#{cuid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{curemark,jdbcType=VARCHAR}, 
+    values ( #{uid,jdbcType=INTEGER}, #{curemark,jdbcType=VARCHAR},
       #{eutime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.zking.ssm.model.CourierUser" >
+  <insert id="insertSelective"  parameterType="com.zking.ssm.model.CourierUser" >
     insert into courier_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="cuid != null" >

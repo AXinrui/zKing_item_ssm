@@ -66,7 +66,7 @@ public class PageTagLayui extends BodyTagSupport {
 		if(page==1){
 			minDisabled = "layui-disabled";
 		}
-		if (page==max) {
+		if (page==max||max==0) {
 			maxDisabled = "layui-disabled";
 		}
 		String str = "<div class='layui-card-body '><div class='page'><div><a class='prev "+minDisabled+"' href='javascript:gotoPage("+ pageBean.getPreviousPage() + ")'>上一页</a>";

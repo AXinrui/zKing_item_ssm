@@ -1,12 +1,12 @@
-package com.zking.ssm.mapper;
+package com.zking.ssm.service;
 
 import com.zking.ssm.model.CourierSonUser;
+import com.zking.ssm.utils.PageBean;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface CourierSonUserMapper {
+public interface ICourierSonUserService {
     int deleteByPrimaryKey(Integer csuid);
 
     int insert(CourierSonUser record);
@@ -19,6 +19,6 @@ public interface CourierSonUserMapper {
 
     int updateByPrimaryKey(CourierSonUser record);
 
-    List<CourierSonUser> listCourierSonUser(CourierSonUser courierSonUser);
+    List<CourierSonUser> listCourierSonUser(CourierSonUser courierSonUser, PageBean pageBean);
 
 }

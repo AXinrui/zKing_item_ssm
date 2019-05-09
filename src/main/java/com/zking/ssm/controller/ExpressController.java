@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.zking.ssm.model.Express;
 import com.zking.ssm.service.IExpressService;
 import com.zking.ssm.utils.PageBean;
+import com.zking.ssm.utils.TransitionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -22,15 +27,21 @@ public class ExpressController {
     private IExpressService iExpressService;
 
     @RequestMapping("/expressList")
-    public ModelAndView expressList(Express express, HttpServletRequest request, ModelAndView modelAndView){
+    public ModelAndView expressList(Express express,String dateOne,String dateTwo, HttpServletRequest request, ModelAndView modelAndView){
+        System.out.println("expresss:-------"+express.toString());
         PageBean pageBean = new PageBean();
         pageBean.setRows(5);
         pageBean.setRequest(request);
+        if (dateOne!=null&&""!=dateOne&&dateTwo!=null&&""!=dateTwo) {
+            express.setShippertime(TransitionUtil.getDate(dateOne,1));
+            express.setConsigneetime(TransitionUtil.getDate(dateTwo,2));
+        }
         List<Express> expressList = iExpressService.listExpress(express, pageBean);
         System.out.println("expressList:"+expressList.size());
         modelAndView.setViewName("admin/order_list");
         modelAndView.addObject(expressList);
         modelAndView.addObject("pageBean",pageBean);
+        modelAndView.addObject("orderId",express.getOrderid());
         return modelAndView;
     }
 
@@ -57,7 +68,42 @@ public class ExpressController {
         }
     }
 
+    @RequestMapping("/expressDel")
+    public void delExpress(String id,HttpServletResponse response)throws IOException {
+        PrintWriter out = response.getWriter();
+        int toid = 0;
+        boolean b = false;
+        try {
+            toid = Integer.parseInt(id);
+            b = iExpressService.deleteByPrimaryKey(toid);
+            if(b) out.print("1");else out.print("0");
+        }catch (Exception e){
+            //System.out.println("转型异常----执行以下方法");
+            String[] split = id.split(",");
+            for (int i=0;i<split.length;i++){
+                b = iExpressService.deleteByPrimaryKey(Integer.parseInt(split[i]));
+            }
+            if(b) out.print("1");else out.print("0");
+        }
 
+    }
+
+    @RequestMapping("/expressCourierList")
+    public ModelAndView expressCourierList(String esid, HttpServletRequest request, ModelAndView modelAndView){
+        System.out.println("expresss:-------"+esid.toString());
+        Express express = new Express();
+        express.setEsid(Integer.parseInt(esid.split(",")[0]));
+        PageBean pageBean = new PageBean();
+//        pageBean.setRows(10);
+        pageBean.setRequest(request);
+        List<Express> expressList = iExpressService.listExpress(express, pageBean);
+        System.out.println("expressList:"+expressList.size());
+        modelAndView.setViewName("admin/courier_detail");
+        modelAndView.addObject("expressLists",expressList);
+        modelAndView.addObject("uid",esid.split(",")[1]);
+        modelAndView.addObject("pageBean",pageBean);
+        return modelAndView;
+    }
 
 
 }
