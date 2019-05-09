@@ -32,7 +32,7 @@
         <form class="layui-form">
             <div class="layui-form-item">
                 <label for="L_email" class="layui-form-label">
-                    <span class="x-red">*</span>邮箱</label>
+                    <span class="x-red">*</span>手机号</label>
                 <div class="layui-input-inline">
                     <input type="text" id="L_email" name="email" required="" lay-verify="email" autocomplete="off" class="layui-input"></div>
                 <div class="layui-form-mid layui-word-aux">

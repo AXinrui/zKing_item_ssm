@@ -57,8 +57,7 @@
                 <div class="layui-card-header">
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除</button>
-                    <button class="layui-btn" onclick="xadmin.open('添加用户','${ctx}/courierUser/orderCourierAdd',800,600)">
-                        <i class="layui-icon"></i>分配</button></div>
+                    </div>
                 <div class="layui-card-body ">
                     <table class="layui-table layui-form">
                         <thead>

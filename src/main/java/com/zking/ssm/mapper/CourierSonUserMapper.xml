@@ -64,10 +64,8 @@
         where csuid = #{csuid,jdbcType=INTEGER}
     </delete>
     <insert id="insert" parameterType="com.zking.ssm.model.CourierSonUser" >
-        insert into courier_son_user (csuid, cuid, eid,
-        csustutic)
-        values (#{csuid,jdbcType=INTEGER}, #{cuid,jdbcType=INTEGER}, #{eid,jdbcType=INTEGER},
-        #{csustutic,jdbcType=VARCHAR})
+        insert into courier_son_user ( cuid, eid)
+        values ( #{cuid,jdbcType=INTEGER}, #{eid,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" parameterType="com.zking.ssm.model.CourierSonUser" >
         insert into courier_son_user

@@ -7,11 +7,13 @@ import com.zking.ssm.shiro.PasswordHelper;
 import com.zking.ssm.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
 
 @Service("userService")
+@Transactional
 public class UserServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;

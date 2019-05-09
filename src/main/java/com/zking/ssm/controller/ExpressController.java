@@ -88,5 +88,22 @@ public class ExpressController {
 
     }
 
+    @RequestMapping("/expressCourierList")
+    public ModelAndView expressCourierList(String esid, HttpServletRequest request, ModelAndView modelAndView){
+        System.out.println("expresss:-------"+esid.toString());
+        Express express = new Express();
+        express.setEsid(Integer.parseInt(esid.split(",")[0]));
+        PageBean pageBean = new PageBean();
+//        pageBean.setRows(10);
+        pageBean.setRequest(request);
+        List<Express> expressList = iExpressService.listExpress(express, pageBean);
+        System.out.println("expressList:"+expressList.size());
+        modelAndView.setViewName("admin/courier_detail");
+        modelAndView.addObject("expressLists",expressList);
+        modelAndView.addObject("uid",esid.split(",")[1]);
+        modelAndView.addObject("pageBean",pageBean);
+        return modelAndView;
+    }
+
 
 }

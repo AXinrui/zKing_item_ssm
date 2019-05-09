@@ -100,7 +100,7 @@
                                     <a title="编辑"  onclick="xadmin.open('编辑','member-edit.jsp',600,400)" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>
                                     </a>
-                                    <a onclick="xadmin.open('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
+                                    <a onclick="xadmin.open('分配快递订单','${ctx}/express/expressCourierList?esid=3,${i.user.uid}')" title="分配快递订单" href="javascript:;">
                                         <i class="layui-icon">&#xe631;</i>
                                     </a>
                                     <a id="${i.user.uid}" title="移除" onclick="member_del(this,this.id)" href="javascript:;">
@@ -156,7 +156,7 @@
                 });
             }else{
                 $.ajax({
-                    url : "user/userStatus?status=1&id="+id,
+                    url : "user/userStatus?status=2&id="+id,
                     dataType:'json',
                     success : function(data) {
                         if(data=="1"){

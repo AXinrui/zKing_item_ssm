@@ -300,16 +300,21 @@ public class UserController {
         pageBean.setRows(5);
         pageBean.setRequest(request);
         List<User> userList = iUserService.listUser(user, pageBean);
-        List<UserVo> userVos = new ArrayList<>();
-        UserVo userVo = new UserVo();
+        List<UserVo> userVos = new ArrayList<UserVo>();
+        UserVo userVo = null;
+        int start = 0;
+        int end = 0;
         for (User user1 : userList) {
+            userVo = new UserVo();
+            user.setUid(user1.getUid());
             userVo.setUser(user1);
-            user1.setUname("1");
-            int start = iUserService.getUserExpressSum(user1);
-            user1.setUname("2");
-            int end = iUserService.getUserExpressSum(user1);
+            user.setUname("正在派送中");
+            start = iUserService.getUserExpressSum(user);
+            user.setUname("派送完毕");
+            end = iUserService.getUserExpressSum(user);
             userVo.setStart(start);
             userVo.setEnd(end);
+            System.out.println(userVo.toString());
             userVos.add(userVo);
         }
         modelAndView.setViewName("admin/user_express_list");
