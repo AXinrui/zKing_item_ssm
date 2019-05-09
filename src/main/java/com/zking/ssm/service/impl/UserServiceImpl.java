@@ -67,6 +67,15 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean updateByPrimaryKeySelective(User record) {
+
+        if(record.getUpassword() != null){
+            String salt = PasswordHelper.createSalt();
+            String credentials = PasswordHelper.createCredentials(record.getUpassword(), salt);
+
+            record.setUsalt(salt);
+            record.setUpassword(credentials);
+        }
+
         int i = userMapper.updateByPrimaryKeySelective(record);
         return i>0?true:false;
     }
@@ -116,5 +125,12 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User selectByUphone(User user) {
         return userMapper.selectByUphone(user);
+    }
+
+    @Override
+    public boolean getUserSaltPassword(String userPassword,String uaccount) {
+        User u = userMapper.selectByUsername(uaccount);
+        boolean b = PasswordHelper.checkCredentials(userPassword, u.getUsalt(), u.getUpassword());
+        return b;
     }
 }

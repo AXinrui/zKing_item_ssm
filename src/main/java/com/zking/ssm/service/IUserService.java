@@ -30,4 +30,6 @@ public interface IUserService {
 
     User selectByUphone(User user);//根据电话查询用户
 
+    boolean getUserSaltPassword(String userPassword,String uaccount);//解析盐加密
+
 }

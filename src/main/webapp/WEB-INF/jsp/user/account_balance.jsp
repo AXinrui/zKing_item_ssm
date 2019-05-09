@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2019/5/6
-  Time: 20:10
+  Time: 21:16
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,11 +11,74 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>天地物流有限公司 - 常见问题</title>
+    <title>天地物流有限公司 - 用户中心 - 账户余额</title>
     <%@include file="/common/head.jsp"%>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/main.css" />
+
+    <script type="text/javascript">
+
+        function validationPassword() {
+            var validationAccount = document.getElementById("validationAccount").value;
+            var originalPassword = document.getElementById("originalPassword").value;
+            alert("validationAccount:"+validationAccount+","+"originalPassword:"+originalPassword);
+            var json = {
+                "uaccount" : validationAccount,
+                "upassword" : originalPassword
+            };
+
+            // Jquery Ajax请求
+            $.ajax({
+                url : "user/isUserPassword",
+                type : "POST",
+                async : true,
+                data : json,
+                dataType : 'json',
+                success : function(data) {
+                    if(data == "0"){
+                        alert("原始密码输入不正确，请重新输入!");
+                    }
+                }
+            });
+        }
+
+        function Cancellation() {
+            //定义json对象
+            var uid = $("#uid").val();
+            alert(uid);
+            //alert(userVerificationCode);
+            var json = {
+                "uid" : uid
+            };
+
+            // Jquery Ajax请求
+            $.ajax({
+                url : "user/Cancellation",
+                type : "POST",
+                async : true,
+                data : json,
+                dataType : 'json',
+                success : function(data) {
+                    if(data == "1"){
+                        location.href='/user/toUserLogin'
+                    }else{
+                        alert("删除失败!");
+                    }
+                }
+            });
+        }
+
+        function isTransactionPassword() {
+            var newPassword = document.getElementById("newTransactionPassword").value;
+            var rePassword = document.getElementById("reTransactionPassword").value;
+            if(newPassword != rePassword){
+                alert("俩次密码输入不一致");
+            }
+        }
+
+    </script>
+
 </head>
 
 <body>
@@ -60,6 +123,7 @@
                     <li><a href="${ctx}/user/toUserLogin">登录</a></li>
                 </c:if>
             </ul>
+
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -101,48 +165,75 @@
 <!--aboupg-->
 <div class="sec aboutpg container">
     <div class="pg-nav col-sm-3">
-        <div class="tit-ol">
-            <p>在线下单</p>
+        <div class="tit-ab">
+            <p>用户操作</p>
         </div>
         <ul>
-            <li>
-                <a href="${ctx}/express/toOrderOnline">
-                    立即下单
-                </a>
-            </li>
-            <li>
-                <a href="${ctx}/notice/listProblem">
-                    常见问题
-                </a>
-            </li>
+            <li><a href="${ctx}/user/toUserCenter">用户信息</a></li>
+            <li><a href="${ctx}/user/toPerfectInformaction">完善个人信息</a></li>
+            <li><a href="${ctx}/user/toChangePassword">修改密码</a></li>
+            <li><a href="${ctx}/user/userExit">退出登录</a></li>
+            <li><a href="" onclick="Cancellation()">账号注销</a></li>
+            <input type="hidden" id="uid" value="${sessionScope.user.uid}" />
+        </ul>
+        <div class="tit-ol">
+            <p>用户钱包</p>
+        </div>
+        <ul>
+            <c:if test="${sessionScope.user.pid == null}">
+                <li>
+                    <a href="${ctx}/express/toOrderOnline">
+                        开通钱包
+                    </a>
+                </li>
+            </c:if>
+            <c:if test="${sessionScope.user.pid != null}">
+                <li>
+                    <a href="${ctx}/express/toOrderOnline">
+                        账户余额
+                    </a>
+                </li>
+                <li>
+                    <a href="${ctx}/notice/listProblem">
+                        更改交易密码
+                    </a>
+                </li>
+            </c:if>
         </ul>
         <div class="tit-co">
-            <p>联系我们</p>
+            <p>我的物流</p>
         </div>
         <ul>
-            <li><a href="${ctx}/solution">在线留言</a></li>
+            <li><a href="contact.html">寄出包裹</a></li>
+            <li><a href="contact.html">我的包裹</a></li>
         </ul>
     </div>
-    <div class="col-sm-9">
+
+    <div class="col-sm-9 introduce">
         <section class="title">
             <h1>
-                常见问题
-                <span>COMMON PROBLEMS</span>
+                用户中心
+                <span>账户余额</span>
+                <input type="hidden" value="${sessionScope.user.uaccount}" name="uaccount" id="validationAccount" />
+                <input type="hidden" name="uid" value="${sessionScope.user.uid}" />
             </h1>
         </section>
-        <div class="problem con-pad">
-            <ul>
-                <c:forEach items="${listNotice}" var="n">
-                    <c:if test="${n.dictItem == '常见问题'}">
-                        <li><a href="${ctx}/notice/loadProblem?nid=${n.nid}">
-                                ${n.nname}
-                        </a></li>
+        <div class="contact con-pad">
+            <div class="address">
+                <p>账户：${sessionScope.user.uaccount}</p>
+                <p>余额：${requestScope.property.pbalance}元</p>
+                <p>状态：
+                    <c:if test="${requestScope.property.pstatus == 1}">
+                        正常
                     </c:if>
-                </c:forEach>
-
-            </ul>
+                    <c:if test="${requestScope.property.pstatus == 2}">
+                        资金冻结
+                    </c:if>
+                </p>
+            </div>
         </div>
     </div>
+
 </div>
 
 <footer>
@@ -163,13 +254,6 @@
         </p>
     </div>
 </footer>
-<div class="fl">
-    <ul>
-        <li><a href="tel:15995656015">电话咨询</a></li>
-        <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
-        <li><a href="${ctx}/solution">在线留言</a></li>
-    </ul>
-</div>
 <script src="${ctx}/static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="${ctx}/static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="${ctx}/static/js/main.js" type="text/javascript" charset="utf-8"></script>

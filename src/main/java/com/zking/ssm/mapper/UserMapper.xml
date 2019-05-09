@@ -64,7 +64,7 @@
   <select id="selectByUphone" resultType="user" parameterType="user">
     select * from t_user where uphone = #{uphone,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_user
     where uid = #{uid,jdbcType=INTEGER}
   </delete>

@@ -22,10 +22,10 @@
     delete from t_property
     where pid = #{pid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zking.ssm.model.Property" >
-    insert into t_property (pid, pbalance, ppwd, 
+  <insert id="insert" useGeneratedKeys="true" keyProperty="pid" parameterType="com.zking.ssm.model.Property" >
+    insert into t_property (pbalance, ppwd,
       pstatus)
-    values (#{pid,jdbcType=INTEGER}, #{pbalance,jdbcType=REAL}, #{ppwd,jdbcType=VARCHAR}, 
+    values (#{pbalance,jdbcType=REAL}, #{ppwd,jdbcType=VARCHAR},
       #{pstatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.zking.ssm.model.Property" >

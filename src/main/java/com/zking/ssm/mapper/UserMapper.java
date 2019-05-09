@@ -24,4 +24,5 @@ public interface UserMapper {
     List<User> listUser(User user);
 
     User selectByUphone(User user);//根据电话查询用户
+
 }
