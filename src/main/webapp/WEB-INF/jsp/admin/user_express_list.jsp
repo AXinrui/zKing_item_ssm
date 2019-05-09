@@ -31,7 +31,7 @@
             <a href="">首页</a>
             <a href="">用户管理</a>
             <a>
-              <cite>用户列表</cite></a>
+              <cite>快递员列表</cite></a>
           </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
         <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="layui-card-header">
                     <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                    <button class="layui-btn" onclick="xadmin.open('添加用户','./member-add.html',600,400)"><i class="layui-icon"></i>添加</button>
+                    <button class="layui-btn" onclick="xadmin.open('添加快递员','${ctx}/url/admin/doUserExpressAdd',600,400)"><i class="layui-icon"></i>添加</button>
                 </div>
                 <div class="layui-card-body ">
                     <table class="layui-table layui-form">
@@ -64,35 +64,35 @@
                             <th>ID</th>
                             <th>用户名</th>
                             <th>手机</th>
-                            <th>资金</th>
-                            <th>地址</th>
+                            <th>已接快递单</th>
+                            <th>已完成快递单</th>
                             <th>状态</th>
                             <th>操作</th></tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="i" items="${userList}" >
+                        <c:forEach var="i" items="${userVo}" >
                             <tr>
                                 <td>
-                                    <input type="checkbox" name="id" value="${i.uid}"   lay-skin="primary">
+                                    <input type="checkbox" name="id" value="${i.user.uid}"   lay-skin="primary">
                                 </td>
-                                <td>${i.uid}</td>
-                                <td>${i.uname}</td>
-                                <td>${i.uphone}</td>
-                                <td>${i.pid}</td>
-                                <td>${i.uaddress}</td>
-                                <c:if test="${i.ustatus==1}" >
+                                <td>${i.user.uid}</td>
+                                <td>${i.user.uname}</td>
+                                <td>${i.user.uphone}</td>
+                                <td>${i.start}</td>
+                                <td>${i.end}</td>
+                                <c:if test="${i.user.ustatus==2}" >
                                     <td class="td-status">
                                         <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
                                     <td class="td-manage">
-                                     <a id = "${i.uid}" onclick="member_stop(this,this.id)" href="javascript:;"  title="停用">
+                                     <a id = "${i.user.uid}" onclick="member_stop(this,this.id)" href="javascript:;"  title="停用">
                                             <i class="layui-icon">&#xe601;</i>
                                      </a>
                                  </c:if>
-                                 <c:if test="${i.ustatus==0}" >
+                                 <c:if test="${i.user.ustatus==0}" >
                                     <td class="td-status">
                                         <span class="layui-btn layui-btn-normal layui-btn-mini">已停用</span></td>
                                     <td class="td-manage">
-                                        <a id = "${i.uid}" onclick="member_stop(this,this.id)" href="javascript:;"  title="启用">
+                                        <a id = "${i.user.uid}" onclick="member_stop(this,this.id)" href="javascript:;"  title="启用">
                                             <i class="layui-icon">&#xe601;</i>
                                         </a>
                                  </c:if>
@@ -103,7 +103,7 @@
                                     <a onclick="xadmin.open('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
                                         <i class="layui-icon">&#xe631;</i>
                                     </a>
-                                    <a id="${i.uid}" title="移除" onclick="member_del(this,this.id)" href="javascript:;">
+                                    <a id="${i.user.uid}" title="移除" onclick="member_del(this,this.id)" href="javascript:;">
                                         <i class="layui-icon">&#xe640;</i>
                                     </a>
                                 </td>

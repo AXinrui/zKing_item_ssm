@@ -102,7 +102,7 @@
                             <cite>用户列表</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('快递员列表','${ctx}/user/userList')">
+                        <a onclick="xadmin.add_tab('快递员列表','${ctx}/user/userExpressList')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>快递员列表</cite></a>
                     </li>

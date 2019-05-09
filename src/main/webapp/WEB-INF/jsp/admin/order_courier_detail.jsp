@@ -38,6 +38,11 @@
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md12">
             <div class="layui-card">
+                <div class="layui-card-header">
+                    <button class="layui-btn layui-btn-danger" onclick="delAll()">
+                        <i class="layui-icon"></i>批量删除</button>
+                    <button class="layui-btn" onclick="toCourier()">
+                        <i class="layui-icon"></i>重新分配</button></div>
                 <div class="layui-card-body ">
                     <table class="layui-table layui-form">
                         <thead>
@@ -47,9 +52,10 @@
                             </th>
                             <th>订单详细编号</th>
                             <th>快递编号</th>
+                            <th>收件人名称</th>
+                            <th>收件人电话</th>
                             <th>收货地址</th>
                             <th>快递备注</th>
-                            <th>操作</th></tr>
                         </thead>
                         <tbody>
                         <c:forEach var="q" items="${lists}">
@@ -58,12 +64,10 @@
                                 <input type="checkbox" name="id" value="${q.csuid}" lay-skin="primary"></td>
                             <td>${q.csuid}</td>
                             <td>${q.express.orderid}</td>
+                            <td>${q.express.consignee}
+                            <td>${q.express.consigneephone}</td>
                             <td>${q.express.consigneeaddress}</td>
                             <td>${q.express.orderremark}</td>
-                            <td class="td-manage">
-                                <a title="删除" id="${q.csuid}" onclick="member_del(this,this.id)" href="javascript:;">
-                                    <i class="layui-icon">&#xe640;</i></a>
-                            </td>
                         </tr>
                         </c:forEach>
                         </tbody>
@@ -92,24 +96,6 @@
             form.render('checkbox');
         });
     });
-
-/*用户-删除*/
-function member_del(obj, id) {
-    layer.confirm('确认要删除吗？',
-        function() {
-            $.ajax({
-                url : "/courier/courierSonUserDel?id="+id,
-                dataType:'json',
-                success : function(data) {
-                    if(data="1"){
-                        //发异步删除数据
-                        $(obj).parents("tr").remove();
-                        layer.msg('已移除!',{icon:1,time:1000});
-                    }
-                }
-            });
-        });
-}
 
 function delAll (argument) {
     var ids = [];

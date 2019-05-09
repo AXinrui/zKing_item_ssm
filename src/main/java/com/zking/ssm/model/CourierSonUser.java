@@ -19,6 +19,8 @@ public class CourierSonUser implements Serializable {
 
     private Express express;
 
+    private String csustutic;
+
 
     public CourierSonUser() {
         super();
@@ -62,5 +64,13 @@ public class CourierSonUser implements Serializable {
 
     public void setExpress(Express express) {
         this.express = express;
+    }
+
+    public String getCsustutic() {
+        return csustutic;
+    }
+
+    public void setCsustutic(String csustutic) {
+        this.csustutic = csustutic;
     }
 }

@@ -61,7 +61,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public List<User> userList(User user, PageBean pageBean) {
+    public List<User> listUser(User user, PageBean pageBean) {
         return userMapper.listUser(user);
     }
 
@@ -111,6 +111,11 @@ public class UserServiceImpl implements IUserService {
         u.setUsalt(salt);
 
         return userMapper.updateByPrimaryKeySelective(u);
+    }
+
+    @Override
+    public int getUserExpressSum(User user) {
+        return userMapper.getUserExpressSum(user);
     }
 
     @Override

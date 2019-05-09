@@ -4,6 +4,7 @@ import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Component
 @ToString
@@ -30,6 +31,9 @@ public class User implements Serializable {
     private Integer iid;
 
     private Integer pid;
+
+    private Set<CourierUser> courierUsers;
+    private Set<CourierSonUser> courierSonUsers;
 
     public User(Integer uid, String uaccount, String upassword, String usalt, String uname, String uphone, String uaddress, Integer ustatus, Integer iid, Integer pid) {
         this.uid = uid;
@@ -126,5 +130,21 @@ public class User implements Serializable {
 
     public void setPid(Integer pid) {
         this.pid = pid;
+    }
+
+    public Set<CourierUser> getCourierUsers() {
+        return courierUsers;
+    }
+
+    public void setCourierUsers(Set<CourierUser> courierUsers) {
+        this.courierUsers = courierUsers;
+    }
+
+    public Set<CourierSonUser> getCourierSonUsers() {
+        return courierSonUsers;
+    }
+
+    public void setCourierSonUsers(Set<CourierSonUser> courierSonUsers) {
+        this.courierSonUsers = courierSonUsers;
     }
 }
