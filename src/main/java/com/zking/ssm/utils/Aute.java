@@ -19,51 +19,79 @@ public class Aute {
     public static final String DEF_CHATSET = "UTF-8";
     public static final int DEF_CONN_TIMEOUT = 30000;
     public static final int DEF_READ_TIMEOUT = 30000;
-    public static String userAgent =  "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
+    public static String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
-    public static final String URL ="";
-    public static final String TPL_ID ="";
-    public static final String KEY ="";
+    public static final String URL = "";
+    public static final String TPL_ID = "";
+    public static final String KEY = "";
 
 
-    public static String mobileQuery(String phone){
+    public static String mobileQuery(String phone) {
 
         Random random = new Random();
         String yzm = "";
-        for (int i =0;i<6;i++){
+        for (int i = 0; i < 6; i++) {
             yzm += random.nextInt(9);
         }
-        String result =null;
-        String url ="http://v.juhe.cn/sms/send";//请求接口地址
+        String result = null;
+        String url = "http://v.juhe.cn/sms/send";//请求接口地址
         Map params = new HashMap();//请求参数
-        params.put("mobile",phone);//接受短信的用户手机号码
-        params.put("tpl_id","155321");//您申请的短信模板ID，根据实际情况修改
-        params.put("tpl_value","#code#="+yzm);//您设置的模板变量，根据实际情况修改
-        params.put("key","d77319d34ec5f412e48fa8df81da4a2b");//应用APPKEY(应用详细页查询)
+        params.put("mobile", phone);//接受短信的用户手机号码
+        params.put("tpl_id", "157357");//您申请的短信模板ID，根据实际情况修改
+        params.put("tpl_value", "#code#=" + yzm);//您设置的模板变量，根据实际情况修改
+        params.put("key", "d77319d34ec5f412e48fa8df81da4a2b");//应用APPKEY(应用详细页查询)
         try {
             result = net(url, params, "GET");
             JSONObject jsonObject = new JSONObject(result);
-            System.out.println("error_code:"+jsonObject.get("error_code"));
-            if("操作成功".equals(jsonObject.get("reason"))){
-                System.out.println("reason:"+jsonObject.get("result"));
+            System.out.println("error_code:" + jsonObject.get("error_code"));
+            if ("操作成功".equals(jsonObject.get("reason"))) {
+                System.out.println("reason:" + jsonObject.get("result"));
                 return yzm;
-            }else{
-                String json = jsonObject.get("error_code")+":"+jsonObject.get("reason");
+            } else {
+                String json = jsonObject.get("error_code") + ":" + jsonObject.get("reason");
                 return json;
             }
         } catch (Exception e) {
-             e.printStackTrace();
+            e.printStackTrace();
             return "异常---------";
         }
     }
 
+    //获取城市经纬度
+    public static String getLongitudeAndLatitude(String address) {
+        String result = null;
+        String url = "http://api.map.baidu.com/geocoder";//请求接口地址
+        Map params = new HashMap();//请求参数
+        params.put("address", address);//需要获取的城市
+        params.put("output", "json");//类型
+        params.put("key", "37492c0ee6f924cb5e934fa08c6b1676");//密钥
+        params.put("city", "北京市");//默认加载城市
+        try {
+            result = net(url, params, "GET");
+            JSONObject jsonObject = new JSONObject(result);
+            System.out.println("status:" + jsonObject.get("status"));
+            if ("OK".equals(jsonObject.get("status"))) {
+                System.out.println("result:" + result);
+                return result;
+            }
+            else {
+                return "获取地区经纬度失败";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "异常---------";
+        }
+    }
+
+
     public static void main(String[] args) {
-        String str = "{\"reason\":\"操作成功\",\"result\":{\"sid\":\"0d6e3264533c428ba951716df42a0432\",\"fee\":1,\"count\":1},\"error_code\":0}";
-        JSONObject jsonObject = new JSONObject(str);
-//        String string = jsonObject.getString("error_code");
-        System.out.println(jsonObject.get("result"));
+//        String str = "{\"reason\":\"操作成功\",\"result\":{\"sid\":\"0d6e3264533c428ba951716df42a0432\",\"fee\":1,\"count\":1},\"error_code\":0}";
+//        JSONObject jsonObject = new JSONObject(str);
+////        String string = jsonObject.getString("error_code");
+//        System.out.println(jsonObject.get("result"));
 
-
+        String longitudeAndLatitude = Aute.getLongitudeAndLatitude("长沙");
+        System.out.println(longitudeAndLatitude);
 
     }
 
