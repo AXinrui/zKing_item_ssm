@@ -3,6 +3,8 @@ package com.zking.ssm.mapper;
 import com.zking.ssm.model.Message;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface MessageMapper {
     int deleteByPrimaryKey(Integer mid);
@@ -16,4 +18,6 @@ public interface MessageMapper {
     int updateByPrimaryKeySelective(Message record);
 
     int updateByPrimaryKey(Message record);
+
+    List<Message> listMessage(Message message);
 }

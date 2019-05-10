@@ -133,7 +133,7 @@
                 <p>联系邮箱：2334693431@qq.com</p>
             </div>
             <div class="map">
-                <iframe src="${ctx}/static/map/map.html"></iframe>
+                <iframe src="${ctx}/url/admin/doMap"></iframe>
                 <span>地图加载中...</span>
             </div>
         </div>

@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Aute {
@@ -58,11 +59,28 @@ public class Aute {
     }
 
     public static void main(String[] args) {
-        String str = "{\"reason\":\"操作成功\",\"result\":{\"sid\":\"0d6e3264533c428ba951716df42a0432\",\"fee\":1,\"count\":1},\"error_code\":0}";
-        JSONObject jsonObject = new JSONObject(str);
-//        String string = jsonObject.getString("error_code");
-        System.out.println(jsonObject.get("result"));
+//        St    ring str = "{\"reason\":\"操作成功\",\"result\":{\"sid\":\"0d6e3264533c428ba951716df42a0432\",\"fee\":1,\"count\":1},\"error_code\":0}";
+//        JSONObject jsonObject = new JSONObject(str);
+////        String string = jsonObject.getString("error_code");
+//        System.out.println(jsonObject.get("result"));
+        String result =null;
+        String url ="http://api.map.baidu.com/geocoder";//请求接口地址
+        Map params = new HashMap();//请求参数
+        params.put("address","长沙");//接受短信的用户手机号码
+        params.put("output","json");//您申请的短信模板ID，根据实际情况修改
+        params.put("key","37492c0ee6f924cb5e934fa08c6b1676");//应用APPKEY(应用详细页查询)
+        try {
+            result = net(url, params, "GET");
+            JSONObject jsonObject = new JSONObject(result);
+            JSONObject jsonArray = jsonObject.getJSONObject(result);
+            System.out.println("result:"+jsonObject.get("result"));
+            System.out.println("jsonArray："+jsonArray);
 
+//            System.out.println("reason:"+jsonObject.get("result"));
+            String json = jsonObject.get("error_code")+":"+jsonObject.get("reason");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }

@@ -1,6 +1,7 @@
 package com.zking.ssm.controller.frontEnd;
 
 import com.zking.ssm.model.Notice;
+import com.zking.ssm.model.User;
 import com.zking.ssm.service.INoticeService;
 import com.zking.ssm.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @Controller
@@ -25,21 +29,6 @@ public class NoticeController {
         Notice notice = new Notice();
         model.addAttribute("notice",notice);
     }
-
-    /*@RequestMapping(value = "/noticeList")
-    public ModelAndView noticeList(Notice n, ModelAndView modelAndView, HttpServletRequest request){
-
-        PageBean pageBean = new PageBean();
-
-        List<Notice> listNotice = iNoticeService.listNotice(n, pageBean);
-
-        modelAndView.addObject("pageBean",pageBean);
-        modelAndView.addObject("listNotice",listNotice);
-
-        //modelAndView.setViewName("sys/listBook");
-
-        return modelAndView;
-    }*/
 
     @RequestMapping(value = "/loadService")
     public ModelAndView loadService(Notice n, ModelAndView modelAndView, HttpServletRequest request){
@@ -135,10 +124,6 @@ public class NoticeController {
         PageBean pageBean = new PageBean();
 
         List<Notice> listNotice = iNoticeService.listNotice(n, pageBean);
-        for (Notice nn : listNotice) {
-            System.out.println(nn);
-        }
-
         modelAndView.addObject("pageBean",pageBean);
         modelAndView.addObject("listNotice",listNotice);
         modelAndView.addObject("notice",loadNotice);
@@ -148,7 +133,59 @@ public class NoticeController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/noticeList")
+    public ModelAndView noticeList(Notice n, ModelAndView modelAndView, HttpServletRequest request){
 
+        PageBean pageBean = new PageBean();
+        pageBean.setRequest(request);
+        pageBean.setRows(5);
+        List<Notice> listNotice = iNoticeService.listNotice(n, pageBean);
 
+        modelAndView.addObject("pageBean",pageBean);
+        modelAndView.addObject("listNotice",listNotice);
+        modelAndView.setViewName("admin/notice_list");
+
+        return modelAndView;
+
+    }
+
+    @RequestMapping(value = "/addNotice")
+    public String addNotice(Notice n){
+
+        boolean b = iNoticeService.insert(n)>0?true:false;
+        return "admin/notice_list";
+    }
+
+    @RequestMapping("/noticeDel")
+    public void noticeDel(String id,HttpServletResponse response)throws IOException {
+        PrintWriter out = response.getWriter();
+        Notice notice = new Notice();
+        int toid = 0;
+        boolean b = false;
+        try {
+            toid = Integer.parseInt(id);
+            notice.setNid(toid);
+            b = iNoticeService.updateByPrimaryKeySelective(notice)>0?true:false;
+            if(b) out.print("1");else out.print("0");
+        }catch (Exception e){
+            //System.out.println("转型异常----执行以下方法");
+            String[] split = id.split(",");
+            for (int i=0;i<split.length;i++){
+                notice.setNid(Integer.parseInt(split[i]));
+                b = iNoticeService.updateByPrimaryKeySelective(notice)>0?true:false;
+            }
+            if(b) out.print("1");else out.print("0");
+        }
+    }
+
+    @RequestMapping("/noticeStatus")
+    public void updateKey(String id,String status,HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        Notice user = new Notice();
+        user.setNid(Integer.parseInt(id));
+        user.setNstatus( Integer.parseInt(status));
+        boolean b = iNoticeService.updateByPrimaryKeySelective(user)>0?true:false;
+        if(b) out.print("1");else out.print("0");
+    }
 
 }
