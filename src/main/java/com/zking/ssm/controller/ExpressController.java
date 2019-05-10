@@ -3,6 +3,7 @@ package com.zking.ssm.controller;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.zking.ssm.model.Express;
 import com.zking.ssm.service.IExpressService;
+import com.zking.ssm.utils.Aute;
 import com.zking.ssm.utils.PageBean;
 import com.zking.ssm.utils.TransitionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +59,14 @@ public class ExpressController {
 
     @RequestMapping(value = "/toOrderOnline")
     public String toOrderOnline(Express express){return "frontEnd/orderOnline";}
+
+    @RequestMapping(value = "getLongitudeAndLatitude")
+    @ResponseBody
+    public String getLongitudeAndLatitude(String address){
+        String longitudeAndLatitude = Aute.getLongitudeAndLatitude(address);
+        System.out.println("longitudeAndLatitude: "+longitudeAndLatitude);
+        return longitudeAndLatitude;
+    }
 
     @RequestMapping(value = "/orderOnline")
     public String orderOnline(Express express){

@@ -38,7 +38,7 @@
                     if(data == "1"){
                         location.href='/user/toUserLogin'
                     }else{
-                        alert("密码错误,请重新输入!");
+                        alert("删除失败!");
                     }
                 }
             });
@@ -58,7 +58,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="${ctx}/static/images/logo.png"></a>
+            <a class="navbar-brand" href="${ctx}/zking/zking.shtml"><img src="${ctx}/static/images/logo.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -68,20 +68,26 @@
                     <a href="${ctx}/zking/zking.shtml">网站首页</a>
                 </li>
                 <li>
-                    <a href="${ctx}/notice/aboutUs?nid=18">关于我们</a>
-                </li>
-                <li>
                     <a href="${ctx}/express/toOrderOnline">在线下单</a>
                 </li>
                 <li>
                     <a href="${ctx}/notice/loadService?nid=1">业务范围</a>
                 </li>
                 <li>
-                    <a href="${ctx}/notice/loadService?nid=1">新闻资讯</a>
+                    <a href="${ctx}/notice/listNews">新闻资讯</a>
                 </li>
                 <li>
                     <a href="${ctx}/contactUs">联系我们</a>
                 </li>
+                <li>
+                    <a href="${ctx}/notice/aboutUs?nid=18">关于我们</a>
+                </li>
+                <c:if test="${not empty user}">
+                    <li><a href="${ctx}/user/toUserCenter">个人中心</a></li>
+                </c:if>
+                <c:if test="${empty user}">
+                    <li><a href="${ctx}/user/toUserLogin">登录</a></li>
+                </c:if>
             </ul>
 
         </div>
@@ -129,10 +135,10 @@
             <p>用户操作</p>
         </div>
         <ul>
-            <li><a href="${ctx}/aboutUs?nid=${n.nid}">用户信息</a></li>
-            <li><a href="${ctx}/aboutUs?nid=${n.nid}">完善个人信息</a></li>
-            <li><a href="${ctx}/aboutUs?nid=${n.nid}">修改密码</a></li>
-            <li><a href="${ctx}/aboutUs?nid=${n.nid}">退出登录</a></li>
+            <li><a href="${ctx}/user/toUserCenter">用户信息</a></li>
+            <li><a href="${ctx}/user/toPerfectInformaction">完善个人信息</a></li>
+            <li><a href="${ctx}/user/toChangePassword">修改密码</a></li>
+            <li><a href="${ctx}/user/userExit">退出登录</a></li>
             <li><a href="" onclick="Cancellation()">账号注销</a></li>
             <input type="hidden" id="uid" value="${sessionScope.user.uid}" />
             <%--${ctx}/user/Cancellation?uid=${sessionScope.user.uid}--%>
@@ -143,20 +149,25 @@
         <ul>
             <c:if test="${sessionScope.user.pid == null}">
                 <li>
-                    <a href="${ctx}/express/toOrderOnline">
+                    <a href="${ctx}/property/toOpenWallet">
                         开通钱包
                     </a>
                 </li>
             </c:if>
             <c:if test="${sessionScope.user.pid != null}">
                 <li>
-                    <a href="${ctx}/express/toOrderOnline">
+                    <a href="${ctx}/property/toAccountBalance?pid=${sessionScope.user.pid}">
                         账户余额
                     </a>
                 </li>
                 <li>
-                    <a href="${ctx}/notice/listProblem">
+                    <a href="${ctx}/property/toChangeTheTransactionPassword?pid=${sessionScope.user.pid}">
                         更改交易密码
+                    </a>
+                </li>
+                <li>
+                    <a href="${ctx}/property/toRecharge?pid=${sessionScope.user.pid}">
+                        账户充值
                     </a>
                 </li>
             </c:if>
@@ -213,13 +224,16 @@
     <div class="container">
         <ul class="foot-nav clearfix">
             <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
-            <li><a href="${ctx}/notice/aboutUs?nid=18">关于我们</a></li>
             <li><a href="${ctx}/express/toOrderOnline">在线下单</a></li>
             <li><a href="${ctx}/notice/loadService?nid=1">业务范围</a></li>
-            <li><a href="${ctx}/notice/loadNews?nid=7">新闻资讯</a></li>
+            <li><a href="${ctx}/notice/listNews">新闻资讯</a></li>
             <li><a href="${ctx}/contactUs">联系我们</a></li>
+            <li><a href="${ctx}/notice/aboutUs?nid=18">关于我们</a></li>
+            <c:if test="${not empty user}">
+                <li><a href="${ctx}/user/toUserCenter">个人中心</a></li>
+            </c:if>
         </ul>
-        <p class="cpr">
+        <p class="cpr" style="display: none;">
             Copyright © 2009-2011,All rights reserved 更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a>
         </p>
     </div>

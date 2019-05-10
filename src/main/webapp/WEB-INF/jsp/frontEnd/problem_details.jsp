@@ -29,7 +29,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="static/images/logo.png"></a>
+            <a class="navbar-brand" href="${ctx}/zking/zking.shtml"><img src="${ctx}/static/images/logo.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -39,20 +39,26 @@
                     <a href="${ctx}/zking/zking.shtml">网站首页</a>
                 </li>
                 <li>
-                    <a href="${ctx}/notice/aboutUs?nid=18">关于我们</a>
-                </li>
-                <li>
                     <a href="${ctx}/express/toOrderOnline">在线下单</a>
                 </li>
                 <li>
                     <a href="${ctx}/notice/loadService?nid=1">业务范围</a>
                 </li>
                 <li>
-                    <a href="${ctx}/notice/loadService?nid=1">新闻资讯</a>
+                    <a href="${ctx}/notice/listNews">新闻资讯</a>
                 </li>
                 <li>
                     <a href="${ctx}/contactUs">联系我们</a>
                 </li>
+                <li>
+                    <a href="${ctx}/notice/aboutUs?nid=18">关于我们</a>
+                </li>
+                <c:if test="${not empty user}">
+                    <li><a href="${ctx}/user/toUserCenter">个人中心</a></li>
+                </c:if>
+                <c:if test="${empty user}">
+                    <li><a href="${ctx}/user/toUserLogin">登录</a></li>
+                </c:if>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -114,7 +120,7 @@
             <p>联系我们</p>
         </div>
         <ul>
-            <li><a href="contact.html">在线留言</a></li>
+            <li><a href="${ctx}/solution">在线留言</a></li>
         </ul>
     </div>
     <div class="col-sm-9">
@@ -149,13 +155,16 @@
     <div class="container">
         <ul class="foot-nav clearfix">
             <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
-            <li><a href="${ctx}/notice/aboutUs?nid=18">关于我们</a></li>
             <li><a href="${ctx}/express/toOrderOnline">在线下单</a></li>
             <li><a href="${ctx}/notice/loadService?nid=1">业务范围</a></li>
-            <li><a href="${ctx}/notice/loadNews?nid=7">新闻资讯</a></li>
+            <li><a href="${ctx}/notice/listNews">新闻资讯</a></li>
             <li><a href="${ctx}/contactUs">联系我们</a></li>
+            <li><a href="${ctx}/notice/aboutUs?nid=18">关于我们</a></li>
+            <c:if test="${not empty user}">
+                <li><a href="${ctx}/user/toUserCenter">个人中心</a></li>
+            </c:if>
         </ul>
-        <p class="cpr">
+        <p class="cpr" style="display: none;">
             Copyright © 2009-2011,All rights reserved 更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a>
         </p>
     </div>

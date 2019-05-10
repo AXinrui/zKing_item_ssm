@@ -262,10 +262,36 @@ public class UserController {
         return "user/user_center";
     }
 
+    @RequestMapping("/toPerfectInformaction")
+    public String toPerfectInformaction(){
+        return "user/perfect_information";
+    }
+
+    @RequestMapping("/toChangePassword")
+    public String toChangePassword(){
+        return "user/change_password";
+    }
+
+    @RequestMapping("/isUserPassword")
+    public void isUserPassword(User u, HttpSession session,HttpServletResponse response) throws Exception {
+        PrintWriter out = response.getWriter();
+        boolean b = iUserService.getUserSaltPassword(u.getUpassword(),u.getUaccount());
+        if(b){
+            User user1 = iUserService.loadByUsername(u);
+            session.setAttribute("user",user1);
+            out.print("1");
+        } else{
+            out.print("0");
+        }
+    }
+
     @RequestMapping("/updateUser")
-    public String updateUser(User u){
+    public String updateUser(User u,HttpSession session){
+        //System.out.println(u);
         boolean b = iUserService.updateByPrimaryKeySelective(u);
         if (b == true){
+            User user1 = iUserService.loadByUsername(u);
+            session.setAttribute("user",user1);
             return "user/user_center";
         } else {
             return "user/perfect_information";
@@ -279,7 +305,7 @@ public class UserController {
     }
 
     @RequestMapping("/Cancellation")
-    public void Cancellation(User u, HttpSession session, String userVerificationCode, HttpServletResponse response) throws Exception {
+    public void Cancellation(User u, HttpSession session,HttpServletResponse response) throws Exception {
         PrintWriter out = response.getWriter();
         boolean b = iUserService.deleteByPrimaryKey(u.getUid());
         if(b){

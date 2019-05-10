@@ -26,4 +26,5 @@ public interface UserMapper {
     int getUserExpressSum(User user);//得到快递员的订单数量
 
     User selectByUphone(User user);//根据电话查询用户
+
 }

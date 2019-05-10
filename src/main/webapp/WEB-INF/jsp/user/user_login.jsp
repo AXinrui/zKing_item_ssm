@@ -107,7 +107,7 @@
             <button class="lang-btn off log-btn" id="passwordLogin">登录</button>
             <button class="lang-btn off log-btn" style="display: none;" onclick="isVerificationCode()" id="messageLogin">登录</button>
         </form>
-            <div class="third-party">
+            <div class="third-party" style="display: none;">
                 <a href="#" class="log-qq icon-qq-round"></a>
                 <a href="#" class="log-qq icon-weixin"></a>
                 <a href="#" class="log-qq icon-sina1"></a>

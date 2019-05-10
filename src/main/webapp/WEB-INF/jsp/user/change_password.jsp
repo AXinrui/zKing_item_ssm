@@ -20,10 +20,60 @@
     <script type="text/javascript">
 
         function validationPassword() {
-            var validationPassword = document.getElementById("validationPassword").value;
+            var validationAccount = document.getElementById("validationAccount").value;
             var originalPassword = document.getElementById("originalPassword").value;
-            if(validationPassword != originalPassword){
-                alert("原密码输入错误，请重新输入");
+            alert("validationAccount:"+validationAccount+","+"originalPassword:"+originalPassword);
+            var json = {
+                "uaccount" : validationAccount,
+                "upassword" : originalPassword
+            };
+
+            // Jquery Ajax请求
+            $.ajax({
+                url : "user/isUserPassword",
+                type : "POST",
+                async : true,
+                data : json,
+                dataType : 'json',
+                success : function(data) {
+                    if(data == "0"){
+                        alert("原始密码输入不正确，请重新输入!");
+                    }
+                }
+            });
+        }
+
+        function Cancellation() {
+            //定义json对象
+            var uid = $("#uid").val();
+            alert(uid);
+            //alert(userVerificationCode);
+            var json = {
+                "uid" : uid
+            };
+
+            // Jquery Ajax请求
+            $.ajax({
+                url : "user/Cancellation",
+                type : "POST",
+                async : true,
+                data : json,
+                dataType : 'json',
+                success : function(data) {
+                    if(data == "1"){
+                        location.href='/user/toUserLogin'
+                    }else{
+                        alert("删除失败!");
+                    }
+                }
+            });
+        }
+
+        function isPassword() {
+            var newPassword = document.getElementById("newPassword").value;
+            var rePassword = document.getElementById("rePassword").value;
+            if(newPassword != rePassword){
+                alert("俩次密码输入不一致");
             }
         }
 
@@ -42,7 +92,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="${ctx}/static/images/logo.png"></a>
+            <a class="navbar-brand" href="${ctx}/zking/zking.shtml"><img src="${ctx}/static/images/logo.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -52,20 +102,26 @@
                     <a href="${ctx}/zking/zking.shtml">网站首页</a>
                 </li>
                 <li>
-                    <a href="${ctx}/notice/aboutUs?nid=18">关于我们</a>
-                </li>
-                <li>
                     <a href="${ctx}/express/toOrderOnline">在线下单</a>
                 </li>
                 <li>
                     <a href="${ctx}/notice/loadService?nid=1">业务范围</a>
                 </li>
                 <li>
-                    <a href="${ctx}/notice/loadService?nid=1">新闻资讯</a>
+                    <a href="${ctx}/notice/listNews">新闻资讯</a>
                 </li>
                 <li>
                     <a href="${ctx}/contactUs">联系我们</a>
                 </li>
+                <li>
+                    <a href="${ctx}/notice/aboutUs?nid=18">关于我们</a>
+                </li>
+                <c:if test="${not empty user}">
+                    <li><a href="${ctx}/user/toUserCenter">个人中心</a></li>
+                </c:if>
+                <c:if test="${empty user}">
+                    <li><a href="${ctx}/user/toUserLogin">登录</a></li>
+                </c:if>
             </ul>
 
         </div>
@@ -113,11 +169,12 @@
             <p>用户操作</p>
         </div>
         <ul>
-            <li><a href="${ctx}/aboutUs?nid=${n.nid}">用户信息</a></li>
-            <li><a href="${ctx}/aboutUs?nid=${n.nid}">完善个人信息</a></li>
-            <li><a href="${ctx}/aboutUs?nid=${n.nid}">修改密码</a></li>
-            <li><a href="${ctx}/aboutUs?nid=${n.nid}">退出登录</a></li>
-            <li><a href="${ctx}/aboutUs?nid=${n.nid}">账号注销</a></li>
+            <li><a href="${ctx}/user/toUserCenter">用户信息</a></li>
+            <li><a href="${ctx}/user/toPerfectInformaction">完善个人信息</a></li>
+            <li><a href="${ctx}/user/toChangePassword">修改密码</a></li>
+            <li><a href="${ctx}/user/userExit">退出登录</a></li>
+            <li><a href="" onclick="Cancellation()">账号注销</a></li>
+            <input type="hidden" id="uid" value="${sessionScope.user.uid}" />
         </ul>
         <div class="tit-ol">
             <p>用户钱包</p>
@@ -157,15 +214,17 @@
         <section class="title">
             <h1>
                 用户中心
-                <span>修改密码</span>
-                <input type="hidden" value="${sessionScope.user.upassword}" id="validationPassword" />
+                <span>更改交易密码</span>
+                <input type="hidden" value="${sessionScope.user.uaccount}" name="uaccount" id="validationAccount" />
+                <input type="hidden" name="uid" value="${sessionScope.user.uid}" />
             </h1>
         </section>
         <div class="contact con-pad">
             <div class="address">
                 <p>原始密码：<input type="password" id="originalPassword" onblur="validationPassword()" /></p>
-                <p>修改密码：<input type="password"  /></p>
-                <p>确认密码：<input type="password" name="upassword" /></p>
+                <p>修改密码：<input type="password" id="newPassword" /></p>
+                <p>确认密码：<input type="password" id="rePassword" name="upassword" onchange="isPassword()" /></p>
+                <input type="submit" value="提交" style="background-color: #b11e22; font-size: 12px; color: #fff; width: 86px; height: 37px; border: none; cursor: pointer; border: 0px;text-align: center;" />
             </div>
         </div>
     </div>
@@ -177,13 +236,16 @@
     <div class="container">
         <ul class="foot-nav clearfix">
             <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
-            <li><a href="${ctx}/notice/aboutUs?nid=18">关于我们</a></li>
             <li><a href="${ctx}/express/toOrderOnline">在线下单</a></li>
             <li><a href="${ctx}/notice/loadService?nid=1">业务范围</a></li>
-            <li><a href="${ctx}/notice/loadNews?nid=7">新闻资讯</a></li>
+            <li><a href="${ctx}/notice/listNews">新闻资讯</a></li>
             <li><a href="${ctx}/contactUs">联系我们</a></li>
+            <li><a href="${ctx}/notice/aboutUs?nid=18">关于我们</a></li>
+            <c:if test="${not empty user}">
+                <li><a href="${ctx}/user/toUserCenter">个人中心</a></li>
+            </c:if>
         </ul>
-        <p class="cpr">
+        <p class="cpr" style="display: none;">
             Copyright © 2009-2011,All rights reserved 更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a>
         </p>
     </div>
