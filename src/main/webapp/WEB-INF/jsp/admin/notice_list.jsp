@@ -91,13 +91,13 @@
                                  </c:if>
                                  <c:if test="${i.nstatus==0}" >
                                     <td class="td-status">
-                                        <span class="layui-btn layui-btn-disabled layui-btn-disabled">已停用</span></td>
+                                        <span class="layui-btn layui-btn-normal layui-btn-mini">已停用</span></td>
                                     <td class="td-manage">
                                         <a id = "${i.nid}" onclick="member_stop(this,this.id)" href="javascript:;"  title="启用">
                                             <i class="layui-icon">&#xe601;</i>
                                         </a>
                                  </c:if>
-                                    <a title="编辑" onclick="xadmin.add_tab('编辑','${ctx}/notice/noticeEdit?nid=${i.nid}')" href="javascript:;">
+                                    <a title="编辑" onclick="xadmin.add_tab('编辑','${ctx}/notice/doupdateNotice?nid=${i.nid}')" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>
                                     </a>
                                     <a id="${i.nid}" title="删除" onclick="member_del(this,this.id)" href="javascript:;">
@@ -162,7 +162,7 @@
                             $(obj).attr('title','停用')
                             $(obj).find('i').html('&#xe601;');
 
-                            $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-mini').html('已启用');
+                            $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
                             layer.msg('已启用!',{icon: 1,time:1000});
                         }
                     }
@@ -172,7 +172,7 @@
         });
     }
 
-    /*用户-删除至回收站*/
+    /*文章-删除至回收站*/
     function member_del(obj,id){
         layer.confirm('确认要删除到回收站吗？',function(index){
             $.ajax({

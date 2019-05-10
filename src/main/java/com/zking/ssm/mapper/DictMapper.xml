@@ -29,7 +29,10 @@
   </select>
 
   <select id="listDict" resultMap="ResultList" parameterType="com.zking.ssm.model.Dict">
-    SELECT * FROM t_dict WHERE 1 = 1
+    SELECT * FROM t_dict a WHERE 1 = 1
+    <if test="dictType != null and dictType != ''" >
+       AND a.dict_type = '字典类别'
+    </if>
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

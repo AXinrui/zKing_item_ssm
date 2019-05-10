@@ -84,7 +84,7 @@
                                     </c:if>
                                     <c:if test="${i.mstatus==1}" >
                                 <td class="td-status">
-                                    <span class="layui-btn layui-btn-danger layui-btn-mini">未回复</span></td>
+                                    <span class="layui-btn layui-btn-normal layui-btn-mini">未回复</span></td>
                                 <td class="td-manage">
                                     </c:if>
                                     <a id="${i.mid}" onclick="to_message(this,this.id)" title="回复消息" href="javascript:;">

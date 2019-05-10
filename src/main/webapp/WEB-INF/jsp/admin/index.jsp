@@ -72,11 +72,11 @@
                 <dd>
                     <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
                 <dd>
-                    <a href="./login.html">退出</a></dd>
+                    <a href="${ctx}/login.html">退出</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item to-index">
-            <a href="/">前台首页</a></li>
+            <a href="${ctx}">前台首页</a></li>
     </ul>
 </div>
 <!-- 顶部结束 -->
@@ -164,17 +164,17 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="文章管理">&#xe723;</i>
+                    <i class="iconfont left-nav-li" lay-tips="公告管理">&#xe723;</i>
                     <cite>文章管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('公告发布','${ctx}/notice/addNotice')">
+                        <a onclick="xadmin.add_tab('公告发布','${ctx}/notice/toaddNotice')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>公告发布</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('公告管理','${ctx}/notice/noticeList')">
+                        <a onclick="xadmin.add_tab('公告列表','${ctx}/notice/noticeList')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>公告管理</cite></a>
                     </li>
@@ -253,19 +253,6 @@
                         <a onclick="xadmin.add_tab('仪表图','echarts8.html')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>仪表图</cite></a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="图标字体">&#xe6b4;</i>
-                    <cite>图标字体</cite>
-                    <i class="iconfont nav_right">&#xe697;</i></a>
-                <ul class="sub-menu">
-                    <li>
-                        <a onclick="xadmin.add_tab('图标对应字体','unicode.html')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>图标对应字体</cite></a>
                     </li>
                 </ul>
             </li>
