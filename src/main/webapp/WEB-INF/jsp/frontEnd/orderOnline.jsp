@@ -25,9 +25,11 @@
         var consigneeAddressLng;
         var consigneeAddressLat;
 
+        var newaddress;
+
         function getLongitudeAndLatitudeShipperaddress(shipperaddress) {
             if(shipperaddress != null){
-                alert(shipperaddress);
+                //alert(shipperaddress);
                 var json = {
                     "address" : shipperaddress
                 };
@@ -46,8 +48,9 @@
                         var longitudeAndLatitudes = eval(data);
                         shipperaddressLng = longitudeAndLatitudes.result.location.lng;
                         shipperaddressLat = longitudeAndLatitudes.result.location.lat;
-                        alert("shipperaddressLng:"+shipperaddressLng);
-                        alert("shipperaddressLat:"+shipperaddressLat);
+                        newaddress = shipperaddress;
+                        //alert("shipperaddressLng:"+shipperaddressLng);
+                        //alert("shipperaddressLat:"+shipperaddressLat);
                         isDistance();
                     }
                 });
@@ -57,7 +60,7 @@
 
         function getLongitudeAndLatitudeConsigneeAddress(consigneeAddress) {
             if(consigneeAddress != null){
-                alert(consigneeAddress);
+                //alert(consigneeAddress);
                 var json = {
                     "address" : consigneeAddress
                 };
@@ -76,8 +79,8 @@
                         var longitudeAndLatitudes = eval(data);
                         consigneeAddressLng = longitudeAndLatitudes.result.location.lng;
                         consigneeAddressLat = longitudeAndLatitudes.result.location.lat;
-                        alert("consigneeAddressLng:"+consigneeAddressLng);
-                        alert("consigneeAddressLat:"+consigneeAddressLat);
+                        //alert("consigneeAddressLng:"+consigneeAddressLng);
+                        //alert("consigneeAddressLat:"+consigneeAddressLat);
                         isDistance();
                     }
                 });
@@ -106,7 +109,7 @@
                 address = province + city + area;
             }
 
-            alert(address);
+            //alert(address);
             document.getElementById("shipperaddress").value = address;
             getLongitudeAndLatitudeShipperaddress(address);
             alert("shipperaddress:"+ document.getElementById("shipperaddress").value);
@@ -133,24 +136,30 @@
                 address = province + city + area;
             }
 
-            alert(address);
+            //alert(address);
             document.getElementById("consigneeAddress").value = address;
             getLongitudeAndLatitudeConsigneeAddress(address);
             alert("consigneeAddress:"+ document.getElementById("consigneeAddress").value);
         }
 
         function isDistance() {
-            alert("进来判断距离了A");
+            //alert("进来判断距离了A");
             if(shipperaddressLng != null && shipperaddressLat != null && consigneeAddressLng != null && consigneeAddressLat != null){
-                alert("进来判断距离了B");
+                //alert("进来判断距离了B");
                 var map = new BMap.Map("allmap");
-                map.centerAndZoom("重庆",12);  //初始化地图,设置城市和地图级别
+                map.centerAndZoom(newaddress,10);  //初始化地图,设置城市和地图级别
                 var pointShipperaddress = new BMap.Point(shipperaddressLng,shipperaddressLat);  // 创建发货点坐标
                 var pointConsigneeAddress = new BMap.Point(consigneeAddressLng,consigneeAddressLat);  // 创建收货点坐标
                 var distance = (map.getDistance(pointShipperaddress,pointConsigneeAddress)).toFixed(2);
                 alert("俩地相隔："+distance+"米");  //获取两点距离,保留小数点后两位
+                var polyline = new BMap.Polyline([pointShipperaddress,pointConsigneeAddress], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});  //定义折线
+                map.addOverlay(polyline); //添加折线到地图上
+
+                document.getElementById("distance").value = distance/1000;
+                document.getElementById("freight").value = distance/1000*100;
+
             } else{
-                alert("进来判断距离了C");
+                //alert("进来判断距离了C");
                 return;
             }
         }
@@ -291,7 +300,7 @@
                     </li>
                     <li class="col-sm-6 col-xs-12">
                         <p><i>*</i>手机</p>
-                        <input type="text" name="shipperPhone"/>
+                        <input type="text" name="shipperphone"/>
                     </li>
                     <li class="col-sm-6 col-xs-12">
                         <div class="form-group">
@@ -327,13 +336,13 @@
                     </li>
                     <li class="col-sm-6 col-xs-12">
                         <p><i>*</i>手机</p>
-                        <input type="text" name="consigneePhone"/>
+                        <input type="text" name="consigneephone"/>
                     </li>
                     <li class="col-sm-6 col-xs-12">
                         <div class="form-group">
-                            <p><i>*</i>发货地址</p>
+                            <p><i>*</i>收货地址</p>
                             <%--<label class="col-sm-2 control-label"><i>*</i>所在地址</label>--%>
-                            <input type="hidden" name="consigneeAddress" id="consigneeAddress" />
+                            <input type="hidden" name="consigneeaddress" id="consigneeAddress" />
                             <div class="col-sm-3">
                                 <select name="input_province1" id="input_province1" class="form-control" style="width: 98px;" >
                                     <option value="">--请选择--</option>
@@ -378,11 +387,11 @@
                 <ul class="row">
                     <li class="col-sm-6 col-xs-12">
                         <p><i>*</i>距离(公里)：</p>
-                        <input type="text" name=""/>
+                        <input type="text" name="" id="distance"/>
                     </li>
                     <li class="col-sm-6 col-xs-12">
                         <p>预算费用：</p>
-                        <input type="text" name=""/>
+                        <input type="text" name="orderprice" id="freight"/>
                     </li>
                     <li class="sm">
                         <p>注：我们的工作人员会在接货时重新预测，此估算仅供参考。</p>
@@ -390,11 +399,15 @@
                 </ul>
             </div>
             <div>
+                <p>地图</p>
+                <div id="allmap" style="width: 500px;height: 300px;"></div>
+            </div>
+            <div>
                 <p>备注信息</p>
                 <textarea name="orderremark"></textarea>
             </div>
             <p class="mes">注：我们的工作人员在收到发货请求会主动联系，请注意接听电话。</p>
-            <input type="button" value="立即发送" />
+            <input type="submit" value="提交订单" style="background-color: blue; font-size: 12px; color: #fff; width: 86px; height: 37px; border: none; cursor: pointer; border: 0px;text-align: center;" />
         </div>
         </form>
 

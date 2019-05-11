@@ -25,7 +25,7 @@ public class UserServiceImplTest extends BaseTestCase {
     @Test
     public void doRegister() {
         user.setUname("user");
-        user.setUaccount("user_001");
+        user.setUaccount("user_0001");
         user.setUpassword("123456");
         user.setUname("真棒");
         user.setUphone("15607992781");
@@ -42,7 +42,7 @@ public class UserServiceImplTest extends BaseTestCase {
 
     @Test
     public void doLogin() {
-        user.setUaccount("user_001");
+        user.setUaccount("user_0001");
         user.setUpassword("123456");
         String login = iUserService.doLogin(user);
         System.out.println("登录状态:" + login);

@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2019/5/6
-  Time: 21:16
+  Time: 20:55
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,40 +11,11 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>天地物流有限公司 - 用户中心</title>
+    <title>天地物流有限公司 - 余额不足</title>
     <%@include file="/common/head.jsp"%>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/main.css" />
-    <script type="text/javascript">
-
-        function Cancellation() {
-            //定义json对象
-            var uid = $("#uid").val();
-            alert(uid);
-            //alert(userVerificationCode);
-            var json = {
-                "uid" : uid
-            };
-
-            // Jquery Ajax请求
-            $.ajax({
-                url : "user/Cancellation",
-                type : "POST",
-                async : true,
-                data : json,
-                dataType : 'json',
-                success : function(data) {
-                    if(data == "1"){
-                        location.href='/user/toUserLogin'
-                    }else{
-                        alert("删除失败!");
-                    }
-                }
-            });
-        }
-
-    </script>
 </head>
 
 <body>
@@ -132,90 +103,39 @@
 <div class="sec aboutpg container">
     <div class="pg-nav col-sm-3">
         <div class="tit-ab">
-            <p>用户操作</p>
+            <p>联系我们</p>
         </div>
         <ul>
-            <li><a href="${ctx}/user/toUserCenter">用户信息</a></li>
-            <li><a href="${ctx}/user/toPerfectInformaction">完善个人信息</a></li>
-            <li><a href="${ctx}/user/toChangePassword">修改密码</a></li>
-            <li><a href="${ctx}/user/userExit">退出登录</a></li>
-            <li><a href="" onclick="Cancellation()">账号注销</a></li>
-            <input type="hidden" id="uid" value="${sessionScope.user.uid}" />
-            <%--${ctx}/user/Cancellation?uid=${sessionScope.user.uid}--%>
+            <li><a href="${ctx}/contactUs">联系我们</a></li>
+            <li><a href="${ctx}/solution">在线留言</a></li>
         </ul>
         <div class="tit-ol">
-            <p>用户钱包</p>
+            <p>在线下单</p>
         </div>
         <ul>
-            <c:if test="${sessionScope.user.pid == null}">
-                <li>
-                    <a href="${ctx}/property/toOpenWallet">
-                        开通钱包
-                    </a>
-                </li>
-            </c:if>
-            <c:if test="${sessionScope.user.pid != null}">
-                <li>
-                    <a href="${ctx}/property/toAccountBalance?pid=${sessionScope.user.pid}">
-                        账户余额
-                    </a>
-                </li>
-                <li>
-                    <a href="${ctx}/property/toChangeTheTransactionPassword?pid=${sessionScope.user.pid}">
-                        更改交易密码
-                    </a>
-                </li>
-                <li>
-                    <a href="${ctx}/property/toRecharge?pid=${sessionScope.user.pid}">
-                        账户充值
-                    </a>
-                </li>
-            </c:if>
-        </ul>
-        <div class="tit-co">
-            <p>我的物流</p>
-        </div>
-        <ul>
-            <li><a href="${ctx}/express/myLogistics?esid=7&uid=${sessionScope.user.uid}">待付款包裹</a></li>
-            <li><a href="${ctx}/express/myLogistics?esid=1&uid=${sessionScope.user.uid}">派送中包裹</a></li>
-            <li><a href="${ctx}/express/myLogistics?esid=5&uid=${sessionScope.user.uid}">已签收包裹</a></li>
+            <li>
+                <a href="${ctx}/express/toOrderOnline">
+                    立即下单
+                </a>
+            </li>
+            <li>
+                <a href="${ctx}/notice/listProblem">
+                    常见问题
+                </a>
+            </li>
         </ul>
     </div>
     <div class="col-sm-9 introduce">
         <section class="title">
             <h1>
-                用户中心
-                <span>用户信息</span>
+                在线下单
+                <span>余额不足</span>
             </h1>
         </section>
         <div class="contact con-pad">
-            <div class="address">
-                <p>用户账号：${sessionScope.user.uaccount}</p>
-                <p>用户昵称：
-                    <c:if test="${sessionScope.user.uname != null}">
-                        ${sessionScope.user.uname}
-                    </c:if>
-                    <c:if test="${sessionScope.user.uname == null}">
-                        user_${sessionScope.user.uid}
-                    </c:if>
-                </p>
-                <p>绑定手机：${sessionScope.user.uphone}</p>
-                <P>我的地址：
-                    <c:if test="${sessionScope.user.uaddress != null}">
-                        ${sessionScope.user.uaddress}
-                    </c:if>
-                    <c:if test="${sessionScope.user.uaddress == null}">
-                        <a href="#">编辑地址</a>
-                    </c:if>
-                </P>
-                <P>用户身份：
-                    <c:if test="${sessionScope.user.iid == 1}">
-                        普通用户
-                    </c:if>
-                    <c:if test="${sessionScope.user.iid == 2}">
-                        物流派送员
-                    </c:if>
-                </P>
+            <div id="message" class="row">
+                <font size="18px;">余额不足，</font>
+                <a href="${ctx}/property/toRecharge?pid=${sessionScope.user.pid}">立刻充值</a>
             </div>
         </div>
     </div>
@@ -239,6 +159,13 @@
         </p>
     </div>
 </footer>
+<div class="fl">
+    <ul>
+        <li><a href="tel:15995656015">电话咨询</a></li>
+        <li><a href="${ctx}/zking/zking.shtml">网站首页</a></li>
+        <li><a href="${ctx}/solution">在线留言</a></li>
+    </ul>
+</div>
 <script src="${ctx}/static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="${ctx}/static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="${ctx}/static/js/main.js" type="text/javascript" charset="utf-8"></script>
