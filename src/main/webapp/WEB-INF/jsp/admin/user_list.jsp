@@ -93,7 +93,7 @@
                                         <span class="layui-btn layui-btn-normal layui-btn-mini">已停用</span></td>
                                     <td class="td-manage">
                                         <a id = "${i.uid}" onclick="member_stop(this,this.id)" href="javascript:;"  title="启用">
-                                            <i class="layui-icon">&#xe601;</i>
+                                            <i class="layui-icon">&#xe62f;</i>
                                         </a>
                                  </c:if>
 

@@ -62,7 +62,7 @@
       AND uname LIKE concat("%",#{uname,jdbcType=VARCHAR},"%")
     </if>
     <if test="ustatus!= null and ustatus != '' ">
-      AND ustatus = #{ustatus,jdbcType=INTEGER }
+      AND ustatus = #{ustatus,jdbcType=INTEGER } OR ustatus = 0
     </if>
     <if test="ustatus== null or ustatus == '' ">
       AND ustatus BETWEEN 1 AND 2

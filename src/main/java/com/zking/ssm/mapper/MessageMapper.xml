@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zking.ssm.mapper.MessageMapper" >
+  <cache type="com.zking.ssm.redis.RedisCache" />
   <resultMap id="BaseResultMap" type="com.zking.ssm.model.Message" >
     <constructor >
       <idArg column="mid" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -9,6 +10,13 @@
       <arg column="mcontent" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="mstatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
+  </resultMap>
+  <resultMap id="listMessage" type="com.zking.ssm.model.Message" >
+      <id column="mid" property="mid" javaType="java.lang.Integer" />
+      <result column="mname" property="mname" javaType="java.lang.String" />
+      <result column="mphone" property="mphone" javaType="java.lang.String" />
+      <result column="mcontent" property="mcontent" javaType="java.lang.String" />
+      <result column="mstatus" property="mstatus" javaType="java.lang.Integer" />
   </resultMap>
   <sql id="Base_Column_List" >
     mid, mname, mphone, mcontent, mstatus
@@ -19,7 +27,13 @@
     from t_message
     where mid = #{mid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="listMessage" resultType="message" parameterType="message">
+      SELECT * FROM t_message WHERE 1=1
+      <if test="mname != null and mphone != ''" >
+        AND mname LIKE concat("%",#{mname,jdbcType=VARCHAR},"%")
+      </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_message
     where mid = #{mid,jdbcType=INTEGER}
   </delete>

@@ -46,7 +46,8 @@ public class IndexController {
     }
 
     @RequestMapping(value ={"/admin/login","/admin/login.html"} )
-    public String toAdmin(){
+    public String toAdmin(HttpSession session){
+        session.setAttribute("admin",null);
         return "admin/login";
     }
 

@@ -7,6 +7,9 @@
           <element id="module-output" name="zKing_item_ssm" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-email:1.4" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.2" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1.1" />
           <element id="library" level="project" name="Maven: org.json:json:20160810" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:5.0.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.0.2.RELEASE" />

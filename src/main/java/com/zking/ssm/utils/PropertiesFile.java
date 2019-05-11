@@ -62,7 +62,7 @@ public class PropertiesFile {
      * @param paramFile file path
      * @throws IOException
      */
-    private static int outputFile(String paramFile,Map<String,Object> map ) throws IOException {
+    public static int outputFile(String paramFile,Map<String,Object> map ) throws IOException {
         ///保存属性到b.properties文件
         Properties props = new Properties();
         FileOutputStream oFile = new FileOutputStream(paramFile);//true表示追加打开
