@@ -4,6 +4,7 @@ import com.zking.ssm.utils.Aute;
 import com.zking.ssm.utils.PropertiesFile;
 import com.zking.ssm.vo.EmailVo;
 import com.zking.ssm.vo.MapVo;
+import com.zking.ssm.vo.NoteVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,16 +57,16 @@ public class UrlController {
 
     @RequestMapping("/mapList")
     public ModelAndView mapList(HttpServletRequest request,ModelAndView modelAndView)throws Exception{
-        String realPath = request.getRealPath("/properties/ditu.properties");
+        String realPath = request.getSession().getServletContext().getRealPath("/properties/ditu.properties");
         Map<String, Object> map = PropertiesFile.inputFile(realPath);
         MapVo mapVo = new MapVo();
-        mapVo.setTitle(PropertiesFile.getInputFile(realPath,"title"));
-        mapVo.setContent(PropertiesFile.getInputFile(realPath,"content"));
-        mapVo.setX(PropertiesFile.getInputFile(realPath,"x"));
-        mapVo.setY(PropertiesFile.getInputFile(realPath,"y"));
-        mapVo.setAddress(PropertiesFile.getInputFile(realPath,"address"));
-        mapVo.setPhone(PropertiesFile.getInputFile(realPath,"phone"));
-        mapVo.setEamil(PropertiesFile.getInputFile(realPath,"eamil"));
+        mapVo.setTitle(map.get("title")+"");
+        mapVo.setContent(map.get("content")+"");
+        mapVo.setX(map.get("x")+"");
+        mapVo.setY(map.get("y")+"");
+        mapVo.setAddress(map.get("address")+"");
+        mapVo.setPhone(map.get("phone")+"");
+        mapVo.setEamil(map.get("eamil")+"");
         modelAndView.addObject("mapVo",mapVo);
         modelAndView.setViewName("/admin/map_set");
         return modelAndView;
@@ -73,12 +74,12 @@ public class UrlController {
 
     @RequestMapping("/doMap")
     public ModelAndView doMap(HttpServletRequest request,ModelAndView modelAndView)throws Exception{
-        String realPath = request.getRealPath("/properties/ditu.properties");
+        String realPath = request.getSession().getServletContext().getRealPath("/properties/ditu.properties");
         Map<String, Object> map = PropertiesFile.inputFile(realPath);
         MapVo mapVo = new MapVo();
-        mapVo.setAddress(PropertiesFile.getInputFile(realPath,"address"));
-        mapVo.setPhone(PropertiesFile.getInputFile(realPath,"phone"));
-        mapVo.setEamil(PropertiesFile.getInputFile(realPath,"eamil"));
+        mapVo.setAddress(map.get("address")+"");
+        mapVo.setPhone(map.get("phone")+"");
+        mapVo.setEamil(map.get("eamil")+"");
         modelAndView.addObject("mapVo",mapVo);
         modelAndView.setViewName("/frontEnd/map");
         return modelAndView;
@@ -86,8 +87,7 @@ public class UrlController {
 
     @RequestMapping("/setMap")
     public String setMap(MapVo mapVo, HttpServletRequest request, HttpSession session)throws Exception{
-        String realPath = request.getRealPath("/properties/ditu.properties");
-        System.out.println("mapVo:"+mapVo.toString());
+        String realPath = request.getSession().getServletContext().getRealPath("/properties/ditu.properties");
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("title",mapVo.getTitle());
         map.put("content",mapVo.getContent());
@@ -102,12 +102,12 @@ public class UrlController {
 
     @RequestMapping("/doData")
     public ModelAndView doData(HttpServletRequest request,ModelAndView modelAndView)throws Exception{
-        String realPath = request.getRealPath("/properties/ditu.properties");
+        String realPath = request.getSession().getServletContext().getRealPath("/properties/ditu.properties");
         Map<String, Object> map = PropertiesFile.inputFile(realPath);
         MapVo mapVo = new MapVo();
-        mapVo.setAddress(PropertiesFile.getInputFile(realPath,"address"));
-        mapVo.setPhone(PropertiesFile.getInputFile(realPath,"phone"));
-        mapVo.setEamil(PropertiesFile.getInputFile(realPath,"eamil"));
+        mapVo.setAddress(map.get("address")+"");
+        mapVo.setPhone(map.get("phone")+"");
+        mapVo.setEamil(map.get("eamil")+"");
         modelAndView.addObject("mapVo",mapVo);
         modelAndView.setViewName("/frontEnd/map");
         return modelAndView;
@@ -115,14 +115,14 @@ public class UrlController {
 
     @RequestMapping("/emailList")
     public ModelAndView emailList(HttpServletRequest request,ModelAndView modelAndView)throws Exception{
-        String realPath = request.getRealPath("/properties/mail.properties");
-        Map<String, Object> map = PropertiesFile.inputFile(realPath);
+        String realPath = request.getSession().getServletContext().getRealPath("/properties/mail.properties");
         EmailVo emailVo = new EmailVo();
-        emailVo.setTitle(PropertiesFile.getInputFile(realPath,"title"));
-        emailVo.setMail(PropertiesFile.getInputFile(realPath,"mail"));
-        emailVo.setPassword(PropertiesFile.getInputFile(realPath,"password"));
-        emailVo.setSmtphost(PropertiesFile.getInputFile(realPath,"smtphost"));
-        emailVo.setUsername(PropertiesFile.getInputFile(realPath,"username"));
+        Map<String, Object> map = PropertiesFile.inputFile(realPath);
+        emailVo.setTitle(map.get("title")+"");
+        emailVo.setMail(map.get("mail")+"");
+        emailVo.setPassword(map.get("password")+"");
+        emailVo.setSmtphost(map.get("smtphost")+"");
+        emailVo.setUsername(map.get("username")+"");
         modelAndView.addObject("emailVo",emailVo);
         modelAndView.setViewName("/admin/email_set");
         return modelAndView;
@@ -130,8 +130,7 @@ public class UrlController {
 
     @RequestMapping("/setEmail")
     public String setEmail(EmailVo emailVo, HttpServletRequest request, HttpSession session)throws Exception{
-        String realPath = request.getRealPath("/properties/mail.properties");
-        System.out.println("emailVo:"+emailVo.toString());
+        String realPath = request.getSession().getServletContext().getRealPath("/properties/mail.properties");
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("title",emailVo.getTitle());
         map.put("mail",emailVo.getMail());
@@ -139,7 +138,34 @@ public class UrlController {
         map.put("smtphost",emailVo.getSmtphost());
         map.put("username",emailVo.getUsername());
         int i = PropertiesFile.outputFile(realPath, map);
-        return "redirect:/url/admin/email_set";
+        return "redirect:/url/admin/emailList";
+    }
+
+    @RequestMapping("/setNote")
+    public String setEmail(NoteVo noteVo, HttpServletRequest request, HttpSession session)throws Exception{
+        String realPath = request.getSession().getServletContext().getRealPath("/properties/note.properties");
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("key",noteVo.getKey());
+        map.put("url",noteVo.getUrl());
+        map.put("tpl_value",noteVo.getTpl_value());
+        map.put("tpl_id",noteVo.getTpl_id());
+        int i = PropertiesFile.outputFile(realPath, map);
+        return "redirect:/url/admin/noteList";
+    }
+
+    @RequestMapping("/noteList")
+    public ModelAndView noteList(HttpServletRequest request,ModelAndView modelAndView)throws Exception{
+        String realPath = request.getSession().getServletContext().getRealPath("/properties/note.properties");
+//        String realPath = request.getSession().getServletContext().getRealPath("/properties/mail.properties");
+        Map<String, Object> map = PropertiesFile.inputFile(realPath);
+        NoteVo noteVo = new NoteVo();
+        noteVo.setKey(map.get("key")+"");
+        noteVo.setUrl(map.get("url")+"");
+        noteVo.setTpl_value(map.get("tpl_value")+"");
+        noteVo.setTpl_id(map.get("tpl_id")+"");
+        modelAndView.addObject("note",noteVo);
+        modelAndView.setViewName("/admin/note_set");
+        return modelAndView;
     }
 
 

@@ -117,7 +117,7 @@
                 <a href="javascript:;">
                     <i class="iconfont left-nav-li" lay-tips="订单管理">&#xe723;</i>
                     <cite>订单管理</cite>
-                    <i class="iconfont nav_right">&#xe697;</i></a>
+                    <i class="iconfont nav_right">&#xe723;</i></a>
                 <ul class="sub-menu">
                     <li>
                         <a onclick="xadmin.add_tab('订单列表','${ctx}/express/expressList')">
@@ -133,27 +133,32 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="留言管理">&#xe723;</i>
+                    <i class="iconfont left-nav-li" lay-tips="留言管理">&#xe69b;</i>
                     <cite>留言管理</cite>
-                    <i class="iconfont nav_right">&#xe697;</i></a>
+                    <i class="iconfont nav_right">&#xe69b;</i></a>
                 <ul class="sub-menu">
                     <li>
                         <a onclick="xadmin.add_tab('留言处理','${ctx}/message/messageList')">
-                            <i class="iconfont">&#xe69b;</i>
+                            <i class="iconfont">&#xe6a7;</i>
                             <cite>留言处理</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('邮箱设置','${ctx}/url/admin/emailList')">
-                            <i class="iconfont">&#xe69f;</i>
+                        <a onclick="xadmin.add_tab('邮箱配置','${ctx}/url/admin/emailList')">
+                            <i class="iconfont">&#xe6a7;</i>
                             <cite>邮箱设置</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('短信配置','${ctx}/url/admin/noteList')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>短信配置</cite></a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="分类管理">&#xe723;</i>
+                    <i class="iconfont left-nav-li" lay-tips="分类管理">&#xe70c;</i>
                     <cite>分类管理</cite>
-                    <i class="iconfont nav_right">&#xe697;</i></a>
+                    <i class="iconfont nav_right">&#xe70c;</i></a>
                 <ul class="sub-menu">
                     <li>
                         <a onclick="xadmin.add_tab('多级分类','/dict/dictList')">
@@ -164,9 +169,9 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="公告管理">&#xe723;</i>
+                    <i class="iconfont left-nav-li" lay-tips="公告管理">&#xe842;</i>
                     <cite>公告管理</cite>
-                    <i class="iconfont nav_right">&#xe697;</i></a>
+                    <i class="iconfont nav_right">&#xe842;</i></a>
                 <ul class="sub-menu">
                     <li>
                         <a onclick="xadmin.add_tab('公告发布','${ctx}/notice/toaddNotice')">
@@ -210,10 +215,15 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="系统统计">&#xe6ce;</i>
-                    <cite>系统统计</cite>
+                    <i class="iconfont left-nav-li" lay-tips="财务统计">&#xe6ce;</i>
+                    <cite>财务统计</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('财务管理','${ctx}/finance/financeList')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>财务管理</cite></a>
+                    </li>
                     <li>
                         <a onclick="xadmin.add_tab('拆线图','echarts1.html')">
                             <i class="iconfont">&#xe6a7;</i>
@@ -273,7 +283,7 @@
                             <cite>地图位置获取</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('更新日志','log.html')">
+                        <a onclick="xadmin.add_tab('短信配置设置','log.html')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>更新日志</cite></a>
                     </li>

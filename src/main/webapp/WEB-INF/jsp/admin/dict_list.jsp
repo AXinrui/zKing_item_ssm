@@ -52,7 +52,7 @@
                         <div class="layui-input-inline layui-show-xs-block">
                             <input class="layui-input" placeholder="分类名" name="cate_name"></div>
                         <div class="layui-input-inline layui-show-xs-block">
-                            <button class="layui-btn" onclick="dictitem_add()" lay-submit="" lay-filter="sreach"><i class="layui-icon"></i>增加
+                            <button class="layui-btn" onclick="dictitem_add();return false;" lay-submit="" lay-filter="sreach"><i class="layui-icon"></i>增加
                             </button> &nbsp;&nbsp;
                             <button class="layui-btn layui-btn-danger" onclick="delAll();return false;"><i
                                     class="layui-icon"></i>批量删除
@@ -140,10 +140,20 @@
 
     });
 
+
+    function loading(msg){
+        layer.msg(msg, {
+            icon:16,
+            shade:[0.1, '#fff'],
+            time:false  //取消自动关闭
+        })
+    }
+
     /*用户-删除*/
     function member_del(obj, id) {
         layer.confirm('确认要删除吗？', function () {
             //发异步删除数据
+            loading("数据提交中，请稍等！");
             $.ajax({
                 url : "dict/dictDel?id="+id,
                 dataType:'json',
@@ -168,12 +178,18 @@
                 var title = $(this).attr('title');
                 if (title != null && "" != title) {
                     $(this).attr("title", "");
+                    var loadingFlag;
                     // 栏目多级显示效果
                     $.ajax({
                         url: "dict/dictItem?tid=" + id,
                         type: "GET",
+                        beforeSend: function (XMLHttpRequest) {
+                            //注意，layer.msg默认3秒自动关闭，如果数据加载耗时比较长，需要设置time
+                            loadingFlag= layer.msg('正在读取数据，请稍候……', { icon: 16, shade: 0.01,shadeClose:false,time:60000 });
+                        },
                         success: function (data) {
                             addtr(data,id);
+                            layer.close(loadingFlag);
                         }
                     });
                 }
@@ -285,12 +301,12 @@
             btn: ['增加', '关闭'],
         },function(val, index){
             // layer.msg('得到了'+val);
+            loading("数据提交中，请稍等...");
             $.ajax({
                 url : "dict/addDict?dictItem="+val+"&tid="+id,
                 type:"GET",
                 success : function(data) {
                     //发异步增加数据
-                    alert(data);
                     if(data!=null){
                         addtr(data,id);
                         layer.msg('增加成功!',{icon:1,time:1000});
@@ -314,6 +330,7 @@
         });
         if (""!=ids.toString()){
             layer.confirm('确认要全部删除到回收站吗？'+ids.toString(),function(index){
+                loading("数据提交中，请稍等！");
                 $.ajax({
                     url : "dict/dictDel?id="+ids.toString(),
                     dataType:'json',
@@ -352,7 +369,7 @@
 
             btn: ['增加', '关闭'],
         },function(val, index){
-            layer.msg('得到了'+val);
+            loading("数据提交中，请稍等！");
             $.ajax({
                 url : "dict/addDictType?item="+val,
                 type:"GET",

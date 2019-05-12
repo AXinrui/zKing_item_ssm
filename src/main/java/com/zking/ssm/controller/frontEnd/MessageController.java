@@ -81,9 +81,9 @@ public class MessageController {
         System.out.println("message"+message.toString());
         boolean b = false;
         try {
-            EmailUtil emailUtil = new EmailUtil(request.getRealPath("/properties/mail.properties"));
+            EmailUtil emailUtil = new EmailUtil();
+            emailUtil.init(request.getRealPath("/properties/mail.properties"));
             b = emailUtil.sendEmail(message.getMphone(), null, message.getMcontent(), null, null);
-            System.out.println("b-----------：：："+b);
             if (b) {
                 message.setMcontent(null);
                 message.setMstatus(0);

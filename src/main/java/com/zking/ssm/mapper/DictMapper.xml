@@ -45,7 +45,7 @@
     ORDER BY a.dict_value DESC
   </select>
   <select id="countDict" resultType="int" parameterType="dict">
-    SELECT max(a.dict_value) sum FROM t_dict a WHERE 1=1
+    SELECT IFNULL(MAX(a.dict_value),0) sum FROM t_dict a WHERE 1=1
     <if test="dictType !=null and dictType !=''" >
       AND a.dict_type = #{dictType,jdbcType=VARCHAR}
     </if>

@@ -46,12 +46,10 @@
                             <input type="text" name="mname" value="${mname}"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
-                            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>&nbsp;&nbsp;
+                            <button class="layui-btn layui-btn-danger" onclick="delAll();return false;"><i class="layui-icon"></i>批量删除</button>
                         </div>
                     </form>
-                </div>
-                <div class="layui-card-header">
-                    <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
                 </div>
                 <div class="layui-card-body ">
                     <table class="layui-table layui-form">
@@ -130,13 +128,19 @@
             btn: ['发送', '关闭']
         },function(val, index){
             // layer.msg('得到了'+val);
+            var loadingFlag;
             var a =  $(obj).parents("tr").find(".td-phone").html();
             $.ajax({
                 url : "message/messageReply?mcontent="+val+"&mid="+id+"&mphone="+a,
                 dataType:'json',
+                beforeSend: function () {
+                    //注意，layer.msg默认3秒自动关闭，如果数据加载耗时比较长，需要设置time
+                    loadingFlag= layer.msg('正在发送邮件中，请稍候……', { icon: 16, shade: 0.01,shadeClose:false,time:60000 });
+                },
                 success : function(data) {
                     if(data="1"){
                         //发异步删除数据
+                        layer.close(loadingFlag);
                         $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已回复');
                         layer.msg('回复成功!',{icon:1,time:1000});
                     }else{
@@ -178,6 +182,7 @@
         });
         if (""!=ids.toString()){
             layer.confirm('确认要全部删除吗？'+ids.toString(),function(index){
+                //loading("数据提交中，请稍等...");
                 $.ajax({
                     url : "message/messageDel?id="+ids.toString(),
                     dataType:'json',

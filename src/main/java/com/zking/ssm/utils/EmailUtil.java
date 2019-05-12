@@ -19,19 +19,24 @@ public class EmailUtil {
     public  String TITLE = "";
     public  String USERTEXT = "";
 
-    public EmailUtil(String realPath){
-        try {
-            Map<String, Object> map = PropertiesFile.inputFile(realPath);
-            System.out.println("map:size:"+map.size());
-            System.out.println(map.get("mail"));
-            rootEmailAddress = map.get("mail")+"";
-            rootEmailPassword =map.get("password")+"";
-            rootEmailSMTPHost = map.get("smtphost")+"";
-            TITLE = map.get("title")+"";
-            USERTEXT = map.get("usertext")+"";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public EmailUtil(){
+    }
+
+    /**
+     * 初始化
+     * 加载配置文件里的内容
+     * @param realPath
+     * @return
+     * @throws Exception
+     */
+    public String init(String realPath) throws Exception{
+        Map<String, Object> map = PropertiesFile.inputFile(realPath);
+        rootEmailAddress = map.get("mail")+"";
+        rootEmailPassword =map.get("password")+"";
+        rootEmailSMTPHost = map.get("smtphost")+"";
+        TITLE = map.get("title")+"";
+        USERTEXT = map.get("usertext")+"";
+        return "初始化成功";
     }
 
     /**
