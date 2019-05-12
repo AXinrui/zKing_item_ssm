@@ -31,7 +31,7 @@
             <a href="">首页</a>
             <a href="">公告管理</a>
             <a>
-              <cite>公告设置</cite></a>
+              <cite>公告列表</cite></a>
           </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
         <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
@@ -76,7 +76,7 @@
                                     <input type="checkbox" name="id" value="${i.nid}"   lay-skin="primary">
                                 </td>
                                 <td>${i.nid}</td>
-                                <td><z:sub name="${i.nname}" size="5" /></td>
+                                <td><a title="编辑" onclick="xadmin.open('编辑','${ctx}/notice/doupdateNotice?nid=${i.nid}',900,550)" href="javascript:;" ><z:sub name="${i.nname}" size="5" /></a></td>
                                 <td><z:sub name="${i.ncontent}"/> </td>
                                 <td>${i.dictItem}</td>
                                 <td title="${i.nimg}" ><z:sub name="${i.nimg}"/></td>
@@ -91,13 +91,13 @@
                                  </c:if>
                                  <c:if test="${i.nstatus==0}" >
                                     <td class="td-status">
-                                        <span class="layui-btn layui-btn-normal layui-btn-mini">已停用</span></td>
+                                        <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">已停用</span></td>
                                     <td class="td-manage">
                                         <a id = "${i.nid}" onclick="member_stop(this,this.id)" href="javascript:;"  title="启用">
                                             <i class="layui-icon">&#xe601;</i>
                                         </a>
                                  </c:if>
-                                    <a title="编辑" onclick="xadmin.add_tab('编辑','${ctx}/notice/doupdateNotice?nid=${i.nid}')" href="javascript:;">
+                                    <a title="编辑" onclick="xadmin.open('编辑','${ctx}/notice/doupdateNotice?nid=${i.nid}',900,550)" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>
                                     </a>
                                     <a id="${i.nid}" title="删除" onclick="member_del(this,this.id)" href="javascript:;">
@@ -172,7 +172,7 @@
         });
     }
 
-    /*文章-删除至回收站*/
+    /*文章-删除*/
     function member_del(obj,id){
         layer.confirm('确认要删除到回收站吗？',function(index){
             $.ajax({

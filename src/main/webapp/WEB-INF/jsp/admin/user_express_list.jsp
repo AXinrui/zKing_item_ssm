@@ -90,7 +90,7 @@
                                  </c:if>
                                  <c:if test="${i.user.ustatus==0}" >
                                     <td class="td-status">
-                                        <span class="layui-btn layui-btn-normal layui-btn-disabled">已停用</span></td>
+                                        <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">已停用</span></td>
                                     <td class="td-manage">
                                         <a id = "${i.user.uid}" onclick="member_stop(this,this.id)" href="javascript:;"  title="启用">
                                             <i class="layui-icon">&#xe601;</i>

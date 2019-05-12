@@ -79,7 +79,7 @@
                                 <td>${i.mcontent}</td>
                                 <c:if test="${i.mstatus==0}" >
                                 <td class="td-status">
-                                    <span class="layui-btn layui-btn-normal layui-btn-mini">已回复</span></td>
+                                    <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">已回复</span></td>
                                 <td class="td-manage">
                                     </c:if>
                                     <c:if test="${i.mstatus==1}" >
@@ -137,7 +137,7 @@
                 success : function(data) {
                     if(data="1"){
                         //发异步删除数据
-                        $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已回复');
+                        $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已回复');
                         layer.msg('回复成功!',{icon:1,time:1000});
                     }else{
                         layer.msg('回复失败!',{icon:5,time:1000});

@@ -156,7 +156,7 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('多级分类','cate.html')">
+                        <a onclick="xadmin.add_tab('多级分类','/dict/dictList')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>多级分类</cite></a>
                     </li>
@@ -165,7 +165,7 @@
             <li>
                 <a href="javascript:;">
                     <i class="iconfont left-nav-li" lay-tips="公告管理">&#xe723;</i>
-                    <cite>文章管理</cite>
+                    <cite>公告管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
@@ -176,7 +176,7 @@
                     <li>
                         <a onclick="xadmin.add_tab('公告列表','${ctx}/notice/noticeList')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>公告管理</cite></a>
+                            <cite>公告列表</cite></a>
                     </li>
                 </ul>
             </li>
@@ -187,7 +187,7 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('管理员列表','admin-list.html')">
+                        <a onclick="xadmin.add_tab('管理员列表','${ctx}/dictTo/list')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>管理员列表</cite></a>
                     </li>

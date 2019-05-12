@@ -48,6 +48,16 @@ public class DictServiceImpl implements IDictService {
     }
 
     @Override
+    public int updatedictItem(Dict dict) {
+        return dictMapper.updatedictItem(dict);
+    }
+
+    @Override
+    public int countDict(Dict dict) {
+        return dictMapper.countDict(dict);
+    }
+
+    @Override
     public List<Dict> listDict(Dict dict, PageBean pageBean) {
         List<Dict> dictList = dictMapper.listDict(dict);
         return dictList;

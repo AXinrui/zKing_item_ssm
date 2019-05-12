@@ -20,4 +20,8 @@ public interface DictMapper {
     int updateByPrimaryKey(Dict record);
 
     List<Dict> listDict(Dict dict);
+
+    int updatedictItem(Dict dict);
+
+    int countDict(Dict dict);
 }
