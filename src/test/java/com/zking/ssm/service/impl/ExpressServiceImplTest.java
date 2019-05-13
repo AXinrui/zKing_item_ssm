@@ -1,6 +1,7 @@
 package com.zking.ssm.service.impl;
 
 import com.zking.ssm.model.Express;
+import com.zking.ssm.model.ExpressSite;
 import com.zking.ssm.service.IExpressService;
 import com.zking.ssm.service.impl.base.BaseTestCase;
 import com.zking.ssm.utils.PageBean;
@@ -88,6 +89,16 @@ public class ExpressServiceImplTest extends BaseTestCase {
         for (Express express1 : expresses1) {
             System.out.println("express1:-----"+express1.toString());
         }
+
+    }
+    @Test
+    public void expressLists() {
+        express.setOrderid("1132311132312312");
+        Express expresses = iExpressService.selectExpress(express);
+        System.out.println("expresses::"+expresses.toString());
+         for(ExpressSite expressSite :expresses.getExpressSites()){
+             System.out.println("expressSite:"+expressSite.toString());
+         }
 
     }
 }

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: lenovo
-  Date: 2019/5/2
-  Time: 16:54
+  User: Administrator
+  Date: 2019/5/13
+  Time: 14:21
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,11 +11,12 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>天地物流有限公司</title>
+    <title>天地物流有限公司 - 联系我们</title>
     <%@include file="/common/head.jsp"%>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/main.css" />
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=VSGsIrmPywwMEGMHufAAnbmHBShaYQcz"></script>
 </head>
 
 <body>
@@ -98,101 +99,142 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-<!-- sec -->
-<div class="sec">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-5">
-                <div class="online-add square-title">
-                    <div>
-                        <p>网上下单<span class="glyphicon glyphicon-arrow-right"></span></p>
-                    </div>
-                    <ul class="clearfix">
-                        <li>
-                            <a href="${ctx}/express/toOrderOnline">
-                                立即下单
-                            </a>
-                        </li>
-                        <li>
-                            <a href="${ctx}/notice/listProblem">
-                                常见问题
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="service square-title">
-                    <div>
-                        <p>服务介绍<span class="glyphicon glyphicon-arrow-right"></span></p>
-                    </div>
-                    <ul class="clearfix">
 
-                        <c:forEach items="${listNotice}" var="n">
-                            <c:if test="${n.dictItem == '服务介绍'}">
-                                <li>
-                                    <a href="${ctx}/notice/loadService?nid=${n.nid}">
-                                        <img src="${n.nimg}" />
-                                        <span>${n.nname}</span>
-                                    </a>
-                                </li>
-                            </c:if>
-                        </c:forEach>
-
-                    </ul>
-                </div>
+<!--aboupg-->
+<div class="sec aboutpg container">
+    <div class="pg-nav col-sm-3">
+        <div class="tit-ab">
+            <p>联系我们</p>
+        </div>
+        <ul>
+            <li><a href="${ctx}/contactUs">联系我们</a></li>
+            <li><a href="${ctx}/solution">在线留言</a></li>
+        </ul>
+        <div class="tit-ol">
+            <p>在线下单</p>
+        </div>
+        <ul>
+            <li>
+                <a href="${ctx}/express/toOrderOnline">
+                    立即下单
+                </a>
+            </li>
+            <li>
+                <a href="${ctx}/notice/listProblem">
+                    常见问题
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-9 introduce">
+        <section class="title">
+            <h1>
+                运单查询
+                <span>Waybill query</span>
+            </h1>
+        </section>
+        <div class="contact con-pad">
+            <div id="message" class="row">
+                <form>
+                    <div class="col-sm-push-4" style="white-space:nowrap;margin-top: -50px;" >
+                        <input style="width: 700px;" type="text" placeholder="请输入快递单号或者电话号码" id="content"  />
+                            <input type="button" onclick="selectContent()" value="立即查询" />
+                    </div>
+                </form>
+                <div>订单状态：<span id="address" ></span></div>
             </div>
-            <div class="col-sm-7">
-                <ul class="clearfix quicklink">
-                    <li class="link-yf">
-                        <a href="problem-detail3.html">
-                            <img src="${ctx}/static/images/serli/7.png" />
-                            <div>
-                                <span>运费咨询</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="link-wd">
-                        <a href="${ctx}/express/doExpressSelect">
-                            <img src="${ctx}/static/images/serli/8.png" />
-                            <div>
-                                <span>运单查询</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="link-jj">
-                        <a href="${ctx}/solution">
-                            <img src="${ctx}/static/images/serli/9.png" />
-                            <div>
-                                <span>解决方案</span>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <div class="news">
-                    <div class="news-type">
-                        <ul class="clearfix">
-                            <li>新闻资讯</li>
-                            <li class="more"><a href="${ctx}/notice/listNews">查看更多</a></li>
-                        </ul>
-                    </div>
-                    <ul class="news-list">
-
-                        <c:forEach items="${listNotice}" var="n">
-                            <c:if test="${n.dictItem == '新闻资讯'}">
-                                <li>
-                                    <a href="${ctx}/notice/loadNews?nid=${n.nid}">
-                                        <span><fmt:formatDate value="${n.ntime}" pattern="yyyy-MM-dd HH:mm:ss" /></span>
-                                        <p>${n.nname}</p>
-                                    </a>
-                                </li>
-                            </c:if>
-                        </c:forEach>
-
-                    </ul>
-                </div>
-            </div>
+            <div id="allmap" style="width: 100%;height: 500px;margin-top: 10px;margin-left: -12px;" ></div>
         </div>
     </div>
 </div>
+
+<script>
+    //查询
+    function selectContent() {
+        var content =   document.getElementById("content").value;
+        if(""!=content&&null!=content){
+            $.ajax({
+                url : "express/expressSelect?orderid="+content,
+                type :"GET",
+                success : function(data) {
+                    if(data!=null){
+                        doditu(data);
+                    }
+                }
+            });
+        }else{
+            alert("请输入内容！");
+        }
+    }
+    
+    function doditu(data) {
+
+        // 百度地图API功能
+        var map = new BMap.Map("allmap");
+        map.centerAndZoom(new BMap.Point(113.135488, 29.363177), 11)
+
+        var   expressSites  = data[0].expressSites;
+
+        var sitesAry  = new Array();
+
+        if(data!=null){
+            for(var i = 0;i<expressSites.length;i++){
+                sitesAry.push(new BMap.Point(expressSites[i].x,expressSites[i].y));
+                //document.getElementById("address").innerHTML="";
+            }
+        }
+
+        map.enableScrollWheelZoom(true);
+        // var p1 = new BMap.Point(112.94547,28.23489);getAddress
+        var p1 = getAddress(data[0].shipperaddress);
+        var p2 =getAddress(data[0].consigneeaddress);
+
+        map.centerAndZoom(sitesAry[sitesAry.length-1], 5);
+        var marker = new BMap.Marker(sitesAry[sitesAry.length-1]);  // 创建标注
+        map.addOverlay(marker);               // 将标注添加到地图中
+        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+        var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+        driving.search(p1, p2,{waypoints:sitesAry});//waypoints表示途经点
+
+
+
+
+    }
+
+    function getAddress(address) {
+        var dd = null;
+        if(address != null){
+            //alert(shipperaddress);
+            var json = {
+                "address" : address
+            };
+            // Jquery Ajax请求
+            $.ajax({
+                url : "express/getLongitudeAndLatitude",
+                type : "POST",
+                async : false,
+                data : json,
+                dataType : 'json',
+                /*xhrFields: {
+                    withCredentials: true // 设置运行跨域操作
+                },*/
+                success : function(data) {
+                    var longitudeAndLatitudes = eval(data);
+                    shipperaddressLng = longitudeAndLatitudes.result.location.lng;
+                    shipperaddressLat = longitudeAndLatitudes.result.location.lat;
+                    //newaddress = address;
+                    // alert("shipperaddressLng:"+shipperaddressLng);
+                    // alert("shipperaddressLat:"+shipperaddressLat);
+                    // isDistance();
+                    dd =  new BMap.Point(shipperaddressLng,shipperaddressLat);
+                }
+            });
+        }
+        return dd;
+    }
+
+</script>
+
 <footer>
     <div class="container">
         <ul class="foot-nav clearfix">

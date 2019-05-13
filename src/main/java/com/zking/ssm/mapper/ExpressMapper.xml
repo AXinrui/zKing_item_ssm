@@ -27,6 +27,40 @@
     </constructor>
   </resultMap>
 
+    <!--一对多-->
+    <resultMap id="onedomeny" type="com.zking.ssm.model.Express" >
+        <id column="eid" property="eid" javaType="java.lang.Integer" />
+        <result column="orderId" property="orderid" javaType="java.lang.String" />
+        <result column="ordername" property="ordername" javaType="java.lang.String" />
+        <result column="orderprice" property="orderprice" javaType="java.lang.Float" />
+        <result column="orderweight" property="orderweight" javaType="java.lang.String" />
+        <result column="ordervolume" property="ordervolume" javaType="java.lang.String" />
+        <result column="orderAddress" property="orderaddress" javaType="java.lang.String" />
+        <result column="orderremark" property="orderremark" javaType="java.lang.String" />
+        <result column="esid" property="esid" javaType="java.lang.Integer" />
+        <result column="uid" property="uid" javaType="java.lang.Integer" />
+        <result column="shipper" property="shipper" javaType="java.lang.String" />
+        <result column="shipperTime" property="shippertime" javaType="java.util.Date" />
+        <result column="shipperPhone" property="shipperphone" javaType="java.lang.String" />
+        <result column="shipperaddress" property="shipperaddress" javaType="java.lang.String" />
+        <result column="consignee" property="consignee" javaType="java.lang.String" />
+        <result column="consigneePhone" property="consigneephone" javaType="java.lang.String" />
+        <result column="consigneeAddress" property="consigneeaddress" javaType="java.lang.String" />
+        <result column="consigneeTime" property="consigneetime" javaType="java.util.Date" />
+        <collection property="expressSites" ofType="ExpressSite">
+            <id column="sid" property="sid" javaType="java.lang.Integer" />
+            <result column="eid" property="eid" javaType="java.lang.Integer" />
+            <result column="x" property="x" javaType="java.lang.String" />
+            <result column="y" property="y" javaType="java.lang.String" />
+            <result column="sort" property="sort" javaType="java.lang.Integer" />
+            <result column="stime" property="stime" javaType="java.util.Date" />
+        </collection>
+        <collection property="expressStatus" javaType="ExpressStatus">
+          <id column="esid" property="esid" javaType="java.lang.Integer" />
+          <result column="esName" property="esname" javaType="java.lang.String" />
+        </collection>
+    </resultMap>
+
   <!--一对一-->
   <resultMap id="manydoone" type="com.zking.ssm.model.Express" >
       <id column="eid" property="eid" javaType="java.lang.Integer" />
@@ -88,6 +122,15 @@
     </if>
     <if test="uid != null and uid != '' ">
       AND a.uid = #{uid,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="selectExpress" resultMap="onedomeny" parameterType="express" >
+    SELECT a.*,site.*,tes.* FROM t_express a LEFT JOIN express_site site ON a.eid = site.eid JOIN t_express_status tes ON a.esid = tes.esid WHERE 1=1
+    <if test="orderid != '' and orderid != null " >
+      AND  a.orderId = #{orderid,jdbcType=INTEGER}
+    </if>
+    <if test="shipperphone != '' and shipperphone != null" >
+      AND  a.shipperPhone = #{shipperphone,jdbcType=INTEGER}
     </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

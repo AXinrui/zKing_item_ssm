@@ -81,9 +81,10 @@ public class UrlController {
         String realPath = request.getSession().getServletContext().getRealPath("/properties/ditu.properties");
         Map<String, Object> map = PropertiesFile.inputFile(realPath);
         MapVo mapVo = new MapVo();
-        mapVo.setAddress(map.get("address")+"");
-        mapVo.setPhone(map.get("phone")+"");
-        mapVo.setEamil(map.get("eamil")+"");
+        mapVo.setX(map.get("x")+"");
+        mapVo.setY(map.get("y")+"");
+        mapVo.setTitle(map.get("title")+"");
+        mapVo.setContent(map.get("content")+"");
         modelAndView.addObject("mapVo",mapVo);
         modelAndView.setViewName("/frontEnd/map");
         return modelAndView;

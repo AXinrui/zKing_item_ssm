@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.ssm.mapper.ExpressSiteMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.ssm.model.ExpressSite" >
+    <constructor >
+      <idArg column="sid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="eid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="x" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="y" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sort" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="stime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, eid, x, y, sort, stime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from express_site
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from express_site
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.ssm.model.ExpressSite" >
+    insert into express_site (sid, eid, x, 
+      y, sort, stime)
+    values (#{sid,jdbcType=INTEGER}, #{eid,jdbcType=INTEGER}, #{x,jdbcType=VARCHAR}, 
+      #{y,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{stime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.ssm.model.ExpressSite" >
+    insert into express_site
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="eid != null" >
+        eid,
+      </if>
+      <if test="x != null" >
+        x,
+      </if>
+      <if test="y != null" >
+        y,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="stime != null" >
+        stime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="eid != null" >
+        #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="x != null" >
+        #{x,jdbcType=VARCHAR},
+      </if>
+      <if test="y != null" >
+        #{y,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="stime != null" >
+        #{stime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.ssm.model.ExpressSite" >
+    update express_site
+    <set >
+      <if test="eid != null" >
+        eid = #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="x != null" >
+        x = #{x,jdbcType=VARCHAR},
+      </if>
+      <if test="y != null" >
+        y = #{y,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="stime != null" >
+        stime = #{stime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.ssm.model.ExpressSite" >
+    update express_site
+    set eid = #{eid,jdbcType=INTEGER},
+      x = #{x,jdbcType=VARCHAR},
+      y = #{y,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      stime = #{stime,jdbcType=TIMESTAMP}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>

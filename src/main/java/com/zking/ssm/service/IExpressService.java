@@ -21,4 +21,6 @@ public interface IExpressService {
 
     List<Express> listExpress(Express express, PageBean pageBean);
 
+    Express selectExpress(Express express);
+
 }

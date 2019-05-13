@@ -52,4 +52,9 @@ public class ExpressServiceImpl implements IExpressService {
     public List<Express> listExpress(Express express, PageBean pageBean) {
         return expressMapper.listExpress(express);
     }
+
+    @Override
+    public Express selectExpress(Express express) {
+        return expressMapper.selectExpress(express);
+    }
 }

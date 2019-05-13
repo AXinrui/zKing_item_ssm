@@ -4,6 +4,7 @@ import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Component
@@ -49,6 +50,8 @@ public class Express {
         private ExpressStatus expressStatus;
 
         private User user;
+
+        private List<ExpressSite> expressSites;
 
         public Express(Integer eid, String orderid, String ordername, Float orderprice, String orderweight, String ordervolume, String orderaddress, String orderremark, Integer esid, Integer uid, String shipper, Date shippertime, String shipperphone, String shipperaddress, String consignee, String consigneephone, String consigneeaddress, Date consigneetime) {
             this.eid = eid;
@@ -234,4 +237,12 @@ public class Express {
         public void setUser(User user) {
             this.user = user;
         }
+
+    public List<ExpressSite> getExpressSites() {
+        return expressSites;
+    }
+
+    public void setExpressSites(List<ExpressSite> expressSites) {
+        this.expressSites = expressSites;
+    }
 }

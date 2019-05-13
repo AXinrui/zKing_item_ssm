@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -211,6 +212,29 @@ public class ExpressController {
         }
 
         return modelAndView;
+    }
+
+    @RequestMapping("/doExpressSelect")
+    public String doExpressSelect(){
+        return "/frontEnd/express_sel";
+    }
+
+    @RequestMapping("/expressSelect")
+    @ResponseBody
+    public List<Express> expressSelect(Express express){
+        String content = express.getOrderid();
+        express.setOrderid(null);
+        System.out.println("content："+content);
+        List<Express> expresses = new ArrayList<Express>();
+        if (content.length()<=11) {
+            express.setShipperphone(content);
+        }else{
+            express.setOrderid(content);
+        }
+        System.out.println("express:"+express.toString());
+        express = iExpressService.selectExpress(express);
+        expresses.add(express);
+        return expresses;
     }
 
 
