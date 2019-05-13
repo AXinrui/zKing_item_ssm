@@ -85,6 +85,17 @@
   <select id="selectByUphone" resultType="user" parameterType="user">
     select * from t_user where uphone = #{uphone,jdbcType=VARCHAR}
   </select>
+
+  <select id="getUserExpressSum" resultType="int" parameterType="user">
+    SELECT COUNT(*) FROM t_user a JOIN courier_user b ON a.uid=b.uid JOIN courier_son_user c ON b.cuid = c.cuid WHERE 1=1
+    <if test="uid != null and uid !=''" >
+        AND a.uid = #{uid,jdbcType=INTEGER}
+    </if>
+    <if test="uname != null and uname !=''" >
+      AND c.csustutic = #{uname,jdbcType=INTEGER}
+    </if>
+
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_user
     where uid = #{uid,jdbcType=INTEGER}

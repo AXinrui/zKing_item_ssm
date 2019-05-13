@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zking.ssm.mapper.DictMapper" >
+
+  <!--<cache type="com.zking.ssm.redis.RedisCache" />-->
+
   <resultMap id="BaseResultMap" type="com.zking.ssm.model.Dict" >
     <constructor >
       <idArg column="tid" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -30,11 +33,23 @@
 
   <select id="listDict" resultMap="ResultList" parameterType="com.zking.ssm.model.Dict">
     SELECT * FROM t_dict a WHERE 1 = 1
-    <if test="dictType != null and dictType != ''" >
-       AND a.dict_type = '字典类别'
+    <if test ="dictType !=null and dictType!=''" >
+      AND a.dict_type = #{dictType,jdbcType=VARCHAR}
+    </if>
+    <if test ="dictItem !=null and dictItem!=''" >
+      AND a.dict_item LIKE concat("%",#{dictItem,jdbcType=VARCHAR},"%")
+    </if>
+    <if test="dictValue =='groupby'" >
+      AND a.dict_type = '字典类别'
+    </if>
+    ORDER BY a.dict_value DESC
+  </select>
+  <select id="countDict" resultType="int" parameterType="dict">
+    SELECT IFNULL(MAX(a.dict_value),0) sum FROM t_dict a WHERE 1=1
+    <if test="dictType !=null and dictType !=''" >
+      AND a.dict_type = #{dictType,jdbcType=VARCHAR}
     </if>
   </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_dict
     where tid = #{tid,jdbcType=INTEGER}
@@ -45,7 +60,7 @@
     values (#{tid,jdbcType=INTEGER}, #{dictType,jdbcType=VARCHAR}, #{dictItem,jdbcType=VARCHAR}, 
       #{dictValue,jdbcType=VARCHAR}, #{dictIsEditable,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.zking.ssm.model.Dict" >
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="tid" parameterType="com.zking.ssm.model.Dict" >
     insert into t_dict
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -82,6 +97,15 @@
       </if>
     </trim>
   </insert>
+  <update id="updatedictItem" parameterType="com.zking.ssm.model.Dict" >
+    update t_dict
+    <set>
+      <if test="dictType != null" >
+         dict_type = #{dictItem,jdbcType=VARCHAR},
+      </if>
+    </set>
+     where dict_type = #{dictType,jdbcType=INTEGER}
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.zking.ssm.model.Dict" >
     update t_dict
     <set >

@@ -36,12 +36,14 @@
 </div>
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
+        <div class="layui-form-item">
+        </div>
         <form class="layui-form" action="${ctx}/notice/addNotice" method="post">
             <div class="layui-form-item">
                 <label for="username" class="layui-form-label">
                     <span class="x-red">*</span>公告标题</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="nname" value="${notice.nname}" name="nname" required="" lay-verify="required"
+                    <input type="text" id="nname" value="" name="nname" required="" lay-verify="required"
                            autocomplete="off" class="layui-input" style="width: 500px;" /></div>
                 <div class="layui-input-inline" style="margin-left: 320px;margin-top: 7px;" >
                     <jsp:useBean id="now" class="java.util.Date" scope="page"/>
@@ -53,10 +55,10 @@
                     logo设置
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="nimg" name="nimg" value="${notice.nimg}"  class="layui-input" />
+                    <input type="text" id="nimg" name="nimg" value=""  class="layui-input" />
                 </div>
                 <div class="layui-input-inline layui-show-xs-block" style="margin-left: 50px;"  >
-                    <select name="dictItem" required="" lay-verify="required"  autocomplete="off" >
+                    <select name="dictType" required="" lay-verify="required"  autocomplete="off" >
                         <option value="">订单类型</option>
                         <c:forEach items="${dicts}" var="i" >
                             <option value="${i.dictItem}">${i.dictItem}</option>

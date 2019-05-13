@@ -36,7 +36,10 @@
 </div>
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
-        <form class="layui-form" action="${ctx}/notice/addNotice" method="post">
+        <div class="layui-form-item">
+        </div>
+        <form class="layui-form" action="${ctx}/notice/updateNotice" method="post">
+            <input type="hidden" value="${notice.nid}" name="nid" >
             <div class="layui-form-item">
                 <label for="username" class="layui-form-label">
                     <span class="x-red">*</span>公告标题</label>
@@ -55,11 +58,16 @@
                 <div class="layui-input-inline">
                     <input type="text" id="nimg" name="nimg" value="${notice.nimg}"  class="layui-input" />
                 </div>
-                <div class="layui-input-inline layui-show-xs-block" style="margin-left: 50px;"  >
-                    <select name="dictItem" required="" lay-verify="required"  autocomplete="off" >
+                <div class="layui-input-inline layui-show-xs-block" style="margin-left: 30px;"  >
+                    <select name="dictType" required="" lay-verify="required"  autocomplete="off" >
                         <option value="">订单类型</option>
                         <c:forEach items="${dicts}" var="i" >
-                            <option value="${i.dictItem}">${i.dictItem}</option>
+                            <c:if test="${i.dictItem != notice.dictItem}" >
+                                <option value="${i.dictItem}">${i.dictItem}</option>
+                            </c:if>
+                            <c:if test="${i.dictItem == notice.dictItem}" >
+                                <option selected value="${i.dictItem}">${i.dictItem}</option>
+                            </c:if>
                         </c:forEach>
                     </select>
                 </div>
@@ -67,11 +75,11 @@
                     公告ID：${notice.nid}
                 </label>
                 <div class="layui-input-inline">
-                    <button class="layui-btn" lay-filter="add" lay-submit="" style="margin-left: 60px;" >修改</button>
+                    <button class="layui-btn" lay-filter="add" lay-submit="" style="margin-left: 30px;" >修改</button>
                 </div>
             </div>
             <div class="layui-form-item" style="background-color: white;" >
-                <textarea name="ncontent" id="layeditDemo" required="" lay-verify="required" autocomplete="off" ></textarea>
+                <textarea name="ncontent" id="layeditDemo" required="" lay-verify="required" autocomplete="off" > ${notice.ncontent}</textarea>
             </div>
         </form>
     </div>
@@ -133,6 +141,15 @@
             , height: '80%'
         });
         var ieditor = layedit.build('layeditDemo');
+        // alert(textNcontent);
+        // layedit.setContent(ieditor, "'"+textNcontent+"'", false);
     })
+
 </script>
+<c:if test="${not empty state}" >
+    <script>
+        alert("修改成功")
+        ${state = null}
+    </script>
+</c:if>
 </html>

@@ -10,6 +10,47 @@
       <arg column="fremark" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
+  <!--一对一-->
+  <resultMap id="onetoone" type="com.zking.ssm.model.Finance" >
+      <id column="fid" property="fid" javaType="java.lang.Integer" />
+      <result column="uid" property="uid" javaType="java.lang.Integer" />
+      <result column="eid" property="eid" javaType="java.lang.Integer" />
+      <result column="ftime" property="ftime" javaType="java.util.Date" />
+      <result column="fremark" property="fremark" javaType="java.lang.String" />
+    <collection property="user" javaType="user">
+      <id column="uid" property="uid" javaType="java.lang.Integer" />
+      <result column="uaccount" property="uaccount" javaType="java.lang.String" />
+      <result column="upassword" property="upassword" javaType="java.lang.String" />
+      <result column="usalt" property="usalt" javaType="java.lang.String" />
+      <result column="uname" property="uname" javaType="java.lang.String" />
+      <result column="uphone" property="uphone" javaType="java.lang.String" />
+      <result column="uaddress" property="uaddress" javaType="java.lang.String" />
+      <result column="ustatus" property="ustatus" javaType="java.lang.Integer" />
+      <result column="iid" property="iid" javaType="java.lang.Integer" />
+      <result column="pid" property="pid" javaType="java.lang.Integer" />
+    </collection>
+    <collection property="express" javaType="express">
+      <id column="eid" property="eid" javaType="java.lang.Integer" />
+      <result column="orderId" property="orderid" javaType="java.lang.String" />
+      <result column="ordername" property="ordername" javaType="java.lang.String" />
+      <result column="orderprice" property="orderprice" javaType="java.lang.Float" />
+      <result column="orderweight" property="orderweight" javaType="java.lang.String" />
+      <result column="ordervolume" property="ordervolume" javaType="java.lang.String" />
+      <result column="orderAddress" property="orderaddress" javaType="java.lang.String" />
+      <result column="orderremark" property="orderremark" javaType="java.lang.String" />
+      <result column="esid" property="esid" javaType="java.lang.Integer" />
+      <result column="uid" property="uid" javaType="java.lang.Integer" />
+      <result column="shipper" property="shipper" javaType="java.lang.String" />
+      <result column="shipperTime" property="shippertime" javaType="java.util.Date" />
+      <result column="shipperPhone" property="shipperphone" javaType="java.lang.String" />
+      <result column="shipperaddress" property="shipperaddress" javaType="java.lang.String" />
+      <result column="consignee" property="consignee" javaType="java.lang.String" />
+      <result column="consigneePhone" property="consigneephone" javaType="java.lang.String" />
+      <result column="consigneeAddress" property="consigneeaddress" javaType="java.lang.String" />
+      <result column="consigneeTime" property="consigneetime" javaType="java.util.Date" />
+    </collection>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     fid, uid, eid, ftime, fremark
   </sql>
@@ -19,7 +60,16 @@
     from t_finance
     where fid = #{fid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="listFinance" resultType="com.zking.ssm.vo.FinanceVo">
+      SELECT * FROM t_finance a JOIN t_user b ON a.uid=b.uid JOIN t_express c ON a.eid = c.eid WHERE 1=1
+      <if test="uname!='' and uname!= null " >
+       AND b.uname LIKE concat("%",#{uname,jdbcType=VARCHAR},"%")
+      </if>
+      <if test="ename!='' and ename!= null " >
+        AND c.orderId LIKE concat("%",#{ename,jdbcType=VARCHAR},"%")
+      </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_finance
     where fid = #{fid,jdbcType=INTEGER}
   </delete>

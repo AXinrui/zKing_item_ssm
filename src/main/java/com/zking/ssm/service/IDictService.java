@@ -19,6 +19,10 @@ public interface IDictService {
 
     int updateByPrimaryKey(Dict record);
 
+    int updatedictItem(Dict dict);
+
+    int countDict(Dict dict);
+
     List<Dict> listDict(Dict dict, PageBean pageBean);
 
 }

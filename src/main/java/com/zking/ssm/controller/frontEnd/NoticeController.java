@@ -154,7 +154,7 @@ public class NoticeController {
     @RequestMapping(value = "/toaddNotice")
     public String toaddNotice(Notice n,HttpServletRequest request){
         Dict dict = new Dict();
-        dict.setDictType("1");
+        dict.setDictValue("groupby");
         List<Dict> dicts = iDictService.listDict(dict, null);
         request.setAttribute("dicts",dicts);
         return "admin/notice_compile";
@@ -198,11 +198,19 @@ public class NoticeController {
     }
 
     @RequestMapping(value = "/doupdateNotice")
-    public ModelAndView doupdateNotice(Notice notice,ModelAndView modelAndView){
+    public ModelAndView doupdateNotice(String nid,ModelAndView modelAndView){
+        System.out.println("nid============="+nid);
         Dict dict = new Dict();
-        dict.setDictType("1");
+        dict.setDictValue("groupby");
         List<Dict> dicts = iDictService.listDict(dict, null);
-        notice  = iNoticeService.selectByPrimaryKey(notice.getNid());
+        int n = 0;
+        try {
+            n = Integer.parseInt(nid);
+        }catch (Exception e){
+            n = Integer.parseInt(nid.split(",")[0]);
+            modelAndView.addObject("state","ok");
+        }
+        Notice notice  = iNoticeService.selectByPrimaryKey(n);
         modelAndView.addObject("dicts",dicts);
         modelAndView.addObject("notice",notice);
         modelAndView.setViewName("admin/notice_update");
@@ -210,16 +218,9 @@ public class NoticeController {
     }
 
     @RequestMapping(value = "/updateNotice")
-    public ModelAndView updateNotice(Notice notice,ModelAndView modelAndView){
+    public String updateNotice(Notice notice,ModelAndView modelAndView){
        boolean f =   iNoticeService.updateByPrimaryKeySelective(notice)>0?true:false;
-       if (f) {
-           modelAndView.addObject("ok","ok");
-           modelAndView.setViewName("");
-       }else{
-           modelAndView.addObject("no","no");
-       }
-        modelAndView.setViewName("forward:/notice/doupdateNotice?nid="+notice.getNid());
-        return modelAndView;
+       return "forward:/notice/doupdateNotice?nid="+notice.getNid();
     }
 
 

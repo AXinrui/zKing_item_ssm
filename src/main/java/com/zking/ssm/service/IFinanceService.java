@@ -1,13 +1,13 @@
-package com.zking.ssm.mapper;
+package com.zking.ssm.service;
 
 import com.zking.ssm.model.Finance;
+import com.zking.ssm.utils.PageBean;
 import com.zking.ssm.vo.FinanceVo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface FinanceMapper {
+public interface IFinanceService {
     int deleteByPrimaryKey(Integer fid);
 
     int insert(Finance record);
@@ -20,5 +20,5 @@ public interface FinanceMapper {
 
     int updateByPrimaryKey(Finance record);
 
-    List<Finance> listFinance(FinanceVo financeVo);
+    List<Finance> listFinance(FinanceVo financeVo, PageBean pageBean);
 }

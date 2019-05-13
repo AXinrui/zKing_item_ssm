@@ -19,6 +19,10 @@ public class Finance {
 
     private String fremark;
 
+    private User user;
+
+    private Express express;
+
     public Finance(Integer fid, Integer uid, Integer eid, Date ftime, String fremark) {
         this.fid = fid;
         this.uid = uid;
@@ -69,5 +73,21 @@ public class Finance {
 
     public void setFremark(String fremark) {
         this.fremark = fremark;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Express getExpress() {
+        return express;
+    }
+
+    public void setExpress(Express express) {
+        this.express = express;
     }
 }

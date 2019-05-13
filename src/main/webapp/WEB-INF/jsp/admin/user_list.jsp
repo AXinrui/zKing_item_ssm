@@ -90,7 +90,7 @@
                                  </c:if>
                                  <c:if test="${i.ustatus==0}" >
                                     <td class="td-status">
-                                        <span class="layui-btn layui-btn-normal layui-btn-mini">已停用</span></td>
+                                        <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">已停用</span></td>
                                     <td class="td-manage">
                                         <a id = "${i.uid}" onclick="member_stop(this,this.id)" href="javascript:;"  title="启用">
                                             <i class="layui-icon">&#xe62f;</i>
@@ -145,10 +145,8 @@
                     dataType:'json',
                     success : function(data) {
                         if(data=="1"){
-                            //发异步把用户状态进行更改
                             $(obj).attr('title','启用')
                             $(obj).find('i').html('&#xe62f;');
-
                             $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
                             layer.msg('已停用!',{icon: 5,time:1000});
                         }
