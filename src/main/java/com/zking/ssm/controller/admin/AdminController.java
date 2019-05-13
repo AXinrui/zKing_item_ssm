@@ -2,12 +2,13 @@ package com.zking.ssm.controller.admin;
 
 import com.zking.ssm.model.Admin;
 import com.zking.ssm.service.IAdminService;
+import com.zking.ssm.vo.AdminVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -68,6 +69,20 @@ public class AdminController {
         session.setAttribute("huadong",yzm);
         //session.setMaxInactiveInterval(120);
         out.print(yzm);
+    }
+
+    @RequestMapping("/editAdmin")
+    public ModelAndView editAdmin(AdminVO admin, ModelAndView modelAndView, HttpSession session){
+        Admin a = (Admin) session.getAttribute("admin");
+        if (a.getPassword().equals(admin.getYpwd())) {
+            iAdminService.updateByPrimaryKey(admin);
+            session.setAttribute("admin",iAdminService.selectByPrimaryKey(a.getAid()));
+            modelAndView.addObject("abc","ok");
+        }else{
+            modelAndView.addObject("abc","no");
+        }
+        modelAndView.setViewName("/admin/admin_edit");
+        return modelAndView;
     }
 
 }

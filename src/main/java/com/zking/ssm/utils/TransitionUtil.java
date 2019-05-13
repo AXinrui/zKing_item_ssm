@@ -1,7 +1,5 @@
 package com.zking.ssm.utils;
 
-import com.zking.ssm.model.Admin;
-
 import java.util.Date;
 
 public class TransitionUtil {
@@ -16,23 +14,27 @@ public class TransitionUtil {
      * @return
      */
     public static Date getDate(String string,int st){
-        String[] split = string.split("-");
-        Date date = new Date();
-        date.setTime(0);
-        date.setYear(Integer.parseInt(split[0])-1900);
-        date.setMonth(Integer.parseInt(split[1])-1);
-        date.setDate(Integer.parseInt(split[2]));
-        if (st==1) {
-            date.setHours(0);
-            date.setMinutes(0);
-            date.setSeconds(0);
-        }else{
-            date.setHours(23);
-            date.setMinutes(59);
-            date.setSeconds(59);
-        }
+        if(string!=null&&string!=""){
+            String[] split = string.split("-");
+            Date date = new Date();
+            date.setTime(0);
+            date.setYear(Integer.parseInt(split[0])-1900);
+            date.setMonth(Integer.parseInt(split[1])-1);
+            date.setDate(Integer.parseInt(split[2]));
+            if (st==1) {
+                date.setHours(0);
+                date.setMinutes(0);
+                date.setSeconds(0);
+            }else{
+                date.setHours(23);
+                date.setMinutes(59);
+                date.setSeconds(59);
+            }
 //        System.out.println("date:"+date);
-        return date;
+            return date;
+        }else{
+            return null;
+        }
     }
 
 }

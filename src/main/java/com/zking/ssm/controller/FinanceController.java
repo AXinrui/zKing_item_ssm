@@ -3,6 +3,7 @@ package com.zking.ssm.controller;
 import com.zking.ssm.model.Finance;
 import com.zking.ssm.service.IFinanceService;
 import com.zking.ssm.utils.PageBean;
+import com.zking.ssm.utils.TransitionUtil;
 import com.zking.ssm.vo.FinanceVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,13 +21,14 @@ public class FinanceController {
        private IFinanceService iFinanceService;
 
        @RequestMapping("/financeList")
-       public ModelAndView financeList(ModelAndView modelAndView, HttpServletRequest request, FinanceVo financeVo){
+       public ModelAndView financeList(FinanceVo financeVo,ModelAndView modelAndView, HttpServletRequest request){
+           System.out.println("financeVo"+financeVo.toString());
            PageBean pageBean = new PageBean();
            pageBean.setRequest(request);
            List<Finance> finances = iFinanceService.listFinance(financeVo, pageBean);
-
            modelAndView.addObject("finances",finances);
-           modelAndView.setViewName("");
+           modelAndView.addObject("pageBean",pageBean);
+           modelAndView.setViewName("/admin/finance_list");
            return modelAndView;
        }
 

@@ -70,9 +70,9 @@
                 <dd>
                     <a onclick="xadmin.open('个人信息','http://www.baidu.com')">个人信息</a></dd>
                 <dd>
-                    <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
+                    <a onclick="xadmin.open('修改密码','${ctx}/url/admin/doAdminEdit',380,500)">修改密码</a></dd>
                 <dd>
-                    <a href="${ctx}/login.html">退出</a></dd>
+                    <a href="${ctx}/admin/login.html">退出</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item to-index">

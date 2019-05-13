@@ -60,13 +60,19 @@
     from t_finance
     where fid = #{fid,jdbcType=INTEGER}
   </select>
-    <select id="listFinance" resultType="com.zking.ssm.vo.FinanceVo">
-      SELECT * FROM t_finance a JOIN t_user b ON a.uid=b.uid JOIN t_express c ON a.eid = c.eid WHERE 1=1
-      <if test="uname!='' and uname!= null " >
-       AND b.uname LIKE concat("%",#{uname,jdbcType=VARCHAR},"%")
+    <select id="listFinance" resultMap="onetoone" parameterType="com.zking.ssm.vo.FinanceVo" >
+      SELECT a.*,b.*,c.* FROM t_finance a JOIN t_user b ON a.uid=b.uid JOIN t_express c ON a.eid = c.eid WHERE 1=1
+      <if test="pid ==1 " >
+       AND a.fremark LIKE concat("%",#{uname,jdbcType=VARCHAR},"%")
       </if>
-      <if test="ename!='' and ename!= null " >
-        AND c.orderId LIKE concat("%",#{ename,jdbcType=VARCHAR},"%")
+      <if test="pid ==2  " >
+        AND b.uaccount LIKE concat("%",#{uname,jdbcType=VARCHAR},"%")
+      </if>
+      <if test="pid ==3  " >
+        AND c.orderId LIKE concat("%",#{uname,jdbcType=VARCHAR},"%")
+      </if>
+      <if test="dateOne !=null and dateTwo !=null " >
+        AND a.ftime BETWEEN #{dateOne,jdbcType=TIMESTAMP} AND #{dateTwo,jdbcType=TIMESTAMP}
       </if>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

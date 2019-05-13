@@ -9,20 +9,20 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    aid, account, password
+    aid, account, password, email
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="login" resultType="int" parameterType="admin">
+    select
+    COUNT(*)
+    from t_admin
+    where account = #{account,jdbcType=VARCHAR} AND password = #{password,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" resultType="admin" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_admin
     where aid = #{aid,jdbcType=INTEGER}
   </select>
-    <select id="login" resultType="int" parameterType="admin">
-      select
-      COUNT(*)
-      from t_admin
-      where account = #{account,jdbcType=VARCHAR} AND password = #{password,jdbcType=VARCHAR}
-    </select>
   <select id="getAdmin" resultType="admin">
     select
     <include refid="Base_Column_List" />
@@ -34,10 +34,10 @@
     where aid = #{aid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zking.ssm.model.Admin" >
-    insert into t_admin (aid, account, password
-      )
-    values (#{aid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
-      )
+    insert into t_admin (aid, account, password,
+    email)
+    values (#{aid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+    #{email,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zking.ssm.model.Admin" >
     insert into t_admin
@@ -51,6 +51,9 @@
       <if test="password != null" >
         password,
       </if>
+      <if test="email != null" >
+        email,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="aid != null" >
@@ -61,6 +64,9 @@
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -73,13 +79,17 @@
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
       </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
     </set>
     where aid = #{aid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zking.ssm.model.Admin" >
+  <update id="updateByPrimaryKey" parameterType="com.zking.ssm.vo.AdminVO" >
     update t_admin
     set account = #{account,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR}
+      password = #{password,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR}
     where aid = #{aid,jdbcType=INTEGER}
   </update>
 </mapper>

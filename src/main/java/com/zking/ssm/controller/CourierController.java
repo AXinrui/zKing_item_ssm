@@ -30,7 +30,6 @@ public class CourierController  {
         PageBean pageBean = new PageBean();
         pageBean.setRows(5);
         pageBean.setRequest(request);
-        System.out.println(courierUserVo.toString());
         List<CourierUser> courierUserList = iCourierUserService.listCourierUser(courierUserVo, pageBean);
         modelAndView.addObject(pageBean);
         modelAndView.addObject("string1",courierUserVo.getString1());

@@ -40,9 +40,13 @@ public class UrlController {
 
     @RequestMapping("/doOrderView")
     public String doOrderView(String name){
-        System.out.println("name:-----"+name);
 
         return "admin/order_view";
+    }
+
+    @RequestMapping("/doAdminEdit")
+    public String doAdminEdit(){
+        return "admin/admin_edit";
     }
 
     @RequestMapping("/doUserExpressAdd")

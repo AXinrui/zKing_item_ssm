@@ -1,11 +1,10 @@
 package com.zking.ssm.model;
 
-
 import lombok.ToString;
 import org.springframework.stereotype.Component;
 
-@Component
 @ToString
+@Component
 public class Admin {
     private Integer aid;
 
@@ -13,10 +12,13 @@ public class Admin {
 
     private String password;
 
-    public Admin(Integer aid, String account, String password) {
+    private String email;
+
+    public Admin(Integer aid, String account, String password, String email) {
         this.aid = aid;
         this.account = account;
         this.password = password;
+        this.email = email;
     }
 
     public Admin() {
@@ -45,5 +47,13 @@ public class Admin {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

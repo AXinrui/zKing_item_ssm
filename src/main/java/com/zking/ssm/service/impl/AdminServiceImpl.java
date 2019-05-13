@@ -3,6 +3,7 @@ package com.zking.ssm.service.impl;
 import com.zking.ssm.mapper.AdminMapper;
 import com.zking.ssm.model.Admin;
 import com.zking.ssm.service.IAdminService;
+import com.zking.ssm.vo.AdminVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +46,7 @@ public class AdminServiceImpl implements IAdminService {
     }
 
     @Override
-    public int updateByPrimaryKey(Admin record) {
+    public int updateByPrimaryKey(AdminVO record) {
         return adminMapper.updateByPrimaryKey(record);
     }
 

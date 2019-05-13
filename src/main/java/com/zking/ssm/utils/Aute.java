@@ -27,6 +27,9 @@ public class Aute {
     private static String TPL_VALUE = "#code#";//您设置的模板变量，根据实际情况修改
 
 
+    public Aute() {
+    }
+
     /**
      * 初始化
      * 加载配置文件里的内容

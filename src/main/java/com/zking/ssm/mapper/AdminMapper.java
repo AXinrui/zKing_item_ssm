@@ -1,6 +1,7 @@
 package com.zking.ssm.mapper;
 
 import com.zking.ssm.model.Admin;
+import com.zking.ssm.vo.AdminVO;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -15,7 +16,7 @@ public interface AdminMapper {
 
     int updateByPrimaryKeySelective(Admin record);
 
-    int updateByPrimaryKey(Admin record);
+    int updateByPrimaryKey(AdminVO record);
 
     int login(Admin admin);
 

@@ -1,6 +1,7 @@
 package com.zking.ssm.service;
 
 import com.zking.ssm.model.Admin;
+import com.zking.ssm.vo.AdminVO;
 
 public interface IAdminService {
     int deleteByPrimaryKey(Integer aid);
@@ -15,7 +16,7 @@ public interface IAdminService {
 
     int updateByPrimaryKeySelective(Admin record);
 
-    int updateByPrimaryKey(Admin record);
+    int updateByPrimaryKey(AdminVO record);
 
     boolean login(Admin admin);
 
