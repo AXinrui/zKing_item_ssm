@@ -134,7 +134,7 @@
         </section>
         <div class="contact con-pad">
             <div id="message" class="row">
-                <h1>反馈成功</h1>
+                <font size="18px;">反馈成功</font>
                 <a href="${ctx}/zking/zking.shtml">返回首页</a>
             </div>
         </div>

@@ -1,8 +1,13 @@
 package com.zking.ssm.controller;
 
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import com.sun.deploy.net.HttpResponse;
 import com.zking.ssm.model.Express;
+import com.zking.ssm.model.Property;
+import com.zking.ssm.model.User;
 import com.zking.ssm.service.IExpressService;
+import com.zking.ssm.service.IPropertyService;
+import com.zking.ssm.service.IUserService;
 import com.zking.ssm.utils.Aute;
 import com.zking.ssm.utils.PageBean;
 import com.zking.ssm.utils.TransitionUtil;
@@ -16,8 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +34,9 @@ public class ExpressController {
 
     @Autowired
     private IExpressService iExpressService;
+
+    @Autowired
+    private IPropertyService iPropertyService;
 
     @RequestMapping("/expressList")
     public ModelAndView expressList(Express express,String dateOne,String dateTwo, HttpServletRequest request, ModelAndView modelAndView){
@@ -69,13 +79,78 @@ public class ExpressController {
     }
 
     @RequestMapping(value = "/orderOnline")
-    public String orderOnline(Express express){
-        boolean b = iExpressService.insertSelective(express);
-        if (b == true){
-            return "";
-        } else {
-            return "";
+    public String orderOnline(Express express, HttpSession session, HttpServletRequest request){
+        User user = (User)session.getAttribute("user");
+
+        express.setUid(user.getUid());
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
+        String orderId = "33067529" + df.format(new Date());// new Date()为获取当前系统时间
+        express.setOrderid(orderId);
+
+
+        System.out.println(express);
+
+        if(user.getProperty().getPbalance() < express.getOrderprice()){
+            express.setEsid(7);
+            boolean b = iExpressService.insertSelective(express);
+            if (b == true){
+                return "frontEnd/balance_insufficient";
+            } else {
+                return "frontEnd/orderOnline";
+            }
+        }else{
+            express.setEsid(7);
+            boolean b = iExpressService.insertSelective(express);
+            if (b == true){
+                request.setAttribute("eid",express.getEid());
+                request.setAttribute("price",express.getOrderprice());
+                return "frontEnd/payment";
+            } else {
+                return "frontEnd/orderOnline";
+            }
         }
+    }
+
+    @RequestMapping("/payment")
+    public void payment(Express express,Float price, HttpServletResponse response, HttpSession session) throws Exception {
+
+        User user = (User)session.getAttribute("user");
+        Property property = user.getProperty();
+        property.setPbalance(price);
+        iPropertyService.updateByPrimaryKeySelective(property);
+
+        PrintWriter out = response.getWriter();
+        express.setEsid(1);
+        boolean b = iExpressService.updateByPrimaryKeySelective(express);
+        if(b){
+            out.print("1");
+        } else{
+            out.print("0");
+        }
+    }
+
+    @RequestMapping("/pendingPayment")
+    public void pendingPayment(Express express,Float price, HttpServletResponse response, HttpSession session) throws Exception {
+
+        User user = (User)session.getAttribute("user");
+        float fprice = user.getProperty().getPbalance() - price;
+        Property property = user.getProperty();
+        property.setPbalance(fprice);
+        iPropertyService.updateByPrimaryKeySelective(property);
+
+        PrintWriter out = response.getWriter();
+        express.setEsid(1);
+        boolean b = iExpressService.updateByPrimaryKeySelective(express);
+        if(b){
+            out.print("1");
+        } else{
+            out.print("0");
+        }
+    }
+
+    @RequestMapping("/toBalanceInsufficient")
+    public String toBalanceInsufficient() {
+        return "frontEnd/balance_insufficient";
     }
 
     @RequestMapping("/expressDel")
@@ -112,6 +187,29 @@ public class ExpressController {
         modelAndView.addObject("expressLists",expressList);
         modelAndView.addObject("uid",esid.split(",")[1]);
         modelAndView.addObject("pageBean",pageBean);
+        return modelAndView;
+    }
+
+    @RequestMapping("/myLogistics")
+    public ModelAndView myLogistics(Express express, HttpServletRequest request, ModelAndView modelAndView){
+        System.out.println("expresss:-------"+express.toString());
+        PageBean pageBean = new PageBean();
+        pageBean.setRows(5);
+        pageBean.setRequest(request);
+        List<Express> expressList = iExpressService.listExpress(express, pageBean);
+        System.out.println("expressList:"+expressList.size());
+        modelAndView.addObject("expressList",expressList);
+        modelAndView.addObject("pageBean",pageBean);
+        modelAndView.addObject("orderId",express.getOrderid());
+
+        if(express.getEsid() == 7){
+            modelAndView.setViewName("user/myLogistics_pending_payment");
+        } else if(express.getEsid() == 5){
+            modelAndView.setViewName("user/myLogistics_received_goods");
+        } else{
+            modelAndView.setViewName("user/myLogistics_deliver");
+        }
+
         return modelAndView;
     }
 

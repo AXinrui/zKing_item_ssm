@@ -32,6 +32,8 @@ public class User implements Serializable {
 
     private Integer pid;
 
+    private Property property;
+
     private Set<CourierUser> courierUsers;
     private Set<CourierSonUser> courierSonUsers;
 
@@ -146,5 +148,13 @@ public class User implements Serializable {
 
     public void setCourierSonUsers(Set<CourierSonUser> courierSonUsers) {
         this.courierSonUsers = courierSonUsers;
+    }
+
+    public Property getProperty() {
+        return property;
+    }
+
+    public void setProperty(Property property) {
+        this.property = property;
     }
 }

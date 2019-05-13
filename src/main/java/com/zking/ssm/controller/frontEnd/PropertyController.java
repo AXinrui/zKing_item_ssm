@@ -53,6 +53,7 @@ public class PropertyController {
             boolean b = iUserService.updateByPrimaryKeySelective(user);
             if(b){
                 User user1 = iUserService.loadByUsername(user);
+                user1.setProperty(iPropertyService.selectByPrimaryKey(user1.getPid()));
                 session.setAttribute("user",user1);
             }
             return "user/user_center";

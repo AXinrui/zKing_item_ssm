@@ -1,6 +1,7 @@
 package com.zking.ssm.controller.user;
 
 import com.zking.ssm.model.User;
+import com.zking.ssm.service.IPropertyService;
 import com.zking.ssm.service.IUserService;
 import com.zking.ssm.utils.PageBean;
 import com.zking.ssm.vo.UserVo;
@@ -25,6 +26,9 @@ public class UserController {
 
     @Autowired
     IUserService iUserService;
+
+    @Autowired
+    private IPropertyService iPropertyService;
 
     @ModelAttribute
     public void init(Model model){
@@ -103,6 +107,7 @@ public class UserController {
         System.out.println(login);
         if (login.equals("登录成功")){
             User user1 = iUserService.loadByUsername(u);
+            user1.setProperty(iPropertyService.selectByPrimaryKey(user1.getPid()));
             session.setAttribute("user",user1);
             returnValue = "redirect:/zking/zking.shtml";
         }
@@ -248,6 +253,7 @@ public class UserController {
         System.out.println("判断结果：" + userVerificationCode.equals(verificationCode));
         if(userVerificationCode.equals(verificationCode)){
             User user1 = iUserService.selectByUphone(u);
+            user1.setProperty(iPropertyService.selectByPrimaryKey(user1.getPid()));
             session.setAttribute("user",user1);
             System.out.println("验证码效验正确！");
             out.print("1");
@@ -278,11 +284,17 @@ public class UserController {
         boolean b = iUserService.getUserSaltPassword(u.getUpassword(),u.getUaccount());
         if(b){
             User user1 = iUserService.loadByUsername(u);
+            user1.setProperty(iPropertyService.selectByPrimaryKey(user1.getPid()));
             session.setAttribute("user",user1);
             out.print("1");
         } else{
             out.print("0");
         }
+    }
+
+    @RequestMapping("/toUserRetrieve")
+    public String toUserRetrieve(){
+        return "user/user_retrieve";
     }
 
     @RequestMapping("/updateUser")
@@ -291,6 +303,7 @@ public class UserController {
         boolean b = iUserService.updateByPrimaryKeySelective(u);
         if (b == true){
             User user1 = iUserService.loadByUsername(u);
+            user1.setProperty(iPropertyService.selectByPrimaryKey(user1.getPid()));
             session.setAttribute("user",user1);
             return "user/user_center";
         } else {
@@ -347,6 +360,19 @@ public class UserController {
         modelAndView.addObject("userVo",userVos);
         modelAndView.addObject(pageBean);
         return modelAndView;
+    }
+
+    @RequestMapping("/userRetrieve")
+    public String userRetrieve(User u){
+        System.out.println(u);
+        User user = iUserService.loadByUsername(u);
+        System.out.println("通过电话得到的用户："+user);
+        boolean b = iUserService.updateByPrimaryKeySelective(user);
+        if(b){
+            return "user/user_login";
+        }else{
+            return "user/user_retrieve";
+        }
     }
 
 
