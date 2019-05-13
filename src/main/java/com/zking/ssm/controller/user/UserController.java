@@ -292,6 +292,11 @@ public class UserController {
         }
     }
 
+    @RequestMapping("/toUserRetrieve")
+    public String toUserRetrieve(){
+        return "user/user_retrieve";
+    }
+
     @RequestMapping("/updateUser")
     public String updateUser(User u,HttpSession session){
         //System.out.println(u);
@@ -355,6 +360,19 @@ public class UserController {
         modelAndView.addObject("userVo",userVos);
         modelAndView.addObject(pageBean);
         return modelAndView;
+    }
+
+    @RequestMapping("/userRetrieve")
+    public String userRetrieve(User u){
+        System.out.println(u);
+        User user = iUserService.loadByUsername(u);
+        System.out.println("通过电话得到的用户："+user);
+        boolean b = iUserService.updateByPrimaryKeySelective(user);
+        if(b){
+            return "user/user_login";
+        }else{
+            return "user/user_retrieve";
+        }
     }
 
 

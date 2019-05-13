@@ -38,7 +38,7 @@
 
            //定义json对象
            var uphone = $("#tel").val();
-           alert(uphone);
+           //alert(uphone);
            var json = {
                "uphone" : uphone
            };

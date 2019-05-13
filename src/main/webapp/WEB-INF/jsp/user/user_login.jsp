@@ -101,8 +101,8 @@
                 </p>
             </div>
             <div class="r-forget cl">
-                <a href="./reg.html" class="z">账号注册</a>
-                <a href="./getpass.html" class="y">忘记密码</a>
+                <a href="${ctx}/user/toUserRegister" class="z">账号注册</a>
+                <a href="${ctx}/user/toUserRetrieve" class="y">忘记密码</a>
             </div>
             <button class="lang-btn off log-btn" id="passwordLogin">登录</button>
             <button class="lang-btn off log-btn" style="display: none;" onclick="isVerificationCode()" id="messageLogin">登录</button>

@@ -60,7 +60,7 @@
         function isVerificationCode() {
             //定义json对象
             var userVerificationCode = $("#veri-code").val();
-            //alert(userVerificationCode);
+            alert(userVerificationCode);
             var json = {
                 "userVerificationCode" : userVerificationCode
             };
@@ -74,6 +74,7 @@
                 dataType : 'json',
                 success : function(data) {
                     if(data == "1"){
+                        alert("验证码正确");
                         buttonTransformation();
                     }else{
                         alert("验证码错误,请重新输入！");
@@ -136,7 +137,7 @@
             </div>
             <button class="lang-btn off log-btn" type="button" id="nextStep" onclick="isVerificationCode()">下一步</button>
             <button class="lang-btn" id="register" type="submit" style="display: none;">注册</button>
-            <div class="bottom-info">已有账号，<a href="../../../login.html">马上登录</a></div>
+            <div class="bottom-info">已有账号，<a href="${ctx}/user/toUserLogin">马上登录</a></div>
             </form>
             <div class="third-party" style="display: none;"><!--onclick="sendVerificationCode()"-->
                 <a href="#" class="log-qq icon-qq-round"></a>
