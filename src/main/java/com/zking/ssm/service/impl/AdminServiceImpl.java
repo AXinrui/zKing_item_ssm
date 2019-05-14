@@ -59,4 +59,9 @@ public class AdminServiceImpl implements IAdminService {
             return false;
         }
     }
+
+    @Override
+    public Admin loadAdmin(String email) {
+        return adminMapper.loadAdmin(email);
+    }
 }

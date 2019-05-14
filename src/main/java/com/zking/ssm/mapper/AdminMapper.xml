@@ -29,7 +29,13 @@
     from t_admin
     where account = #{account,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="loadAdmin" resultType="admin">
+      select
+      <include refid="Base_Column_List" />
+      from t_admin
+      where email = #{email,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_admin
     where aid = #{aid,jdbcType=INTEGER}
   </delete>

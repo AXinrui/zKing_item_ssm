@@ -80,7 +80,7 @@
                                 <td>${i.user.uphone}</td>
                                 <td>${i.start}</td>
                                 <td>${i.end}</td>
-                                <c:if test="${i.user.ustatus==2}" >
+                                <c:if test="${i.user.ustatus==1}" >
                                     <td class="td-status">
                                         <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
                                     <td class="td-manage">
@@ -156,7 +156,7 @@
                 });
             }else{
                 $.ajax({
-                    url : "user/userStatus?status=2&id="+id,
+                    url : "user/userStatus?status=1&id="+id,
                     dataType:'json',
                     success : function(data) {
                         if(data=="1"){

@@ -96,13 +96,15 @@
                                             <i class="layui-icon">&#xe62f;</i>
                                         </a>
                                  </c:if>
-
-                                    <a title="编辑"  onclick="xadmin.open('编辑','member-edit.jsp',600,400)" href="javascript:;">
-                                        <i class="layui-icon">&#xe642;</i>
-                                    </a>
+                                        &nbsp;
+                                        <a id="${i.uid}" title="设置为快递员" onclick="member_edit(this,this.id);" href="javascript:;">
+                                            <i class="iconfont">&#xe6f5;</i>
+                                        </a>
+                                        &nbsp;
                                     <a onclick="xadmin.open('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
                                         <i class="layui-icon">&#xe631;</i>
                                     </a>
+                                        &nbsp;
                                     <a id="${i.uid}" title="移除" onclick="member_del(this,this.id)" href="javascript:;">
                                         <i class="layui-icon">&#xe640;</i>
                                     </a>
@@ -188,6 +190,22 @@
         });
     }
 
+    /*用户-设置为快递员*/
+    function member_edit(obj,id){
+        layer.confirm('确认要设置为快递员吗？',function(index){
+            $.ajax({
+                url : "user/userExpEdit?id="+id,
+                dataType:'json',
+                success : function(data) {
+                    if(data="1"){
+                        //发异步删除数据
+                        $(obj).parents("tr").remove();
+                        layer.msg('设置成功!',{icon:1,time:1000});
+                    }
+                }
+            });
+        });
+    }
 
 
     function delAll (argument) {

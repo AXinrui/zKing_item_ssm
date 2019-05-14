@@ -21,4 +21,6 @@ public interface AdminMapper {
     int login(Admin admin);
 
     Admin getAdmin(String account);
+
+    Admin loadAdmin(String email);
 }

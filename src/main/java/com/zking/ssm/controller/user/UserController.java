@@ -124,7 +124,8 @@ public class UserController {
         if (null!= uname&&""!=uname) {
             user.setUname(uname);
         }
-        user.setUstatus(1);
+        user.setIid(1);
+        user.setUid(1);
         PageBean pageBean = new PageBean();
         pageBean.setRows(5);
         pageBean.setRequest(request);
@@ -334,7 +335,7 @@ public class UserController {
         if (null!= uname&&""!=uname) {
             user.setUname(uname);
         }
-        user.setUstatus(2);
+        user.setIid(2);
         PageBean pageBean = new PageBean();
         pageBean.setRows(5);
         pageBean.setRequest(request);
@@ -375,5 +376,15 @@ public class UserController {
         }
     }
 
+    @RequestMapping("/userExpEdit")
+    public void userExpEdit(String id,HttpServletResponse response)throws IOException {
+        PrintWriter out = response.getWriter();
+        User user = new User();
+        boolean b = false;
+        user.setUid(Integer.parseInt(id));
+        user.setIid(2);
+        b = iUserService.updateByPrimaryKeySelective(user);
+        if (b) out.print("1");else out.print("0");
+    }
 
 }

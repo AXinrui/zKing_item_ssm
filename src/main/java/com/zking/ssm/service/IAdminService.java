@@ -20,4 +20,6 @@ public interface IAdminService {
 
     boolean login(Admin admin);
 
+    Admin loadAdmin(String email);
+
 }

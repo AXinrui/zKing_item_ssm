@@ -2,6 +2,7 @@ package com.zking.ssm.controller.admin;
 
 import com.zking.ssm.model.Admin;
 import com.zking.ssm.service.IAdminService;
+import com.zking.ssm.utils.EmailUtil;
 import com.zking.ssm.vo.AdminVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -82,6 +84,72 @@ public class AdminController {
             modelAndView.addObject("abc","no");
         }
         modelAndView.setViewName("/admin/admin_edit");
+        return modelAndView;
+    }
+
+    @RequestMapping("/doAdminForget")
+    public String doadminForget(){
+        return "/admin/admin_forget";
+    }
+
+    @RequestMapping("/doyzm")
+    public void doYzm(HttpSession session, HttpServletResponse response, String account, HttpServletRequest request)throws Exception{
+        PrintWriter out = response.getWriter();
+        try {
+            Admin admin = iAdminService.loadAdmin(account);
+            if (!account.equals(admin.getEmail())) {
+                out.print("2");
+            }else{
+                String yzm = "";
+                Random random = new Random();
+                for (int i = 0;i<6;i++){
+                    yzm += random.nextInt(9);
+                }
+                System.out.println("account:"+account);
+                EmailUtil emailUtil = new EmailUtil();
+                String realPath = request.getSession().getServletContext().getRealPath("/properties/mail.properties");
+                emailUtil.init(realPath);
+                boolean b = emailUtil.sendEmail(account, "这个一个验证码", "尊敬的管理员，您的验证码是(" + yzm + ")", null, null);
+                if(b){
+                    session.setAttribute("yzmAdmin",yzm);
+                    out.print("1");
+                }else{
+                    out.print("0");
+                }
+            }
+        }catch (Exception e){
+            out.print("2");
+        }
+
+    }
+
+    @RequestMapping("/yzm")
+    public void yzm(String yzm,HttpSession session,HttpServletResponse response) throws IOException{
+        PrintWriter out = response.getWriter();
+        String yzmAdmin = (String )session.getAttribute("yzmAdmin");
+        if(yzmAdmin.equals(yzm)){
+            out.print("1");
+        }else{
+            out.print("0");
+        }
+    }
+
+    @RequestMapping("/adminForget")
+    public void adminForget(Admin admin,HttpServletResponse response) throws IOException{
+        System.out.println("admin"+admin.toString());
+        PrintWriter out = response.getWriter();
+        Admin a = iAdminService.getAdmin(admin.getAccount());
+        admin.setAid(a.getAid());
+        int b = iAdminService.updateByPrimaryKeySelective(admin);
+        if (b>0) {
+            out.print("1");
+        }
+    }
+
+    @RequestMapping("/doPassword")
+    public ModelAndView doPassword(String account,HttpServletResponse response,ModelAndView modelAndView) throws IOException{
+        modelAndView.setViewName("/admin/admin_password");
+        modelAndView.addObject("account",account);
         return modelAndView;
     }
 

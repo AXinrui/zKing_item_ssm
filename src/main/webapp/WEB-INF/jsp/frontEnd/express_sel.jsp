@@ -141,7 +141,7 @@
                             <input type="button" onclick="selectContent()" value="立即查询" />
                     </div>
                 </form>
-                <div>订单状态：<span id="address" ></span></div>
+                <div><span id="address" ></span></div>
             </div>
             <div id="allmap" style="width: 100%;height: 500px;margin-top: 10px;margin-left: -12px;" ></div>
         </div>
@@ -180,7 +180,6 @@
         if(data!=null){
             for(var i = 0;i<expressSites.length;i++){
                 sitesAry.push(new BMap.Point(expressSites[i].x,expressSites[i].y));
-                //document.getElementById("address").innerHTML="";
             }
         }
 
@@ -196,8 +195,7 @@
         var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
         driving.search(p1, p2,{waypoints:sitesAry});//waypoints表示途经点
 
-
-
+         document.getElementById("address").innerText="订单状态："+ data[0].expressStatus.esname+"订单当前位置："+data[0].express.orderaddress;
 
     }
 
@@ -223,8 +221,6 @@
                     shipperaddressLng = longitudeAndLatitudes.result.location.lng;
                     shipperaddressLat = longitudeAndLatitudes.result.location.lat;
                     //newaddress = address;
-                    // alert("shipperaddressLng:"+shipperaddressLng);
-                    // alert("shipperaddressLat:"+shipperaddressLat);
                     // isDistance();
                     dd =  new BMap.Point(shipperaddressLng,shipperaddressLat);
                 }
