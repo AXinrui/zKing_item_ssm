@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -105,7 +106,6 @@ public class AdminController {
                 for (int i = 0;i<6;i++){
                     yzm += random.nextInt(9);
                 }
-                System.out.println("account:"+account);
                 EmailUtil emailUtil = new EmailUtil();
                 String realPath = request.getSession().getServletContext().getRealPath("/properties/mail.properties");
                 emailUtil.init(realPath);
@@ -124,25 +124,34 @@ public class AdminController {
     }
 
     @RequestMapping("/yzm")
-    public void yzm(String yzm,HttpSession session,HttpServletResponse response) throws IOException{
+    public void yzm(String yzm,String account,HttpSession session,HttpServletResponse response) throws IOException{
         PrintWriter out = response.getWriter();
         String yzmAdmin = (String )session.getAttribute("yzmAdmin");
-        if(yzmAdmin.equals(yzm)){
-            out.print("1");
+        Admin admin = iAdminService.getAdmin(account);
+        if (admin!=null) {
+            if(yzmAdmin.equals(yzm)){
+                out.print("1");
+            }else{
+                out.print("0");
+            }
         }else{
-            out.print("0");
+            out.print("2");
         }
+
     }
 
     @RequestMapping("/adminForget")
-    public void adminForget(Admin admin,HttpServletResponse response) throws IOException{
-        System.out.println("admin"+admin.toString());
-        PrintWriter out = response.getWriter();
-        Admin a = iAdminService.getAdmin(admin.getAccount());
-        admin.setAid(a.getAid());
-        int b = iAdminService.updateByPrimaryKeySelective(admin);
+    @ResponseBody
+    public String adminForget(String account,String password){
+        System.out.println("admin"+account);
+        Admin a = iAdminService.getAdmin(account);
+        a.setPassword(password);
+        int b = iAdminService.updateByPrimaryKeySelective(a);
+        System.out.println("b------------"+b);
         if (b>0) {
-            out.print("1");
+            return "1";
+        }else{
+            return "0";
         }
     }
 

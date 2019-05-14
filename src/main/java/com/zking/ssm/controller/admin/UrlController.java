@@ -20,6 +20,9 @@ public class UrlController {
 
     @RequestMapping("/doWelcome")
     public String doWelcome(){
+
+
+
         return "admin/welcome";
     }
 

@@ -18,9 +18,9 @@
     <link rel="stylesheet" href="${ctx}/css/font.css">
     <link rel="stylesheet" href="${ctx}/css/login.css">
     <link rel="stylesheet" href="${ctx}/css/xadmin.css">
-    <script src="${ctx}/js/xadmin.js" ></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="${ctx}/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="${ctx}/js/xadmin.js"></script>
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -47,21 +47,6 @@
     </form>
 </div>
 
-<script type="text/javascript" charset="utf-8">
-
-    layui.config({
-        base: '../../../lib/layui_exts/'
-    }).extend({
-        sliderVerify:'sliderVerify/sliderVerify'
-    }).use(['sliderVerify', 'jquery', 'form'], function() {
-        var sliderVerify = layui.sliderVerify,
-            form = layui.form;
-
-    })
-
-</script>
-
-
 <script>
     $(function  () {
         layui.use('form', function(){
@@ -74,7 +59,7 @@
                 var account = $("#account").val();
                 var yzm = $("#yzm").val();
                 $.ajax({
-                    url : "yzm?yzm="+yzm,
+                    url : "yzm?yzm="+yzm+"&account="+account,
                     dataType : 'json',
                     success : function(data) {
                         if (data =="1") {
@@ -82,7 +67,10 @@
                                 //location.href='/admin/doPassword'
                                 xadmin.open('修改密码','doPassword?account='+account,500,300);
                             });
-                        } else {
+                        }else if(data="2"){
+                            layer.msg("账号不存在，请重新输入！",function(){
+                            });
+                        }else {
                             layer.msg("验证码错误，请重新输入！",function(){
                             });
                         }
@@ -97,11 +85,17 @@
     function doyzm() {
         var account = $("#email").val();
         if(""!=account){
+            var loadingFlag;
             $.ajax({
                 url : "doyzm?account="+account,
                 async : true,
                 dataType : 'json',
+                beforeSend: function (XMLHttpRequest) {
+                    //注意，layer.msg默认3秒自动关闭，如果数据加载耗时比较长，需要设置time
+                    loadingFlag= layer.msg('正在发送中，请稍候……', { icon: 16, shade: 0.01,shadeClose:false,time:60000 });
+                },
                 success : function(data) {
+                    layer.close(loadingFlag);
                     if (data =="1") {
                         layer.msg("发送成功！");
                     }else if(data =="2") {

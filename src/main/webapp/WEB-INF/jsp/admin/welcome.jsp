@@ -46,7 +46,7 @@
                     <ul class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
                         <li class="layui-col-md2 layui-col-xs6">
                             <a href="javascript:;" class="x-admin-backlog-body">
-                                <h3>文章数</h3>
+                                <h3>公告数量</h3>
                                 <p>
                                     <cite>66</cite></p>
                             </a>
@@ -60,28 +60,28 @@
                         </li>
                         <li class="layui-col-md2 layui-col-xs6">
                             <a href="javascript:;" class="x-admin-backlog-body">
-                                <h3>回复数</h3>
+                                <h3>快递员数量</h3>
                                 <p>
                                     <cite>99</cite></p>
                             </a>
                         </li>
                         <li class="layui-col-md2 layui-col-xs6">
                             <a href="javascript:;" class="x-admin-backlog-body">
-                                <h3>商品数</h3>
+                                <h3>留言数量</h3>
                                 <p>
                                     <cite>67</cite></p>
                             </a>
                         </li>
                         <li class="layui-col-md2 layui-col-xs6">
                             <a href="javascript:;" class="x-admin-backlog-body">
-                                <h3>文章数</h3>
+                                <h3>快递数量</h3>
                                 <p>
                                     <cite>67</cite></p>
                             </a>
                         </li>
                         <li class="layui-col-md2 layui-col-xs6 ">
                             <a href="javascript:;" class="x-admin-backlog-body">
-                                <h3>文章数</h3>
+                                <h3>今天财产统计</h3>
                                 <p>
                                     <cite>6766</cite></p>
                             </a>
