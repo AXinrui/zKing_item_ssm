@@ -17,9 +17,10 @@ public class LoginInterceptor implements HandlerInterceptor{
         String uri = request.getRequestURI();
         //UTL:除了login.jsp是可以公开访问的，其他的URL都进行拦截控制
         System.out.println("uri----"+uri);
-        if (uri.indexOf("login") >= 0) {
+        if (getBoolean(uri)) {
             return true;
         }
+
         //获取session
         HttpSession session = request.getSession();
         Admin user = (Admin) session.getAttribute("admin");
@@ -33,6 +34,16 @@ public class LoginInterceptor implements HandlerInterceptor{
         return false;
     }
 
+    public boolean getBoolean(String url){
+        String indexOf[] = new String[]{"login","css","lib","images","yz"};
+        boolean b = false;
+        for (String s : indexOf) {
+            b = url.indexOf(s)>=0;
+            if (b == true) break;
+        }
+        return b;
+    }
+
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
 
@@ -40,6 +51,12 @@ public class LoginInterceptor implements HandlerInterceptor{
 
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
+
+    }
+
+    public static void main(String[] args) {
+//        System.out.println("ogin".indexOf("l"));
+//        System.out.println(getBoolean("login.html"));
 
     }
 

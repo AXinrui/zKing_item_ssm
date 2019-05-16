@@ -62,6 +62,7 @@
     <!--3) 配置国际化操作拦截器-->
     <mvc:interceptors>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+        <bean class="com.zking.ssm.utils.LoginInterceptor" />
     </mvc:interceptors>
 
     <!--6.2 配置文件上传解析器(CommonsMultipartResolver)-->
